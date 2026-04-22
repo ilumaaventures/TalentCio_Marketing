@@ -3,10 +3,17 @@ import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'r
 import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ApplicantProtectedRoute from './components/ApplicantProtectedRoute';
+import { ApplicantAuthProvider } from './context/ApplicantAuthContext';
+import ApplicantLogin from './pages/ApplicantLogin';
+import ApplicantRegister from './pages/ApplicantRegister';
+import ApplicantProfile from './pages/ApplicantProfile';
+import CompanyLogin from './pages/CompanyLogin';
 import Home from './pages/Home';
 import Jobs from './pages/Jobs';
 import JobDetail from './pages/JobDetail';
 import DemoRequest from './pages/DemoRequest';
+import MyApplications from './pages/MyApplications';
 
 function ScrollManager() {
   const location = useLocation();
@@ -30,6 +37,9 @@ function ScrollManager() {
 }
 
 function RoutedApp() {
+  const location = useLocation();
+  const isCompanyLogin = location.pathname === '/company/login';
+
   return (
     <>
       <ScrollManager />
@@ -44,15 +54,34 @@ function RoutedApp() {
           }
         }}
       />
-      <Navbar />
+      {!isCompanyLogin && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/jobs/:id" element={<JobDetail />} />
         <Route path="/demo" element={<DemoRequest />} />
+        <Route path="/company/login" element={<CompanyLogin />} />
+        <Route path="/applicant/login" element={<ApplicantLogin />} />
+        <Route path="/applicant/register" element={<ApplicantRegister />} />
+        <Route
+          path="/profile"
+          element={(
+            <ApplicantProtectedRoute>
+              <ApplicantProfile />
+            </ApplicantProtectedRoute>
+          )}
+        />
+        <Route
+          path="/my-applications"
+          element={(
+            <ApplicantProtectedRoute>
+              <MyApplications />
+            </ApplicantProtectedRoute>
+          )}
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <Footer />
+      {!isCompanyLogin && <Footer />}
     </>
   );
 }
@@ -60,7 +89,9 @@ function RoutedApp() {
 export default function App() {
   return (
     <Router>
-      <RoutedApp />
+      <ApplicantAuthProvider>
+        <RoutedApp />
+      </ApplicantAuthProvider>
     </Router>
   );
 }

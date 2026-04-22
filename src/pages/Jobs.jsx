@@ -3,6 +3,7 @@ import { BriefcaseBusiness, ChevronLeft, ChevronRight, SearchX } from 'lucide-re
 import useJobs from '../hooks/useJobs';
 import JobCard from '../components/JobCard';
 import JobFilters from '../components/JobFilters';
+import { useApplicantAuth } from '../context/ApplicantAuthContext';
 
 function JobCardSkeleton() {
   return (
@@ -17,6 +18,7 @@ function JobCardSkeleton() {
 }
 
 export default function Jobs() {
+  const { isLoggedIn, profileCompletion } = useApplicantAuth();
   const { jobs, loading, error, page, setPage, total, totalPages, filters, updateFilters, resetFilters } = useJobs();
 
   return (
@@ -46,6 +48,12 @@ export default function Jobs() {
                   {total} roles live
                 </div>
               </div>
+
+              {isLoggedIn && profileCompletion && profileCompletion.score < 60 && (
+                <div className="mt-6 rounded-[28px] border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-800">
+                  Complete your profile to apply faster and reuse your saved details across jobs.
+                </div>
+              )}
 
               {error && (
                 <div className="mt-6 rounded-3xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700">

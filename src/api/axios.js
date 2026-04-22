@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { markPublicJobsApiMissing } from './publicCapabilities';
+import { resolveApiBaseUrl } from './baseUrl';
 
 const api = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL || 'https://api.talentcio.in'}/api`,
+  baseURL: `${resolveApiBaseUrl()}/api`,
   headers: {
     'Content-Type': 'application/json'
   }

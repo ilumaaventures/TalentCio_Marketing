@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BriefcaseBusiness, Menu, MoveRight, Sparkles, X } from 'lucide-react';
+import { Briefcase, Building2, ChevronDown, LogOut, Menu, Sparkles, User, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import api from '../api/axios';
 import { clearPublicJobsApiMissing, isPublicJobsApiMissing, markPublicJobsApiMissing } from '../api/publicCapabilities';
+import { useApplicantAuth } from '../context/ApplicantAuthContext';
 
 function LogoMark() {
   return (
@@ -21,101 +22,11 @@ function LogoMark() {
   );
 }
 
-function LoginModal({ isOpen, onClose }) {
-  const [subdomain, setSubdomain] = useState('');
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    if (!isOpen) {
-      setSubdomain('');
-      setError('');
-    }
-  }, [isOpen]);
-
-  const handleGo = (event) => {
-    event.preventDefault();
-
-    const value = subdomain.trim().toLowerCase();
-    if (!value) {
-      setError('Enter your workspace subdomain.');
-      return;
-    }
-
-    if (!/^[a-z0-9-]+$/.test(value)) {
-      setError('Use only lowercase letters, numbers, or hyphens.');
-      return;
-    }
-
-    const tenantUrlTemplate = import.meta.env.VITE_TENANT_APP_URL || 'https://{tenant}.talentcio.in';
-    window.location.href = `${tenantUrlTemplate.replace('{tenant}', value)}/login`.replace(/\/login\/login$/, '/login');
-  };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/55 px-4 backdrop-blur-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-        >
-          <motion.div
-            className="surface-card w-full max-w-md overflow-hidden bg-white"
-            initial={{ opacity: 0, y: 24, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 px-6 py-6 text-white">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">Workspace Login</p>
-              <h2 className="mt-3 font-['Sora'] text-2xl font-bold">Enter your workspace</h2>
-              <p className="mt-2 text-sm text-blue-50">
-                Each company signs in through its own TalentCIO subdomain.
-              </p>
-            </div>
-
-            <form className="p-6" onSubmit={handleGo}>
-              <label className="label-shell">Workspace subdomain</label>
-              <div className="flex items-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 focus-within:border-blue-400 focus-within:bg-white focus-within:ring-4 focus-within:ring-blue-100">
-                <input
-                  autoFocus
-                  className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm outline-none"
-                  placeholder="your-company"
-                  value={subdomain}
-                  onChange={(event) => {
-                    setSubdomain(event.target.value);
-                    setError('');
-                  }}
-                />
-                <span className="pr-4 text-sm text-slate-500">.talentcio.in</span>
-              </div>
-
-              {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                <button type="submit" className="btn-primary">
-                  Go to Workspace
-                  <MoveRight size={16} />
-                </button>
-                <button type="button" onClick={onClose} className="btn-secondary">
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
 export default function Navbar() {
   const location = useLocation();
+  const { isLoggedIn, applicant, logout } = useApplicantAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
   const [jobCount, setJobCount] = useState(0);
 
   const navLinks = useMemo(
@@ -203,9 +114,48 @@ export default function Navbar() {
             </nav>
 
             <div className="hidden items-center gap-3 lg:flex">
-              <button type="button" onClick={() => setLoginOpen(true)} className="btn-secondary">
-                Login
-              </button>
+              {isLoggedIn ? (
+                <div className="group relative">
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-100"
+                  >
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">
+                      {applicant?.firstName?.charAt(0)?.toUpperCase() || 'A'}
+                    </span>
+                    My Account
+                    <ChevronDown size={13} />
+                  </button>
+
+                  <div className="invisible absolute right-0 top-full z-50 mt-2 w-52 rounded-2xl border border-slate-200 bg-white py-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
+                    <Link to="/my-applications" className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50">
+                      <Briefcase size={14} />
+                      My Applications
+                    </Link>
+                    <Link to="/profile" className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50">
+                      <User size={14} />
+                      My Profile
+                    </Link>
+                    <div className="my-1 border-t border-slate-100" />
+                    <button
+                      type="button"
+                      onClick={logout}
+                      className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-red-600 transition hover:bg-red-50"
+                    >
+                      <LogOut size={14} />
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <Link to="/applicant/login" className="btn-secondary">
+                  Sign In
+                </Link>
+              )}
+              <Link to="/company/login" className="btn-secondary flex items-center gap-2">
+                <Building2 size={14} />
+                Company Login
+              </Link>
               <Link to="/demo" className="btn-primary">
                 Request Demo
               </Link>
@@ -249,11 +199,29 @@ export default function Navbar() {
                 </div>
 
                 <div className="mt-4 grid gap-3">
-                  <button type="button" onClick={() => setLoginOpen(true)} className="btn-secondary w-full">
-                    Login
-                  </button>
+                  {isLoggedIn ? (
+                    <>
+                      <Link to="/my-applications" className="btn-secondary w-full">
+                        My Applications
+                      </Link>
+                      <Link to="/profile" className="btn-secondary w-full">
+                        My Profile
+                      </Link>
+                      <button type="button" onClick={logout} className="w-full rounded-full border border-red-200 bg-red-50 px-6 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-100">
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <Link to="/applicant/login" className="btn-secondary w-full">
+                      Sign In
+                    </Link>
+                  )}
                   <Link to="/demo" className="btn-primary w-full">
                     Request Demo
+                  </Link>
+                  <Link to="/company/login" className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-blue-200 hover:text-blue-700">
+                    <Building2 size={16} className="text-blue-600" />
+                    Employee Login
                   </Link>
                 </div>
               </motion.div>
@@ -261,8 +229,6 @@ export default function Navbar() {
           </AnimatePresence>
         </div>
       </header>
-
-      <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
     </>
   );
 }

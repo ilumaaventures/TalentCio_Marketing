@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AlertCircle, ArrowRight, Building2, CalendarRange, Clock3, Layers3, MapPin, Users2 } from 'lucide-react';
 import api from '../api/axios';
+import applicantApi from '../api/applicantApi';
 import ApplicationModal from '../components/ApplicationModal';
+import { useApplicantAuth } from '../context/ApplicantAuthContext';
 
 const currencySymbols = {
   INR: 'Rs.',
@@ -44,10 +46,12 @@ function SkillChips({ title, items, tone = 'blue' }) {
 
 export default function JobDetail() {
   const { id } = useParams();
+  const { isLoggedIn, profileCompletion } = useApplicantAuth();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [alreadyApplied, setAlreadyApplied] = useState(false);
 
   useEffect(() => {
     let isActive = true;
@@ -82,6 +86,34 @@ export default function JobDetail() {
       isActive = false;
     };
   }, [id]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    if (!isLoggedIn || !job?._id) {
+      setAlreadyApplied(false);
+      return undefined;
+    }
+
+    applicantApi.get('/my-applications')
+      .then((response) => {
+        if (!ignore) {
+          const hasApplied = (response.data.applications || []).some(
+            (application) => application.hiringRequestId?._id === job._id
+          );
+          setAlreadyApplied(hasApplied);
+        }
+      })
+      .catch(() => {
+        if (!ignore) {
+          setAlreadyApplied(false);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [isLoggedIn, job?._id]);
 
   if (loading) {
     return (
@@ -182,9 +214,14 @@ export default function JobDetail() {
                   <p>{job.roleDetails?.employmentType || 'Role'}</p>
                 </div>
                 <button type="button" onClick={() => setIsModalOpen(true)} className="btn-primary mt-8 w-full">
-                  Apply Now
+                  {alreadyApplied ? 'View Application Status' : isLoggedIn ? 'Apply Now' : 'Sign in to apply in 30 seconds'}
                   <ArrowRight size={16} />
                 </button>
+                {isLoggedIn && profileCompletion && profileCompletion.score < 60 ? (
+                  <p className="mt-3 text-xs font-medium text-amber-700">
+                    Complete your profile to speed up future applications.
+                  </p>
+                ) : null}
               </aside>
             </div>
           </div>
@@ -308,6 +345,8 @@ export default function JobDetail() {
         jobId={job._id}
         jobTitle={job.roleDetails?.title}
         companyName={company.name || job.client}
+        alreadyApplied={alreadyApplied}
+        onApplied={() => setAlreadyApplied(true)}
       />
     </main>
   );

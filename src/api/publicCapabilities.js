@@ -1,11 +1,11 @@
-const PUBLIC_JOBS_API_MISSING_KEY = 'talentcio_public_jobs_api_missing';
+import { getPublicJobsApiMissingKey } from './baseUrl';
 
 export const isPublicJobsApiMissing = () => {
   if (typeof window === 'undefined') {
     return false;
   }
 
-  return window.sessionStorage.getItem(PUBLIC_JOBS_API_MISSING_KEY) === '1';
+  return window.sessionStorage.getItem(getPublicJobsApiMissingKey()) === '1';
 };
 
 export const markPublicJobsApiMissing = () => {
@@ -13,7 +13,7 @@ export const markPublicJobsApiMissing = () => {
     return;
   }
 
-  window.sessionStorage.setItem(PUBLIC_JOBS_API_MISSING_KEY, '1');
+  window.sessionStorage.setItem(getPublicJobsApiMissingKey(), '1');
 };
 
 export const clearPublicJobsApiMissing = () => {
@@ -21,5 +21,5 @@ export const clearPublicJobsApiMissing = () => {
     return;
   }
 
-  window.sessionStorage.removeItem(PUBLIC_JOBS_API_MISSING_KEY);
+  window.sessionStorage.removeItem(getPublicJobsApiMissingKey());
 };
