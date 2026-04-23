@@ -44,26 +44,21 @@ const formatDate = (value) => new Date(value).toLocaleDateString('en-IN', {
 
 export default function MyApplications() {
   const navigate = useNavigate();
-  const { applicant, logout, profileCompletion, setApplicantProfile } = useApplicantAuth();
+  const { applicant, logout, profileCompletion } = useApplicantAuth();
   const [applications, setApplications] = useState([]);
-  const [completion, setCompletion] = useState(profileCompletion);
   const [loading, setLoading] = useState(true);
+  const completion = profileCompletion;
 
   useEffect(() => {
     let ignore = false;
 
-    Promise.all([
-      applicantApi.get('/profile'),
-      applicantApi.get('/my-applications')
-    ])
-      .then(([profileResponse, applicationsResponse]) => {
+    applicantApi.get('/my-applications')
+      .then((response) => {
         if (ignore) {
           return;
         }
 
-        setCompletion(profileResponse.data.completion || null);
-        setApplicantProfile(profileResponse.data.applicant, profileResponse.data.completion || null);
-        setApplications(applicationsResponse.data.applications || []);
+        setApplications(response.data.applications || []);
       })
       .catch(() => {
         if (!ignore) {
@@ -79,7 +74,7 @@ export default function MyApplications() {
     return () => {
       ignore = true;
     };
-  }, [setApplicantProfile]);
+  }, []);
 
   const stats = useMemo(() => ([
     { label: 'Total Applied', value: applications.length, borderClass: 'border-b-blue-400' },

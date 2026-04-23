@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import applicantApi from '../api/applicantApi';
 
 const ApplicantAuthContext = createContext(null);
@@ -16,17 +16,17 @@ export function ApplicantAuthProvider({ children }) {
   const [profileCompletion, setProfileCompletion] = useState(null);
   const [loading, setLoading] = useState(() => Boolean(localStorage.getItem('applicant_token')));
 
-  const persistApplicant = (applicantData) => {
+  const persistApplicant = useCallback((applicantData) => {
     localStorage.setItem('applicant_user', JSON.stringify(applicantData));
     setApplicant(applicantData);
-  };
+  }, []);
 
-  const refreshApplicantProfile = async () => {
+  const refreshApplicantProfile = useCallback(async () => {
     const response = await applicantApi.get('/profile');
     persistApplicant(response.data.applicant);
     setProfileCompletion(response.data.completion || null);
     return response.data;
-  };
+  }, [persistApplicant]);
 
   useEffect(() => {
     if (!token) {
@@ -64,28 +64,28 @@ export function ApplicantAuthProvider({ children }) {
     return () => {
       ignore = true;
     };
-  }, [token]);
+  }, [token, refreshApplicantProfile]);
 
-  const login = (tokenValue, applicantData) => {
+  const login = useCallback((tokenValue, applicantData) => {
     localStorage.setItem('applicant_token', tokenValue);
     setToken(tokenValue);
     persistApplicant(applicantData);
-  };
+  }, [persistApplicant]);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem('applicant_token');
     localStorage.removeItem('applicant_user');
     setToken(null);
     setApplicant(null);
     setProfileCompletion(null);
-  };
+  }, []);
 
-  const setApplicantProfile = (applicantData, completionData = null) => {
+  const setApplicantProfile = useCallback((applicantData, completionData = null) => {
     persistApplicant(applicantData);
     if (completionData !== null) {
       setProfileCompletion(completionData);
     }
-  };
+  }, [persistApplicant]);
 
   const value = useMemo(() => ({
     applicant,
@@ -97,7 +97,7 @@ export function ApplicantAuthProvider({ children }) {
     refreshApplicantProfile,
     setApplicantProfile,
     isLoggedIn: Boolean(applicant)
-  }), [applicant, token, profileCompletion, loading]);
+  }), [applicant, token, profileCompletion, loading, login, logout, refreshApplicantProfile, setApplicantProfile]);
 
   return <ApplicantAuthContext.Provider value={value}>{children}</ApplicantAuthContext.Provider>;
 }
