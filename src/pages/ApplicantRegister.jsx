@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import applicantApi from '../api/applicantApi';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 
+const normalizeEmail = (value) => value.trim().toLowerCase();
+
 export default function ApplicantRegister() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,14 +41,15 @@ export default function ApplicantRegister() {
 
     try {
       setSubmitting(true);
+      const normalizedEmail = normalizeEmail(form.email);
       await applicantApi.post('/register', {
         firstName: form.firstName.trim(),
         lastName: form.lastName.trim(),
-        email: form.email.trim(),
+        email: normalizedEmail,
         mobile: form.mobile.trim(),
         password: form.password
       });
-      setRegisteredEmail(form.email.trim().toLowerCase());
+      setRegisteredEmail(normalizedEmail);
       setStep(2);
       toast.success('Check your email for a 6-digit verification code.');
     } catch (error) {
@@ -136,7 +139,7 @@ export default function ApplicantRegister() {
                     type="email"
                     className="input-shell"
                     value={form.email}
-                    onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+                    onChange={(event) => setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
                     placeholder="you@example.com"
                     required
                   />

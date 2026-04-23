@@ -5,6 +5,7 @@ import api from '../api/axios';
 
 const isWorkspaceSlug = (value) => /^[a-z0-9-]+$/i.test(value.trim());
 const isLocalHost = (hostname) => hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.localhost');
+const normalizeEmail = (value) => value.trim().toLowerCase();
 
 const buildTenantUrl = (template, subdomain, path, extraParams = {}) => {
   let normalizedTemplate = (template || 'https://{tenant}.talentcio.in').trim();
@@ -68,10 +69,11 @@ export default function CompanyLogin() {
 
     try {
       setSubmitting(true);
+      const normalizedEmail = normalizeEmail(form.email);
 
       const response = await api.post('/public/company-login', {
         companyIdentifier: form.companyIdentifier.trim(),
-        email: form.email.trim().toLowerCase(),
+        email: normalizedEmail,
         password: form.password
       });
 
@@ -236,7 +238,7 @@ export default function CompanyLogin() {
                 type="email"
                 className="input-shell"
                 value={form.email}
-                onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+                onChange={(event) => setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
                 placeholder="you@yourcompany.com"
                 autoComplete="email"
                 required

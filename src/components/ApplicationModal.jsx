@@ -8,6 +8,7 @@ import applicantApi from '../api/applicantApi';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 
 const allowedExtensions = ['pdf', 'doc', 'docx'];
+const normalizeEmail = (value) => value.trim().toLowerCase();
 
 const initialForm = {
   candidateName: '',
@@ -135,7 +136,9 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
       nextErrors.candidateName = 'Full name is required.';
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+    const normalizedEmail = normalizeEmail(form.email);
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       nextErrors.email = 'Enter a valid email address.';
     }
 
@@ -179,7 +182,7 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
 
       const payload = new FormData();
       payload.append('candidateName', form.candidateName.trim());
-      payload.append('email', form.email.trim());
+      payload.append('email', normalizeEmail(form.email));
       payload.append('mobile', form.mobile.trim());
       if (form.currentCTC) payload.append('currentCTC', form.currentCTC);
       if (form.expectedCTC) payload.append('expectedCTC', form.expectedCTC);
@@ -341,7 +344,7 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
                     type="email"
                     className={`input-shell ${errors.email ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
                     value={form.email}
-                    onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+                    onChange={(event) => setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
                     placeholder="name@example.com"
                   />
                   {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}

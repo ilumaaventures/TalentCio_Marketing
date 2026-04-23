@@ -158,6 +158,7 @@ export default function JobDetail() {
 
   const company = job.companyId || {};
   const reportingManager = job.roleDetails?.reportingManager;
+  const jobDescription = job.publicJobDescription || job.jobDescription;
 
   return (
     <main className="bg-[var(--surface)] pb-20 pt-28">
@@ -242,8 +243,8 @@ export default function JobDetail() {
                     </p>
                   </div>
                 </div>
-                <p className="mt-5 text-base leading-7 text-slate-600">
-                  {job.jobDescription ||
+                <p className="mt-5 whitespace-pre-wrap text-base leading-7 text-slate-600">
+                  {jobDescription ||
                     `Join ${company.name || 'our client'} as part of the ${job.roleDetails?.department} team and help build reliable, scalable people operations.`}
                 </p>
               </section>
