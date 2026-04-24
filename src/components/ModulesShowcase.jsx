@@ -86,9 +86,9 @@ export default function ModulesShowcase() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
-          <div className="surface-card p-3">
-            <div className="grid gap-2">
+        <div className="mt-12 grid items-start gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
+          <div className="surface-card p-3 xl:h-[620px]">
+            <div className="grid max-h-full gap-2 overflow-y-auto pr-1 scrollbar-hidden">
               {modules.map((module) => {
                 const Icon = module.icon;
                 const isActive = module.key === activeKey;
@@ -117,7 +117,7 @@ export default function ModulesShowcase() {
             </div>
           </div>
 
-          <div className="surface-card overflow-hidden bg-slate-950 text-white">
+          <div className="surface-card self-start overflow-hidden bg-slate-950 text-white">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeModule.key}

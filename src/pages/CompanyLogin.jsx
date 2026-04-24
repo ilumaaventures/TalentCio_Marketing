@@ -129,8 +129,8 @@ export default function CompanyLogin() {
   }
 
   return (
-    <main className="min-h-screen flex">
-      <div className="relative hidden overflow-hidden bg-[#0d1b2a] p-12 lg:flex lg:w-5/12 xl:w-1/2 lg:flex-col lg:justify-between">
+    <main className="flex min-h-screen lg:h-screen lg:overflow-hidden">
+      <div className="relative hidden overflow-hidden bg-[#0d1b2a] p-10 lg:flex lg:w-5/12 lg:flex-col lg:justify-between xl:w-1/2 xl:p-12">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -182,7 +182,7 @@ export default function CompanyLogin() {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center bg-[#f8faff] px-6 py-16">
+      <div className="flex flex-1 flex-col items-center justify-center bg-[#f8faff] px-6 py-12 lg:py-8">
         <div className="mb-8 lg:hidden">
           <Link to="/" className="inline-flex" aria-label="TalentCIO home">
             <img src="/company-login-logo.png" alt="TalentCIO" className="h-16 w-auto max-w-[470px] object-contain" />

@@ -57,6 +57,15 @@
     @apply rounded-[28px] border border-slate-200/70 bg-white shadow-[0_24px_80px_-40px_rgba(15,23,42,0.35)];
   }
 
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-full bg-[var(--primary)] px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_45px_-20px_rgba(17,92,185,0.8)] transition hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-blue-300;
   }
