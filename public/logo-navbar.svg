@@ -1,0 +1,23 @@
+<svg width="960" height="220" viewBox="0 0 960 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">TalentCIO</title>
+  <desc id="desc">TalentCIO navigation logo</desc>
+  <rect width="960" height="220" fill="white"/>
+
+  <g fill="#0B2C73">
+    <text x="22" y="150" font-family="Sora, Montserrat, Arial, sans-serif" font-size="144" font-weight="700" letter-spacing="-6">Talent</text>
+  </g>
+
+  <g fill="#FF7A00">
+    <text x="530" y="150" font-family="Sora, Montserrat, Arial, sans-serif" font-size="144" font-weight="700" letter-spacing="-6">CI</text>
+  </g>
+
+  <g transform="translate(770 38)">
+    <circle cx="44" cy="44" r="34" stroke="#FF7A00" stroke-width="10"/>
+    <circle cx="25" cy="44" r="5.5" fill="#0B2C73"/>
+    <circle cx="44" cy="37" r="6.5" fill="#FF7A00"/>
+    <circle cx="63" cy="44" r="5.5" fill="#0B2C73"/>
+    <path d="M34 61C34 53 40 47 48 47H50C58 47 64 53 64 61V76H34V61Z" fill="#FF7A00"/>
+    <path d="M15 60C15 54 20 49 26 49C32 49 37 54 37 60V72H15V60Z" fill="#0B2C73"/>
+    <path d="M51 60C51 54 56 49 62 49C68 49 73 54 73 60V72H51V60Z" fill="#0B2C73"/>
+  </g>
+</svg>

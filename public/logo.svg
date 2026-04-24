@@ -1,5 +1,25 @@
-<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="128" height="128" rx="28" fill="#115cb9"/>
-  <path d="M31 34H97V48H71V95H57V48H31V34Z" fill="white"/>
-  <rect x="57" y="48" width="14" height="47" fill="#DCEBFF"/>
+<svg width="920" height="220" viewBox="0 0 920 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">TalentCIO</title>
+  <desc id="desc">TalentCIO logo with connecting talent with opportunity tagline</desc>
+  <rect width="920" height="220" fill="white"/>
+  <g transform="translate(36 34)">
+    <path d="M0 32H170L142 58H98V150L70 178V58H0V32Z" fill="#00265C"/>
+    <path d="M148 26C179 3 229 -3 270 18C256 13 236 9 215 10C177 12 151 32 138 63C126 91 130 118 146 139H116C102 115 98 86 109 59C116 43 129 32 148 26Z" fill="#F37000"/>
+    <path d="M139 150C162 177 211 186 251 172C269 166 286 155 299 141L335 164C313 190 279 206 239 210C191 215 149 200 122 170L139 150Z" fill="#00265C"/>
+    <path d="M196 76C196 64.9543 204.954 56 216 56C227.046 56 236 64.9543 236 76C236 87.0457 227.046 96 216 96C204.954 96 196 87.0457 196 76Z" fill="#F37000"/>
+    <path d="M175 118C175 99.2223 190.222 84 209 84H223C241.778 84 257 99.2223 257 118V158C243.7 162.8 230.1 165.2 216.2 165.2C202.1 165.2 188.3 162.7 175 157.7V118Z" fill="#F37000"/>
+    <path d="M132 101C132 90.5066 140.507 82 151 82C161.493 82 170 90.5066 170 101C170 111.493 161.493 120 151 120C140.507 120 132 111.493 132 101Z" fill="#00265C"/>
+    <path d="M126 133C126 122.507 134.507 114 145 114H155C165.493 114 174 122.507 174 133V156C155.1 150.2 139 139.9 126 125.7V133Z" fill="#00265C"/>
+    <path d="M262 101C262 90.5066 270.507 82 281 82C291.493 82 300 90.5066 300 101C300 111.493 291.493 120 281 120C270.507 120 262 111.493 262 101Z" fill="#00265C"/>
+    <path d="M258 133C258 122.507 266.507 114 277 114H287C297.493 114 306 122.507 306 133V126C293.1 140.1 277.1 150.3 258 156V133Z" fill="#00265C"/>
+    <path d="M264 8C276 7 286 17 286 29C286 41 276 51 264 51C253 51 244 43 243 32C221 22 193 23 170 34C195 12 232 2 264 8Z" fill="#F37000"/>
+  </g>
+  <path d="M362 48V172" stroke="#00265C" stroke-width="2.5"/>
+  <g fill="#00265C">
+    <text x="395" y="128" font-family="Sora, Montserrat, Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-3">Talent</text>
+  </g>
+  <g fill="#F37000">
+    <text x="694" y="128" font-family="Sora, Montserrat, Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-3">CIO</text>
+  </g>
+  <text x="397" y="170" fill="#00265C" font-family="Sora, Montserrat, Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="11">CONNECTING TALENT WITH OPPORTUNITY</text>
 </svg>

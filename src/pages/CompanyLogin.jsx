@@ -139,11 +139,8 @@ export default function CompanyLogin() {
         />
 
         <div className="relative">
-          <Link to="/" className="inline-flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 font-['Sora'] text-lg font-bold text-white shadow-lg">
-              T
-            </div>
-            <span className="font-['Sora'] text-xl font-bold text-white">TalentCIO</span>
+          <Link to="/" className="inline-flex rounded-2xl bg-white px-4 py-2 shadow-lg shadow-black/20" aria-label="TalentCIO home">
+            <img src="/company-login-logo.png" alt="TalentCIO" className="h-16 w-auto max-w-[470px] object-contain" />
           </Link>
         </div>
 
@@ -187,11 +184,8 @@ export default function CompanyLogin() {
 
       <div className="flex flex-1 flex-col items-center justify-center bg-[#f8faff] px-6 py-16">
         <div className="mb-8 lg:hidden">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 font-['Sora'] text-base font-bold text-white">
-              T
-            </div>
-            <span className="font-['Sora'] text-lg font-bold text-slate-900">TalentCIO</span>
+          <Link to="/" className="inline-flex" aria-label="TalentCIO home">
+            <img src="/company-login-logo.png" alt="TalentCIO" className="h-16 w-auto max-w-[470px] object-contain" />
           </Link>
         </div>
 
