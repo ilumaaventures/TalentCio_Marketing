@@ -158,6 +158,7 @@ export default function JobDetail() {
 
   const company = job.companyId || {};
   const reportingManager = job.roleDetails?.reportingManager;
+  const jobDescription = job.publicJobDescription || job.jobDescription;
 
   return (
     <main className="bg-[var(--surface)] pb-20 pt-28">
@@ -171,7 +172,7 @@ export default function JobDetail() {
             <span className="text-slate-800">{job.roleDetails?.title}</span>
           </nav>
 
-          <div className="mt-6 flex flex-col gap-5 border-b border-slate-200 pb-8">
+          <div className="mt-6 flex flex-col gap-5 border-b border-slate-200 pb-5">
             <div className="flex flex-wrap items-center gap-3">
               <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700">
                 {job.requirements?.location || 'Flexible'}
@@ -184,49 +185,28 @@ export default function JobDetail() {
               </span>
             </div>
 
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,2fr)_360px]">
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-                  {job.roleDetails?.title}
-                </h1>
-                <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-slate-600">
-                  <span className="inline-flex items-center gap-2">
-                    <Building2 size={16} />
-                    {company.name || job.client}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <MapPin size={16} />
-                    {job.requirements?.location || 'Flexible'}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <Layers3 size={16} />
-                    {job.roleDetails?.department}
-                  </span>
-                </div>
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+                {job.roleDetails?.title}
+              </h1>
+              <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-slate-600">
+                <span className="inline-flex items-center gap-2">
+                  <Building2 size={16} />
+                  {company.name || job.client}
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <MapPin size={16} />
+                  {job.requirements?.location || 'Flexible'}
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <Layers3 size={16} />
+                  {job.roleDetails?.department}
+                </span>
               </div>
-
-              <aside className="surface-card border-blue-100 bg-gradient-to-br from-blue-50 to-white p-6 lg:sticky lg:top-24 lg:h-fit">
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">Apply Now</p>
-                <h2 className="mt-3 text-2xl font-bold text-slate-950">{job.roleDetails?.title}</h2>
-                <div className="mt-5 space-y-3 text-sm text-slate-600">
-                  <p>{company.name || job.client}</p>
-                  <p>{job.requirements?.location || 'Flexible'}</p>
-                  <p>{job.roleDetails?.employmentType || 'Role'}</p>
-                </div>
-                <button type="button" onClick={() => setIsModalOpen(true)} className="btn-primary mt-8 w-full">
-                  {alreadyApplied ? 'View Application Status' : isLoggedIn ? 'Apply Now' : 'Sign in to apply in 30 seconds'}
-                  <ArrowRight size={16} />
-                </button>
-                {isLoggedIn && profileCompletion && profileCompletion.score < 60 ? (
-                  <p className="mt-3 text-xs font-medium text-amber-700">
-                    Complete your profile to speed up future applications.
-                  </p>
-                ) : null}
-              </aside>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,2fr)_360px]">
+          <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,2fr)_360px]">
             <div className="space-y-8">
               <section className="rounded-[28px] border border-slate-200 bg-white p-6">
                 <h2 className="text-2xl font-bold text-slate-950">About This Role</h2>
@@ -242,8 +222,8 @@ export default function JobDetail() {
                     </p>
                   </div>
                 </div>
-                <p className="mt-5 text-base leading-7 text-slate-600">
-                  {job.jobDescription ||
+                <p className="mt-5 whitespace-pre-wrap text-base leading-7 text-slate-600">
+                  {jobDescription ||
                     `Join ${company.name || 'our client'} as part of the ${job.roleDetails?.department} team and help build reliable, scalable people operations.`}
                 </p>
               </section>
@@ -312,7 +292,26 @@ export default function JobDetail() {
               </section>
             </div>
 
-            <aside className="space-y-4">
+            <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit">
+              <div className="surface-card border-blue-100 bg-gradient-to-br from-blue-50 to-white p-6">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">Apply Now</p>
+                <h2 className="mt-3 text-2xl font-bold text-slate-950">{job.roleDetails?.title}</h2>
+                <div className="mt-5 space-y-3 text-sm text-slate-600">
+                  <p>{company.name || job.client}</p>
+                  <p>{job.requirements?.location || 'Flexible'}</p>
+                  <p>{job.roleDetails?.employmentType || 'Role'}</p>
+                </div>
+                <button type="button" onClick={() => setIsModalOpen(true)} className="btn-primary mt-8 w-full">
+                  {alreadyApplied ? 'View Application Status' : isLoggedIn ? 'Apply Now' : 'Sign in to apply in 30 seconds'}
+                  <ArrowRight size={16} />
+                </button>
+                {isLoggedIn && profileCompletion && profileCompletion.score < 60 ? (
+                  <p className="mt-3 text-xs font-medium text-amber-700">
+                    Complete your profile to speed up future applications.
+                  </p>
+                ) : null}
+              </div>
+
               <div className="rounded-[28px] border border-slate-200 bg-white p-6">
                 <h3 className="text-lg font-bold text-slate-950">Role Snapshot</h3>
                 <div className="mt-5 space-y-4 text-sm text-slate-600">

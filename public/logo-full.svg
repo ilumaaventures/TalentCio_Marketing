@@ -1,0 +1,35 @@
+<svg width="1280" height="360" viewBox="0 0 1280 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">TalentCIO</title>
+  <desc id="desc">TalentCIO full logo with tagline</desc>
+  <rect width="1280" height="360" fill="white"/>
+
+  <g fill="#0B2C73">
+    <rect x="72" y="82" width="170" height="28" rx="2"/>
+    <rect x="143" y="110" width="28" height="145" rx="2"/>
+
+    <path d="M288 255L359 82H392L463 255H420L376 145L331 255H288Z"/>
+    <text x="472" y="255" font-family="Sora, Montserrat, Arial, sans-serif" font-size="185" font-weight="700" letter-spacing="-7">lent</text>
+  </g>
+
+  <circle cx="378" cy="220" r="18" fill="#FF7A00"/>
+
+  <g fill="#FF7A00">
+    <text x="844" y="255" font-family="Sora, Montserrat, Arial, sans-serif" font-size="185" font-weight="700" letter-spacing="-7">CI</text>
+  </g>
+
+  <g transform="translate(1056 83)">
+    <circle cx="92" cy="88" r="75" stroke="#FF7A00" stroke-width="20"/>
+    <circle cx="50" cy="88" r="10" fill="#0B2C73"/>
+    <circle cx="92" cy="73" r="12" fill="#FF7A00"/>
+    <circle cx="134" cy="88" r="10" fill="#0B2C73"/>
+    <path d="M69 126C69 110 82 97 98 97H106C122 97 135 110 135 126V160H69V126Z" fill="#FF7A00"/>
+    <path d="M28 124C28 112 38 102 50 102C62 102 72 112 72 124V150L28 150V124Z" fill="#0B2C73"/>
+    <path d="M112 124C112 112 122 102 134 102C146 102 156 112 156 124V150H112V124Z" fill="#0B2C73"/>
+  </g>
+
+  <g transform="translate(232 292)">
+    <rect x="0" y="0" width="68" height="4" rx="2" fill="#FF7A00"/>
+    <rect x="748" y="0" width="68" height="4" rx="2" fill="#FF7A00"/>
+    <text x="96" y="14" fill="#0B2C73" font-family="Sora, Montserrat, Arial, sans-serif" font-size="34" font-weight="600" letter-spacing="10">CONNECTING TALENT WITH OPPORTUNITY</text>
+  </g>
+</svg>

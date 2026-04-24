@@ -8,16 +8,12 @@ import { useApplicantAuth } from '../context/ApplicantAuthContext';
 
 function LogoMark() {
   return (
-    <Link to="/" className="flex items-center gap-3">
-      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--primary)] text-white shadow-[0_16px_35px_-18px_rgba(17,92,185,0.8)]">
-        <span className="font-['Sora'] text-xl font-bold">T</span>
-      </div>
-      <div>
-        <span className="block font-['Sora'] text-lg font-bold tracking-tight text-slate-950">TalentCIO</span>
-        <span className="block text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">
-          HROS for modern teams
-        </span>
-      </div>
+    <Link to="/" className="flex items-center" aria-label="TalentCIO home">
+      <img
+        src="/navbar-logo.png"
+        alt="TalentCIO"
+        className="h-9 w-auto max-w-[240px] object-contain sm:h-10 sm:max-w-[280px]"
+      />
     </Link>
   );
 }

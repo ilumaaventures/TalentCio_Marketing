@@ -5,6 +5,7 @@ import api from '../api/axios';
 
 const isWorkspaceSlug = (value) => /^[a-z0-9-]+$/i.test(value.trim());
 const isLocalHost = (hostname) => hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.localhost');
+const normalizeEmail = (value) => value.trim().toLowerCase();
 
 const buildTenantUrl = (template, subdomain, path, extraParams = {}) => {
   let normalizedTemplate = (template || 'https://{tenant}.talentcio.in').trim();
@@ -68,10 +69,11 @@ export default function CompanyLogin() {
 
     try {
       setSubmitting(true);
+      const normalizedEmail = normalizeEmail(form.email);
 
       const response = await api.post('/public/company-login', {
         companyIdentifier: form.companyIdentifier.trim(),
-        email: form.email.trim().toLowerCase(),
+        email: normalizedEmail,
         password: form.password
       });
 
@@ -127,8 +129,8 @@ export default function CompanyLogin() {
   }
 
   return (
-    <main className="min-h-screen flex">
-      <div className="relative hidden overflow-hidden bg-[#0d1b2a] p-12 lg:flex lg:w-5/12 xl:w-1/2 lg:flex-col lg:justify-between">
+    <main className="flex min-h-screen lg:h-screen lg:overflow-hidden">
+      <div className="relative hidden overflow-hidden bg-[#0d1b2a] p-10 lg:flex lg:w-5/12 lg:flex-col lg:justify-between xl:w-1/2 xl:p-12">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -137,11 +139,8 @@ export default function CompanyLogin() {
         />
 
         <div className="relative">
-          <Link to="/" className="inline-flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 font-['Sora'] text-lg font-bold text-white shadow-lg">
-              T
-            </div>
-            <span className="font-['Sora'] text-xl font-bold text-white">TalentCIO</span>
+          <Link to="/" className="inline-flex" aria-label="TalentCIO home">
+            <img src="/dark-logo-full.png" alt="TalentCIO" className="h-25 w-auto max-w-117.5 object-contain" />
           </Link>
         </div>
 
@@ -183,13 +182,10 @@ export default function CompanyLogin() {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center bg-[#f8faff] px-6 py-16">
+      <div className="flex flex-1 flex-col items-center justify-center bg-[#f8faff] px-6 py-12 lg:py-8">
         <div className="mb-8 lg:hidden">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 font-['Sora'] text-base font-bold text-white">
-              T
-            </div>
-            <span className="font-['Sora'] text-lg font-bold text-slate-900">TalentCIO</span>
+          <Link to="/" className="inline-flex" aria-label="TalentCIO home">
+            <img src="/company-login-logo.png" alt="TalentCIO" className="h-16 w-auto max-w-[470px] object-contain" />
           </Link>
         </div>
 
@@ -219,7 +215,7 @@ export default function CompanyLogin() {
                   className="input-shell pl-10"
                   value={form.companyIdentifier}
                   onChange={(event) => setForm((current) => ({ ...current, companyIdentifier: event.target.value }))}
-                  placeholder="Ilumaa Ventures or ilumaa"
+                  placeholder="Your company name"
                   autoComplete="organization"
                   required
                   autoFocus
@@ -236,7 +232,7 @@ export default function CompanyLogin() {
                 type="email"
                 className="input-shell"
                 value={form.email}
-                onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+                onChange={(event) => setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
                 placeholder="you@yourcompany.com"
                 autoComplete="email"
                 required

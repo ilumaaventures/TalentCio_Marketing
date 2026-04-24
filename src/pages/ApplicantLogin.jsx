@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import applicantApi from '../api/applicantApi';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 
+const normalizeEmail = (value) => value.trim().toLowerCase();
+
 export default function ApplicantLogin() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,8 +27,9 @@ export default function ApplicantLogin() {
 
     try {
       setSubmitting(true);
+      const normalizedEmail = normalizeEmail(form.email);
       const response = await applicantApi.post('/login', {
-        email: form.email.trim(),
+        email: normalizedEmail,
         password: form.password
       });
       login(response.data.token, response.data.applicant);
@@ -34,7 +37,7 @@ export default function ApplicantLogin() {
       navigate(from, { replace: true });
     } catch (error) {
       if (error.response?.data?.needsVerification) {
-        setVerificationEmail(error.response.data.email || form.email.trim().toLowerCase());
+        setVerificationEmail(error.response.data.email || normalizeEmail(form.email));
         setVerificationOtp('');
         setMode('verify');
         toast.error('Please verify your email before logging in.');
@@ -51,9 +54,10 @@ export default function ApplicantLogin() {
 
     try {
       setSubmitting(true);
-      await applicantApi.post('/forgot-password', { email: forgotEmail.trim() });
+      const normalizedEmail = normalizeEmail(forgotEmail);
+      await applicantApi.post('/forgot-password', { email: normalizedEmail });
       toast.success('If that email exists, a reset code was sent.');
-      setResetForm((current) => ({ ...current, email: forgotEmail.trim() }));
+      setResetForm((current) => ({ ...current, email: normalizedEmail }));
       setMode('reset');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to send reset code.');
@@ -72,10 +76,14 @@ export default function ApplicantLogin() {
 
     try {
       setSubmitting(true);
-      await applicantApi.post('/reset-password', resetForm);
+      const normalizedEmail = normalizeEmail(resetForm.email);
+      await applicantApi.post('/reset-password', {
+        ...resetForm,
+        email: normalizedEmail
+      });
       toast.success('Password reset successfully. Please sign in.');
       setMode('login');
-      setForm((current) => ({ ...current, email: resetForm.email }));
+      setForm((current) => ({ ...current, email: normalizedEmail }));
     } catch (error) {
       toast.error(error.response?.data?.message || 'Reset failed.');
     } finally {
@@ -88,15 +96,16 @@ export default function ApplicantLogin() {
 
     try {
       setSubmitting(true);
+      const normalizedEmail = normalizeEmail(verificationEmail);
       const response = await applicantApi.post('/verify-email', {
-        email: verificationEmail.trim(),
+        email: normalizedEmail,
         otp: verificationOtp.trim()
       });
 
       if (!response.data.token || !response.data.applicant) {
         toast.success(response.data.message || 'Email verified. Please sign in.');
         setMode('login');
-        setForm((current) => ({ ...current, email: verificationEmail.trim() }));
+        setForm((current) => ({ ...current, email: normalizedEmail }));
         return;
       }
 
@@ -111,13 +120,15 @@ export default function ApplicantLogin() {
   };
 
   const handleResendVerification = async () => {
-    if (!verificationEmail.trim()) {
+    const normalizedEmail = normalizeEmail(verificationEmail);
+
+    if (!normalizedEmail) {
       toast.error('Enter your email address first.');
       return;
     }
 
     try {
-      await applicantApi.post('/resend-verification', { email: verificationEmail.trim() });
+      await applicantApi.post('/resend-verification', { email: normalizedEmail });
       toast.success('A new verification code has been sent to your email.');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to resend verification code.');
@@ -145,7 +156,7 @@ export default function ApplicantLogin() {
                     type="email"
                     className="input-shell"
                     value={form.email}
-                    onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+                    onChange={(event) => setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
                     placeholder="you@example.com"
                     autoComplete="email"
                     required
@@ -217,7 +228,7 @@ export default function ApplicantLogin() {
                     type="email"
                     className="input-shell"
                     value={verificationEmail}
-                    onChange={(event) => setVerificationEmail(event.target.value)}
+                    onChange={(event) => setVerificationEmail(event.target.value.toLowerCase())}
                     placeholder="you@example.com"
                     required
                   />
@@ -270,7 +281,7 @@ export default function ApplicantLogin() {
                     type="email"
                     className="input-shell"
                     value={forgotEmail}
-                    onChange={(event) => setForgotEmail(event.target.value)}
+                    onChange={(event) => setForgotEmail(event.target.value.toLowerCase())}
                     placeholder="you@example.com"
                     required
                   />
@@ -298,7 +309,7 @@ export default function ApplicantLogin() {
                     type="email"
                     className="input-shell"
                     value={resetForm.email}
-                    onChange={(event) => setResetForm((current) => ({ ...current, email: event.target.value }))}
+                    onChange={(event) => setResetForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
                     required
                   />
                 </div>
