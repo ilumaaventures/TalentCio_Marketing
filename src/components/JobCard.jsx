@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, Clock3, Layers3, MapPin, Users2 } from 'lucide-react';
+import { Clock3, Layers3, MapPin, Users2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const locationTone = {
@@ -132,11 +132,6 @@ export default function JobCard({ job }) {
       <div className="mt-5 rounded-[24px] bg-slate-50 px-4 py-4">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Salary Range</p>
         <p className="mt-2 text-sm font-semibold text-slate-800">{formatSalary(job.hiringDetails?.budgetRange)}</p>
-      </div>
-
-      <div className="mt-5 flex items-center gap-2 border-t border-slate-200 pt-4 text-sm text-slate-500">
-        <Building2 size={16} className="text-blue-600" />
-        Workspace: {company.subdomain ? `${company.subdomain}.talentcio.in` : 'TalentCIO client'}
       </div>
     </article>
   );
