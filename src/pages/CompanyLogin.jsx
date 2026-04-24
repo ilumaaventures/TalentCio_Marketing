@@ -139,8 +139,8 @@ export default function CompanyLogin() {
         />
 
         <div className="relative">
-          <Link to="/" className="inline-flex rounded-2xl bg-white px-4 py-2 shadow-lg shadow-black/20" aria-label="TalentCIO home">
-            <img src="/company-login-logo.png" alt="TalentCIO" className="h-16 w-auto max-w-[470px] object-contain" />
+          <Link to="/" className="inline-flex" aria-label="TalentCIO home">
+            <img src="/dark-logo-full.png" alt="TalentCIO" className="h-25 w-auto max-w-117.5 object-contain" />
           </Link>
         </div>
 
@@ -215,7 +215,7 @@ export default function CompanyLogin() {
                   className="input-shell pl-10"
                   value={form.companyIdentifier}
                   onChange={(event) => setForm((current) => ({ ...current, companyIdentifier: event.target.value }))}
-                  placeholder="Ilumaa Ventures or ilumaa"
+                  placeholder="Your company name"
                   autoComplete="organization"
                   required
                   autoFocus

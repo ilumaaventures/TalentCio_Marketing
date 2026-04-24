@@ -8,8 +8,8 @@ export default function Footer() {
       <div className="container-shell py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="rounded-2xl bg-white px-4 py-3">
-              <img src="/company-login-logo.png" alt="TalentCIO" className="h-16 w-auto max-w-[430px] object-contain" />
+            <div className="py-1">
+              <img src="/dark-logo-full.png" alt="TalentCIO" className="h-16 w-auto max-w-[430px] object-contain" />
             </div>
             <p className="mt-5 max-w-sm text-sm leading-7 text-slate-300">
               From attendance and leaves to hiring, onboarding, projects, and internal support, TalentCIO
