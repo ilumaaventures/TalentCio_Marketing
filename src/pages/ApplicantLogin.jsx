@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CheckCircle2, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import applicantApi from '../api/applicantApi';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
+import GoogleSignInButton from '../components/GoogleSignInButton';
 
 const normalizeEmail = (value) => value.trim().toLowerCase();
 
@@ -21,6 +22,20 @@ export default function ApplicantLogin() {
   const [verificationOtp, setVerificationOtp] = useState('');
   const [resetForm, setResetForm] = useState({ email: '', otp: '', newPassword: '' });
   const [form, setForm] = useState({ email: '', password: '' });
+
+  const handleGoogleLogin = useCallback(async (credential) => {
+    try {
+      setSubmitting(true);
+      const response = await applicantApi.post('/google', { credential });
+      login(response.data.token, response.data.applicant);
+      toast.success(`Welcome${response.data.applicant.firstName ? `, ${response.data.applicant.firstName}` : ''}.`);
+      navigate(from, { replace: true });
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Google sign-in failed.');
+    } finally {
+      setSubmitting(false);
+    }
+  }, [from, login, navigate]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -147,6 +162,14 @@ export default function ApplicantLogin() {
                 <p className="mt-2 text-sm text-slate-500">
                   Track your applications and review updates in one place.
                 </p>
+              </div>
+
+              <GoogleSignInButton onCredential={handleGoogleLogin} disabled={submitting} />
+
+              <div className="my-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
+                <span className="h-px flex-1 bg-slate-200" />
+                <span>Or</span>
+                <span className="h-px flex-1 bg-slate-200" />
               </div>
 
               <form onSubmit={handleLogin} className="space-y-4">
