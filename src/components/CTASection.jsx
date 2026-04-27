@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { trackEvent } from '../lib/analytics';
 
 export default function CTASection() {
   return (
@@ -19,10 +20,18 @@ export default function CTASection() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              <Link to="/demo" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50">
+              <Link
+                to="/demo"
+                className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50"
+                onClick={() => trackEvent('demo_cta_click', { source: 'cta_section' })}
+              >
                 Get Started Free
               </Link>
-              <Link to="/jobs" className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+              <Link
+                to="/jobs"
+                className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                onClick={() => trackEvent('explore_opportunities_click', { source: 'cta_section' })}
+              >
                 Browse Jobs
                 <ArrowRight size={16} />
               </Link>

@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import api from '../api/axios';
 import applicantApi from '../api/applicantApi';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
+import { trackEvent } from '../lib/analytics';
 
 const allowedExtensions = ['pdf', 'doc', 'docx'];
 const normalizeEmail = (value) => value.trim().toLowerCase();
@@ -258,7 +259,10 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
                     <Link
                       to="/applicant/login"
                       state={authRedirectState}
-                      onClick={onClose}
+                      onClick={() => {
+                        trackEvent('applicant_sign_in_click', { source: 'application_modal' });
+                        onClose();
+                      }}
                       className="btn-primary"
                     >
                       Sign In to Apply
