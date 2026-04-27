@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import api from '../api/axios';
 import { clearPublicJobsApiMissing, isPublicJobsApiMissing, markPublicJobsApiMissing } from '../api/publicCapabilities';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
+import { trackEvent } from '../lib/analytics';
 
 function LogoMark() {
   return (
@@ -144,7 +145,11 @@ export default function Navbar() {
                   </div>
                 </div>
               ) : (
-                <Link to="/applicant/login" className="btn-secondary">
+                <Link
+                  to="/applicant/login"
+                  className="btn-secondary"
+                  onClick={() => trackEvent('applicant_sign_in_click', { source: 'navbar_desktop' })}
+                >
                   Sign In
                 </Link>
               )}
@@ -152,7 +157,11 @@ export default function Navbar() {
                 <Building2 size={14} />
                 Company Login
               </Link>
-              <Link to="/demo" className="btn-primary">
+              <Link
+                to="/demo"
+                className="btn-primary"
+                onClick={() => trackEvent('demo_cta_click', { source: 'navbar_desktop' })}
+              >
                 Request Demo
               </Link>
             </div>
@@ -208,11 +217,19 @@ export default function Navbar() {
                       </button>
                     </>
                   ) : (
-                    <Link to="/applicant/login" className="btn-secondary w-full">
+                    <Link
+                      to="/applicant/login"
+                      className="btn-secondary w-full"
+                      onClick={() => trackEvent('applicant_sign_in_click', { source: 'navbar_mobile' })}
+                    >
                       Sign In
                     </Link>
                   )}
-                  <Link to="/demo" className="btn-primary w-full">
+                  <Link
+                    to="/demo"
+                    className="btn-primary w-full"
+                    onClick={() => trackEvent('demo_cta_click', { source: 'navbar_mobile' })}
+                  >
                     Request Demo
                   </Link>
                   <Link to="/company/login" className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-blue-200 hover:text-blue-700">

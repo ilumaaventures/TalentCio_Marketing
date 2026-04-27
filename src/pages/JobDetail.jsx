@@ -5,6 +5,7 @@ import api from '../api/axios';
 import applicantApi from '../api/applicantApi';
 import ApplicationModal from '../components/ApplicationModal';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
+import { trackEvent } from '../lib/analytics';
 
 const currencySymbols = {
   INR: 'Rs.',
@@ -162,6 +163,7 @@ export default function JobDetail() {
   const companyLabel = job.client || company.name || 'Hiring Partner';
   const reportingManager = job.roleDetails?.reportingManager;
   const jobDescription = job.publicJobDescription || job.jobDescription;
+  const applyButtonLabel = alreadyApplied ? 'View Application Status' : isLoggedIn ? 'Apply Now' : 'Sign in to apply in 30 seconds';
 
   return (
     <main className="bg-[var(--surface)] pb-20 pt-28">
@@ -304,8 +306,21 @@ export default function JobDetail() {
                   <p>{job.requirements?.location || 'Flexible'}</p>
                   <p>{job.roleDetails?.employmentType || 'Role'}</p>
                 </div>
-                <button type="button" onClick={() => setIsModalOpen(true)} className="btn-primary mt-8 w-full">
-                  {alreadyApplied ? 'View Application Status' : isLoggedIn ? 'Apply Now' : 'Sign in to apply in 30 seconds'}
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackEvent('apply_button_click', {
+                      source: 'job_detail',
+                      job_id: job._id,
+                      job_title: job.roleDetails?.title || '',
+                      company_name: companyLabel,
+                      state: alreadyApplied ? 'already_applied' : isLoggedIn ? 'logged_in' : 'guest'
+                    });
+                    setIsModalOpen(true);
+                  }}
+                  className="btn-primary mt-8 w-full"
+                >
+                  {applyButtonLabel}
                   <ArrowRight size={16} />
                 </button>
                 {isLoggedIn && profileCompletion && profileCompletion.score < 60 ? (

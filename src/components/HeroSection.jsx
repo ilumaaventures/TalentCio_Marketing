@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, BarChart3, BriefcaseBusiness, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { trackEvent } from '../lib/analytics';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -45,10 +46,18 @@ export default function HeroSection() {
             </motion.p>
 
             <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center gap-3">
-              <Link to="/demo" className="btn-primary">
+              <Link
+                to="/demo"
+                className="btn-primary"
+                onClick={() => trackEvent('demo_cta_click', { source: 'hero_section' })}
+              >
                 Request a Free Demo
               </Link>
-              <Link to="/jobs" className="btn-secondary">
+              <Link
+                to="/jobs"
+                className="btn-secondary"
+                onClick={() => trackEvent('explore_opportunities_click', { source: 'hero_section' })}
+              >
                 View Open Jobs
                 <ArrowRight size={16} />
               </Link>

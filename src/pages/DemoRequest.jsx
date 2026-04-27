@@ -3,6 +3,7 @@ import { CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import api from '../api/axios';
+import { trackEvent } from '../lib/analytics';
 
 const modules = [
   { key: 'attendance', label: 'Attendance' },
@@ -54,6 +55,11 @@ export default function DemoRequest() {
         name: form.name.trim(),
         email: form.email.trim(),
         company: form.company.trim()
+      });
+      trackEvent('demo_request_submission', {
+        source: 'demo_request_page',
+        team_size: form.teamSize || 'not_provided',
+        interested_modules_count: form.interestedModules.length
       });
       setSuccess(true);
     } catch (error) {
