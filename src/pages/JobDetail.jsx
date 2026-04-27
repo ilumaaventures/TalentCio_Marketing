@@ -152,11 +152,14 @@ export default function JobDetail() {
 
   const budget = job.hiringDetails?.budgetRange || {};
   const salaryLabel =
-    budget.min || budget.max
+    budget.isOpen
+      ? 'Open'
+      : budget.min || budget.max
       ? `${formatCurrency(budget.min, budget.currency)}${budget.min && budget.max ? ' - ' : ''}${formatCurrency(budget.max, budget.currency)}`
       : 'Compensation shared during the process';
 
   const company = job.companyId || {};
+  const companyLabel = job.client || company.name || 'Hiring Partner';
   const reportingManager = job.roleDetails?.reportingManager;
   const jobDescription = job.publicJobDescription || job.jobDescription;
 
@@ -192,7 +195,7 @@ export default function JobDetail() {
               <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-slate-600">
                 <span className="inline-flex items-center gap-2">
                   <Building2 size={16} />
-                  {company.name || job.client}
+                  {companyLabel}
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <MapPin size={16} />
@@ -224,7 +227,7 @@ export default function JobDetail() {
                 </div>
                 <p className="mt-5 whitespace-pre-wrap text-base leading-7 text-slate-600">
                   {jobDescription ||
-                    `Join ${company.name || 'our client'} as part of the ${job.roleDetails?.department} team and help build reliable, scalable people operations.`}
+                    `Join ${companyLabel || 'our client'} as part of the ${job.roleDetails?.department} team and help build reliable, scalable people operations.`}
                 </p>
               </section>
 
@@ -297,7 +300,7 @@ export default function JobDetail() {
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">Apply Now</p>
                 <h2 className="mt-3 text-2xl font-bold text-slate-950">{job.roleDetails?.title}</h2>
                 <div className="mt-5 space-y-3 text-sm text-slate-600">
-                  <p>{company.name || job.client}</p>
+                  <p>{companyLabel}</p>
                   <p>{job.requirements?.location || 'Flexible'}</p>
                   <p>{job.roleDetails?.employmentType || 'Role'}</p>
                 </div>
@@ -343,7 +346,7 @@ export default function JobDetail() {
         onClose={() => setIsModalOpen(false)}
         jobId={job._id}
         jobTitle={job.roleDetails?.title}
-        companyName={company.name || job.client}
+        companyName={companyLabel}
         alreadyApplied={alreadyApplied}
         onApplied={() => setAlreadyApplied(true)}
       />
