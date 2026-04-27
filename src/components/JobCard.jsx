@@ -44,6 +44,10 @@ const getRelativeDate = (value) => {
 };
 
 const formatSalary = (budget = {}) => {
+  if (budget.isOpen) {
+    return 'Compensation: Open';
+  }
+
   if (!budget.min && !budget.max) {
     return 'Compensation shared during process';
   }
@@ -57,6 +61,7 @@ const formatSalary = (budget = {}) => {
 export default function JobCard({ job }) {
   const navigate = useNavigate();
   const company = job.companyId || {};
+  const companyLabel = job.client || company.name || 'Hiring Partner';
   const logo = company.settings?.logo;
   const location = job.requirements?.location || 'Flexible';
   const department = job.roleDetails?.department || 'General';
@@ -80,16 +85,16 @@ export default function JobCard({ job }) {
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-4">
           {logo ? (
-            <img src={logo} alt={company.name || 'Company'} className="h-14 w-14 rounded-2xl object-cover" />
+            <img src={logo} alt={companyLabel} className="h-14 w-14 rounded-2xl object-cover" />
           ) : (
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 font-['Sora'] text-sm font-bold text-blue-700">
-              {getInitials(company.name || job.client)}
+              {getInitials(companyLabel)}
             </div>
           )}
 
           <div>
             <h2 className="text-xl font-bold text-slate-950">{title}</h2>
-            <p className="mt-2 text-sm font-medium text-slate-600">{company.name || job.client}</p>
+            <p className="mt-2 text-sm font-medium text-slate-600">{companyLabel}</p>
           </div>
         </div>
 
