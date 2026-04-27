@@ -9,6 +9,17 @@
     />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>TalentCIO | Modern HR Platform</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Z5SHXV17F"></script>
+    <script>
+      window.GA_MEASUREMENT_IDS = ['G-4Z5SHXV17F', 'G-S885N066JW'];
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      window.GA_MEASUREMENT_IDS.forEach(function(measurementId) {
+        gtag('config', measurementId, { send_page_view: false });
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

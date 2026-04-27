@@ -14,6 +14,7 @@ import Jobs from './pages/Jobs';
 import JobDetail from './pages/JobDetail';
 import DemoRequest from './pages/DemoRequest';
 import MyApplications from './pages/MyApplications';
+import { trackPageView } from './lib/analytics';
 
 function ScrollManager() {
   const location = useLocation();
@@ -36,6 +37,17 @@ function ScrollManager() {
   return null;
 }
 
+function AnalyticsPageTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const pagePath = `${location.pathname}${location.search}${location.hash}`;
+    trackPageView(pagePath);
+  }, [location.pathname, location.search, location.hash]);
+
+  return null;
+}
+
 function RoutedApp() {
   const location = useLocation();
   const isCompanyLogin = location.pathname === '/company/login';
@@ -43,6 +55,7 @@ function RoutedApp() {
   return (
     <>
       <ScrollManager />
+      <AnalyticsPageTracker />
       <Toaster
         position="top-right"
         toastOptions={{
