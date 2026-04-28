@@ -8,11 +8,24 @@ import { useApplicantAuth } from '../context/ApplicantAuthContext';
 function JobCardSkeleton() {
   return (
     <div className="surface-card animate-pulse p-6">
-      <div className="h-12 w-12 rounded-2xl bg-slate-200" />
-      <div className="mt-5 h-6 w-3/4 rounded-full bg-slate-200" />
-      <div className="mt-3 h-4 w-1/2 rounded-full bg-slate-200" />
-      <div className="mt-6 h-20 rounded-3xl bg-slate-100" />
-      <div className="mt-5 h-11 rounded-full bg-slate-200" />
+      <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+        <div className="flex min-w-0 flex-1 items-start gap-4">
+          <div className="h-14 w-14 rounded-2xl bg-slate-200" />
+          <div className="min-w-0 flex-1">
+            <div className="h-6 w-3/4 rounded-full bg-slate-200" />
+            <div className="mt-3 h-4 w-1/2 rounded-full bg-slate-200" />
+            <div className="mt-4 flex flex-wrap gap-2">
+              <div className="h-7 w-20 rounded-full bg-slate-100" />
+              <div className="h-7 w-24 rounded-full bg-slate-100" />
+              <div className="h-7 w-28 rounded-full bg-slate-100" />
+            </div>
+          </div>
+        </div>
+        <div className="flex w-full flex-col gap-3 md:w-auto md:min-w-[260px]">
+          <div className="h-10 rounded-2xl bg-slate-100" />
+          <div className="h-11 rounded-full bg-slate-200" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -22,11 +35,11 @@ export default function Jobs() {
   const { jobs, loading, error, page, setPage, total, totalPages, filters, updateFilters, resetFilters } = useJobs();
 
   return (
-    <main className="bg-[var(--surface)] pb-20 pt-28">
+    <main className="scrollbar-hidden overflow-x-hidden bg-[var(--surface)] pb-20 pt-28">
       <section className="container-shell">
         <div className="surface-card overflow-hidden">
           <div className="grid gap-8 lg:grid-cols-[300px_minmax(0,1fr)]">
-            <aside className="border-b border-slate-200 bg-white px-5 py-6 lg:border-b-0 lg:border-r lg:px-6">
+            <aside className="scrollbar-hidden border-b border-slate-200 bg-white px-5 py-6 lg:border-b-0 lg:border-r lg:px-6">
               <JobFilters filters={filters} onChange={updateFilters} onReset={resetFilters} />
             </aside>
 
@@ -62,14 +75,14 @@ export default function Jobs() {
               )}
 
               {loading ? (
-                <div className="mt-8 grid gap-6 md:grid-cols-2">
+                <div className="scrollbar-hidden mt-8 space-y-5">
                   {Array.from({ length: 6 }).map((_, index) => (
                     <JobCardSkeleton key={index} />
                   ))}
                 </div>
               ) : jobs.length ? (
                 <>
-                  <div className="mt-8 grid gap-6 md:grid-cols-2">
+                  <div className="scrollbar-hidden mt-8 space-y-5">
                     {jobs.map((job) => (
                       <JobCard key={job._id} job={job} />
                     ))}
