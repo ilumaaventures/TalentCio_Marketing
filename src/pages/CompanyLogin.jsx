@@ -77,16 +77,23 @@ export default function CompanyLogin() {
         password: form.password
       });
 
-      const { subdomain, handoffToken, companyName } = response.data;
-      const handoffUrl = buildTenantUrl(tenantLoginBase, subdomain, '/auth/handoff', {
-        token: handoffToken
-      });
-      const redirectHost = new URL(handoffUrl).host;
+      const { subdomain, handoffToken, companyName, passwordResetRequired, email } = response.data;
+      const targetUrl = passwordResetRequired
+        ? buildTenantUrl(tenantLoginBase, subdomain, '/reset-password', { email })
+        : buildTenantUrl(tenantLoginBase, subdomain, '/auth/handoff', { token: handoffToken });
+      const redirectHost = new URL(targetUrl).host;
 
-      setRedirecting({ companyName, subdomain, token: handoffToken, redirectHost });
+      setRedirecting({
+        companyName,
+        redirectHost,
+        targetUrl,
+        message: passwordResetRequired
+          ? 'First-time sign-in detected. Redirecting you to verify your identity...'
+          : 'Redirecting you to your workspace...'
+      });
 
       window.setTimeout(() => {
-        window.location.href = handoffUrl;
+        window.location.href = targetUrl;
       }, 1500);
     } catch (requestError) {
       setError(requestError.response?.data?.message || 'Login failed. Please check your details and try again.');
@@ -103,7 +110,8 @@ export default function CompanyLogin() {
           </div>
           <h2 className="mb-1 font-['Sora'] text-xl font-bold text-slate-900">Welcome back!</h2>
           <p className="mb-6 text-sm text-slate-500">
-            Redirecting you to <strong className="text-blue-700">{redirecting.companyName}</strong>...
+            {redirecting.message}{' '}
+            <strong className="text-blue-700">{redirecting.companyName}</strong>
           </p>
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
             <div
