@@ -38,11 +38,11 @@ export default function HeroSection() {
               Modern HR Platform
             </motion.span>
             <motion.h1 variants={itemVariants} className="mt-5 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-              The All-in-One HR Platform Built for Modern Teams
+              The all-in-one HR platform built for modern Indian teams
             </motion.h1>
             <motion.p variants={itemVariants} className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Manage attendance, hiring, onboarding, leaves, projects, and more in one place. Purpose-built
-              for Indian organizations that want connected HR operations instead of scattered tools.
+              Manage attendance, hiring, onboarding, leaves, projects, and more in one place. TalentCIO is
+              built for organizations that want connected HR operations instead of scattered tools.
             </motion.p>
 
             <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center gap-3">
@@ -83,7 +83,7 @@ export default function HeroSection() {
               <div className="relative">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">Live Workspace</p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">Workspace Preview</p>
                     <h2 className="mt-2 text-2xl font-bold">People Ops Command Center</h2>
                   </div>
                   <div className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-blue-100">
@@ -98,12 +98,12 @@ export default function HeroSection() {
                         <CheckCircle2 size={20} />
                       </div>
                       <div>
-                        <p className="text-sm text-blue-100">Attendance Today</p>
-                        <p className="text-2xl font-bold">96.4%</p>
+                        <p className="text-sm text-blue-100">Attendance Workflows</p>
+                        <p className="text-2xl font-bold">Policy-ready tracking</p>
                       </div>
                     </div>
                     <div className="mt-5 h-2 rounded-full bg-white/10">
-                      <div className="h-2 w-[82%] rounded-full bg-emerald-300" />
+                      <div className="h-2 w-[78%] rounded-full bg-emerald-300" />
                     </div>
                   </div>
 
@@ -113,8 +113,8 @@ export default function HeroSection() {
                         <BriefcaseBusiness size={20} />
                       </div>
                       <div>
-                        <p className="text-sm text-blue-100">Open Hiring Pipelines</p>
-                        <p className="text-2xl font-bold">18</p>
+                        <p className="text-sm text-blue-100">Hiring Workspace</p>
+                        <p className="text-2xl font-bold">Structured stages</p>
                       </div>
                     </div>
                     <div className="mt-5 grid grid-cols-3 gap-2 text-center text-xs font-semibold text-blue-50">
@@ -132,9 +132,9 @@ export default function HeroSection() {
                   </div>
                   <div className="mt-5 grid gap-4 sm:grid-cols-3">
                     {[
-                      { title: 'Leaves', value: '42 pending' },
-                      { title: 'Onboarding', value: '11 joining this week' },
-                      { title: 'Tickets', value: 'SLA 98% within target' }
+                      { title: 'Leaves', value: 'Policy-led approvals' },
+                      { title: 'Onboarding', value: 'Pre-joining readiness' },
+                      { title: 'Tickets', value: 'SLA visibility' }
                     ].map((metric) => (
                       <div key={metric.title} className="rounded-2xl bg-white/10 px-4 py-3">
                         <p className="text-xs uppercase tracking-[0.18em] text-blue-100">{metric.title}</p>
@@ -147,7 +147,7 @@ export default function HeroSection() {
             </div>
 
             <div className="absolute -bottom-6 left-4 right-4 rounded-full border border-blue-100/80 bg-white/95 px-5 py-4 text-center text-sm font-semibold text-slate-700 shadow-[0_22px_60px_-30px_rgba(15,23,42,0.45)]">
-              500+ Hires Tracked • 10,000+ Attendance Records • 50+ Companies Trust TalentCIO
+              Attendance • Hiring • Onboarding • Employee Operations
             </div>
           </motion.div>
         </motion.div>

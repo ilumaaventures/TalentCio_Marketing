@@ -1,47 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Flame } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import api from '../api/axios';
-
-const fallbackPlans = [
-  {
-    name: 'Starter',
-    description: 'Built for small teams getting out of spreadsheets.',
-    price: 2999,
-    billingCycle: 'Monthly',
-    maxUsers: 25,
-    maxModules: 4,
-    features: ['Attendance and leaves', 'Basic approvals', 'Employee profiles', 'Standard support'],
-    includedModules: ['attendance', 'leaves', 'userManagement', 'employeeDossier'],
-    trialDays: 14,
-    isPopular: false
-  },
-  {
-    name: 'Growth',
-    description: 'For scaling teams managing both HR operations and hiring.',
-    price: 6999,
-    billingCycle: 'Monthly',
-    maxUsers: 100,
-    maxModules: 8,
-    features: ['Everything in Starter', 'Talent acquisition', 'Onboarding workflows', 'Help desk and meetings'],
-    includedModules: ['attendance', 'leaves', 'talentAcquisition', 'onboarding', 'helpdesk', 'meetingsOfMinutes', 'userManagement', 'timesheet'],
-    trialDays: 21,
-    isPopular: true
-  },
-  {
-    name: 'Enterprise',
-    description: 'Designed for multi-function teams that need the full suite.',
-    price: null,
-    billingCycle: 'Monthly',
-    maxUsers: 9999,
-    maxModules: 999,
-    features: ['Unlimited users', 'All modules', 'Advanced onboarding', 'Priority support'],
-    includedModules: ['attendance', 'leaves', 'talentAcquisition', 'projectManagement', 'helpdesk', 'meetingsOfMinutes', 'onboarding', 'timesheet', 'employeeDossier', 'userManagement'],
-    trialDays: 30,
-    isPopular: false
-  }
-];
 
 const formatPlanPrice = (price) => {
   if (price === null || price === undefined) {
@@ -80,7 +41,7 @@ function getDisplayPlans(plans, selectedCycle) {
         return {
           ...monthlyPlan,
           displayCycle: 'Yearly',
-          displayPrice: monthlyPlan.price === null ? null : Math.round(monthlyPlan.price * 12 * 0.8),
+          displayPrice: monthlyPlan.price === null ? null : Math.round(monthlyPlan.price * 12),
           derivedYearly: monthlyPlan.price !== null
         };
       }
@@ -147,7 +108,7 @@ export default function PricingSection() {
     };
   }, []);
 
-  const activePlans = getDisplayPlans(plans.length ? plans : fallbackPlans, selectedCycle);
+  const activePlans = plans.length ? getDisplayPlans(plans, selectedCycle) : [];
 
   return (
     <section id="pricing" className="section-shell bg-[var(--surface)]">
@@ -157,108 +118,116 @@ export default function PricingSection() {
             <span className="section-kicker">Pricing</span>
             <h2 className="section-title">Flexible plans that grow with your workforce</h2>
             <p className="section-copy">
-              Pull pricing from your live TalentCIO plans, while keeping a polished fallback experience for
-              first-time visitors and early deployments.
+              Publish real commercial terms from your live TalentCIO plans. If pricing is still being
+              finalized, keep this section transparent instead of showing sample INR values.
             </p>
           </div>
 
-          <div className="inline-flex rounded-full border border-slate-200 bg-white p-1 shadow-sm">
-            {['Monthly', 'Yearly'].map((cycle) => (
-              <button
-                key={cycle}
-                type="button"
-                onClick={() => setSelectedCycle(cycle)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                  selectedCycle === cycle
-                    ? 'bg-[var(--primary)] text-white'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
+          {plans.length > 0 && (
+            <div className="inline-flex rounded-full border border-slate-200 bg-white p-1 shadow-sm">
+              {['Monthly', 'Yearly'].map((cycle) => (
+                <button
+                  key={cycle}
+                  type="button"
+                  onClick={() => setSelectedCycle(cycle)}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    selectedCycle === cycle
+                      ? 'bg-[var(--primary)] text-white'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {cycle}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {loading ? (
+          <div className="mt-12 grid gap-6 xl:grid-cols-3">
+            {Array.from({ length: 3 }).map((_, index) => <PricingSkeleton key={index} />)}
+          </div>
+        ) : activePlans.length ? (
+          <div className="mt-12 grid gap-6 xl:grid-cols-3">
+            {activePlans.map((plan, index) => (
+              <motion.article
+                key={`${plan.name}-${plan.displayCycle}`}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.35, delay: index * 0.06 }}
+                className={`surface-card p-6 ${plan.isPopular ? 'border-2 border-blue-500 bg-blue-950 text-white' : ''}`}
               >
-                {cycle}
-                {cycle === 'Yearly' && (
-                  <span className={`ml-2 rounded-full px-2 py-0.5 text-[11px] font-bold ${selectedCycle === cycle ? 'bg-white/15 text-white' : 'bg-orange-50 text-orange-700'}`}>
-                    20% off
+                <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${plan.isPopular ? 'text-blue-100' : 'text-slate-500'}`}>
+                  {plan.name}
+                </p>
+                <h3 className={`mt-5 text-4xl font-bold ${plan.isPopular ? 'text-white' : 'text-slate-950'}`}>
+                  {formatPlanPrice(plan.displayPrice)}
+                </h3>
+                <p className={`mt-2 text-sm ${plan.isPopular ? 'text-blue-100' : 'text-slate-500'}`}>
+                  per {plan.displayCycle === 'Yearly' ? 'year' : 'month'}
+                </p>
+                <p className={`mt-5 text-sm leading-7 ${plan.isPopular ? 'text-slate-200' : 'text-slate-600'}`}>
+                  {plan.description}
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${plan.isPopular ? 'bg-white/10 text-white' : 'bg-blue-50 text-blue-700'}`}>
+                    {plan.maxUsers >= 9999 ? 'Unlimited users' : `${plan.maxUsers} users`}
                   </span>
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${plan.isPopular ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-700'}`}>
+                    {plan.maxModules >= 999 ? 'All modules' : `${plan.maxModules} modules`}
+                  </span>
+                </div>
+
+                {plan.derivedYearly && (
+                  <p className={`mt-4 text-xs font-semibold ${plan.isPopular ? 'text-blue-100' : 'text-slate-500'}`}>
+                    Yearly view derived from the pricing plan data returned by the API.
+                  </p>
                 )}
-              </button>
+
+                <ul className={`mt-8 space-y-3 text-sm ${plan.isPopular ? 'text-slate-100' : 'text-slate-700'}`}>
+                  {(plan.features?.length ? plan.features : plan.includedModules || []).map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <span className={`mt-0.5 rounded-full p-1 ${plan.isPopular ? 'bg-white/10 text-white' : 'bg-blue-50 text-blue-700'}`}>
+                        <Check size={12} />
+                      </span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  to="/demo"
+                  className={`mt-8 inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${
+                    plan.isPopular
+                      ? 'bg-white text-blue-700 hover:bg-blue-50'
+                      : 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)]'
+                  }`}
+                >
+                  Request This Plan
+                </Link>
+              </motion.article>
             ))}
           </div>
-        </div>
-
-        <div className="mt-12 grid gap-6 xl:grid-cols-3">
-          {loading
-            ? Array.from({ length: 3 }).map((_, index) => <PricingSkeleton key={index} />)
-            : activePlans.map((plan, index) => (
-                <motion.article
-                  key={`${plan.name}-${plan.displayCycle}`}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.35, delay: index * 0.06 }}
-                  className={`surface-card relative p-6 ${plan.isPopular ? 'border-2 border-blue-500 bg-blue-950 text-white' : ''}`}
-                >
-                  {plan.isPopular && (
-                    <div className="absolute right-6 top-6 inline-flex items-center gap-2 rounded-full bg-orange-400 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-slate-950">
-                      <Flame size={14} />
-                      Most Popular
-                    </div>
-                  )}
-
-                  <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${plan.isPopular ? 'text-blue-100' : 'text-slate-500'}`}>
-                    {plan.name}
-                  </p>
-                  <h3 className={`mt-5 text-4xl font-bold ${plan.isPopular ? 'text-white' : 'text-slate-950'}`}>
-                    {formatPlanPrice(plan.displayPrice)}
-                  </h3>
-                  <p className={`mt-2 text-sm ${plan.isPopular ? 'text-blue-100' : 'text-slate-500'}`}>
-                    per {plan.displayCycle === 'Yearly' ? 'year' : 'month'}
-                  </p>
-                  <p className={`mt-5 text-sm leading-7 ${plan.isPopular ? 'text-slate-200' : 'text-slate-600'}`}>
-                    {plan.description}
-                  </p>
-
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    <span className={`rounded-full px-3 py-1 text-xs font-semibold ${plan.isPopular ? 'bg-white/10 text-white' : 'bg-blue-50 text-blue-700'}`}>
-                      {plan.maxUsers >= 9999 ? 'Unlimited users' : `${plan.maxUsers} users`}
-                    </span>
-                    <span className={`rounded-full px-3 py-1 text-xs font-semibold ${plan.isPopular ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-700'}`}>
-                      {plan.maxModules >= 999 ? 'All modules' : `${plan.maxModules} modules`}
-                    </span>
-                    <span className={`rounded-full px-3 py-1 text-xs font-semibold ${plan.isPopular ? 'bg-orange-400 text-slate-950' : 'bg-orange-50 text-orange-700'}`}>
-                      {plan.trialDays || 14}-day trial
-                    </span>
-                  </div>
-
-                  {plan.derivedYearly && (
-                    <p className={`mt-4 text-xs font-semibold ${plan.isPopular ? 'text-blue-100' : 'text-slate-500'}`}>
-                      Yearly view derived from monthly pricing with a 20% discount.
-                    </p>
-                  )}
-
-                  <ul className={`mt-8 space-y-3 text-sm ${plan.isPopular ? 'text-slate-100' : 'text-slate-700'}`}>
-                    {(plan.features?.length ? plan.features : plan.includedModules || []).map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <span className={`mt-0.5 rounded-full p-1 ${plan.isPopular ? 'bg-white/10 text-white' : 'bg-blue-50 text-blue-700'}`}>
-                          <Check size={12} />
-                        </span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to="/demo"
-                    className={`mt-8 inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${
-                      plan.isPopular
-                        ? 'bg-white text-blue-700 hover:bg-blue-50'
-                        : 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)]'
-                    }`}
-                  >
-                    Start Free Trial
-                  </Link>
-                </motion.article>
-              ))}
-        </div>
+        ) : (
+          <div className="mt-12 surface-card p-8">
+            <h3 className="text-2xl font-bold text-slate-950">Real pricing has not been published yet</h3>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
+              Keep this section honest until approved INR plans are live. Explain how pricing works, what
+              affects scope, and route buyers to a demo instead of using placeholder prices or invented plan
+              structures.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/demo" className="btn-primary">
+                Request a Demo
+              </Link>
+              <Link to="/contact" className="btn-secondary">
+                Contact the Team
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
