@@ -3,6 +3,12 @@ import { Linkedin, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
+  const openCookieSettings = () => {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('talentcio:open-cookie-settings'));
+    }
+  };
+
   return (
     <footer className="bg-[var(--dark)] text-white">
       <div className="container-shell py-16">
@@ -28,9 +34,9 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Product</h3>
             <div className="mt-5 space-y-3 text-sm text-slate-300">
-              <a href="/#features" className="block transition hover:text-white">Features</a>
+              <Link to="/features" className="block transition hover:text-white">Features</Link>
               <a href="/#modules" className="block transition hover:text-white">Modules</a>
-              <a href="/#pricing" className="block transition hover:text-white">Pricing</a>
+              <Link to="/pricing" className="block transition hover:text-white">Pricing</Link>
               <Link to="/jobs" className="block transition hover:text-white">Jobs</Link>
             </div>
           </div>
@@ -38,23 +44,46 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Company</h3>
             <div className="mt-5 space-y-3 text-sm text-slate-300">
-              <a href="/#how-it-works" className="block transition hover:text-white">About</a>
+              <Link to="/about" className="block transition hover:text-white">About</Link>
               <Link to="/demo" className="block transition hover:text-white">Demo</Link>
-              <a href="mailto:hello@talentcio.in" className="block transition hover:text-white">Contact</a>
+              <Link to="/contact" className="block transition hover:text-white">Contact</Link>
             </div>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Legal</h3>
+            <h3 className="text-sm font-bold uppercase tracking-[0.32em] text-slate-400">Legal</h3>
             <div className="mt-5 space-y-3 text-sm text-slate-300">
-              <a href="#" className="block transition hover:text-white">Privacy Policy</a>
-              <a href="#" className="block transition hover:text-white">Terms of Service</a>
+              <Link
+                to="/cookies"
+                className="block font-medium transition hover:text-white"
+              >
+                Cookies Policy
+              </Link>
+              <Link
+                to="/privacy"
+                className="block font-medium transition hover:text-white"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                to="/terms"
+                className="block font-medium transition hover:text-white"
+              >
+                Terms of Service
+              </Link>
+              <button
+                type="button"
+                onClick={openCookieSettings}
+                className="block font-medium text-left transition hover:text-white"
+              >
+                Cookie Settings
+              </button>
             </div>
           </div>
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-6 text-sm text-slate-400">
-          © 2025 TalentCIO. All rights reserved. Built by Ilumaa Ventures.
+          (c) 2026 TalentCIO. All rights reserved. Built by Ilumaa Ventures.
         </div>
       </div>
     </footer>

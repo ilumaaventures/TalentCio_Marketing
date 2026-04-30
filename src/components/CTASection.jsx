@@ -15,7 +15,8 @@ export default function CTASection() {
                 Ready to transform how your team works?
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-blue-50">
-                Join 50+ companies already using TalentCIO to manage their people better.
+                Use the demo flow to map TalentCIO around your attendance, hiring, onboarding, and employee
+                operations priorities.
               </p>
             </div>
 
@@ -25,7 +26,7 @@ export default function CTASection() {
                 className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50"
                 onClick={() => trackEvent('demo_cta_click', { source: 'cta_section' })}
               >
-                Get Started Free
+                Request a Demo
               </Link>
               <Link
                 to="/jobs"

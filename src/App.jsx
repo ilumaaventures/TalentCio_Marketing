@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import CookieConsentBanner from './components/CookieConsentBanner';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ApplicantProtectedRoute from './components/ApplicantProtectedRoute';
@@ -14,6 +15,13 @@ import Jobs from './pages/Jobs';
 import JobDetail from './pages/JobDetail';
 import DemoRequest from './pages/DemoRequest';
 import MyApplications from './pages/MyApplications';
+import Features from './pages/Features';
+import Pricing from './pages/Pricing';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './pages/DataPrivacyPage';
+import CookiesPolicy from './pages/CookiePreferencesPage';
 import { trackPageView } from './lib/analytics';
 
 function ScrollManager() {
@@ -67,9 +75,17 @@ function RoutedApp() {
           }
         }}
       />
+      <CookieConsentBanner />
       {!isCompanyLogin && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/cookies" element={<CookiesPolicy />} />
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/jobs/:id" element={<JobDetail />} />
         <Route path="/demo" element={<DemoRequest />} />
