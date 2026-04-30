@@ -29,15 +29,9 @@ export default function Pricing() {
             <span className="section-kicker">Pricing</span>
             <h1 className="section-title">TalentCIO pricing should stay transparent and real</h1>
             <p className="section-copy max-w-3xl">
-              Use this page to explain how TalentCIO pricing changes by module scope, workforce size,
-              implementation needs, and rollout complexity. Publish only real INR plans here. If your live
-              pricing API is not ready yet, keep the page honest and route buyers to a demo.
+              TalentCIO pricing is structured around team size, feature depth, and rollout scope. Compare
+              the plan cards below to see which setup fits your current stage and operational needs best.
             </p>
-
-            <div className="mt-8 rounded-[28px] border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-900">
-              Add actual INR plan names, limits, and billing cycles only after they are approved for public
-              release. Avoid placeholder prices, sample discounts, or invented package tiers.
-            </div>
 
             <div className="mt-8 grid gap-4 lg:grid-cols-3">
               {[
@@ -50,8 +44,8 @@ export default function Pricing() {
                   body: 'Clear INR pricing, included modules, billing cadence, support scope, and any onboarding or implementation charges.'
                 },
                 {
-                  title: 'What to do until plans are live',
-                  body: 'Keep this page indexable with honest explanatory copy and send commercial conversations to the demo form.'
+                  title: 'How to choose a plan',
+                  body: 'Start with the operational workflows you need now, then move up as your hiring volume, user count, and compliance needs expand.'
                 }
               ].map((item) => (
                 <article key={item.title} className="rounded-[28px] border border-slate-200 bg-slate-50 p-5">
