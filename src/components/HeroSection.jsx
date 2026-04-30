@@ -37,7 +37,7 @@ export default function HeroSection() {
             <motion.span variants={itemVariants} className="section-kicker">
               Modern HR Platform
             </motion.span>
-            <motion.h1 variants={itemVariants} className="mt-5 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+            <motion.h1 variants={itemVariants} className="mt-5 max-w-3xl text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
               The all-in-one HR platform built for modern Indian teams
             </motion.h1>
             <motion.p variants={itemVariants} className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">

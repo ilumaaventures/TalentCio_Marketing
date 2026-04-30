@@ -52,17 +52,17 @@ export const HOMEPAGE_MARKET_PARAGRAPH =
 
 export const PAGE_COPY = {
   features: {
-    title: 'TalentCIO Features | HRMS Workflows for Indian Teams',
+    title: 'HR Software Services - HRMS, Payroll, Recruitment & Compliance | TalentCIO',
     description:
       'Explore TalentCIO features across attendance, hiring, onboarding, leave management, help desk workflows, and employee operations.'
   },
   pricing: {
-    title: 'TalentCIO Pricing | Publish Real INR Plans Only',
+    title: 'Affordable HR Software Pricing Plans - TalentCIO | Start Free Trial',
     description:
       'Learn how TalentCIO pricing works across modules, users, and rollout scope. Add only real INR pricing plans to this page.'
   },
   about: {
-    title: 'About TalentCIO | Connected HR Operations for Growing Teams',
+    title: 'About TalentCIO - Leading HR Software Provider in India | Our Story',
     description:
       'TalentCIO brings attendance, hiring, onboarding, and employee workflows together for Indian companies that want one connected HR system.'
   },
@@ -72,7 +72,7 @@ export const PAGE_COPY = {
       'Contact the TalentCIO team to discuss demos, implementation scope, modules, pricing, and hiring workflows.'
   },
   home: {
-    title: 'TalentCIO | HRMS and Hiring Software for Indian Teams',
+    title: 'TalentCIO - Modern HR & Payroll Software for Indian Businesses | HRMS',
     description:
       'TalentCIO combines attendance, hiring, onboarding, leaves, help desk workflows, and employee operations in one HR platform for Indian teams.'
   },
@@ -85,5 +85,8 @@ export const PAGE_COPY = {
     title: 'TalentCIO Jobs | Verified Open Roles on TalentCIO',
     description:
       'Browse verified jobs published through TalentCIO and explore current openings by function, location, and department.'
+  },
+  blog: {
+    titleTemplate: '[Article Title] - HR Insights & Best Practices | TalentCIO Blog'
   }
 };
