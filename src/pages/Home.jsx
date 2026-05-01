@@ -1,5 +1,6 @@
 import React from 'react';
 import CTASection from '../components/CTASection';
+import FaqSection from '../components/FaqSection';
 import FeaturesSection from '../components/FeaturesSection';
 import HeroSection from '../components/HeroSection';
 import HowItWorks from '../components/HowItWorks';
@@ -7,7 +8,7 @@ import ModulesShowcase from '../components/ModulesShowcase';
 import PricingSection from '../components/PricingSection';
 import Seo from '../components/Seo';
 import TestimonialsSection from '../components/TestimonialsSection';
-import { HOMEPAGE_MARKET_PARAGRAPH, MARKET_SOURCES, PAGE_COPY, SITE_URL } from '../content/marketingContent';
+import { HOMEPAGE_FAQS, HOMEPAGE_MARKET_PARAGRAPH, MARKET_SOURCES, PAGE_COPY, SITE_URL } from '../content/marketingContent';
 
 export default function Home() {
   return (
@@ -18,21 +19,36 @@ export default function Home() {
         canonical={SITE_URL}
         schema={{
           '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          name: 'TalentCIO',
-          url: SITE_URL,
-          description: PAGE_COPY.home.description
+          '@graph': [
+            {
+              '@type': 'WebPage',
+              name: 'TalentCIO',
+              url: SITE_URL,
+              description: PAGE_COPY.home.description
+            },
+            {
+              '@type': 'FAQPage',
+              mainEntity: HOMEPAGE_FAQS.map((item) => ({
+                '@type': 'Question',
+                name: item.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: item.answer
+                }
+              }))
+            }
+          ]
         }}
       />
 
-      <main>
+      <main className="homepage-shell">
         <HeroSection />
 
         <section className="section-shell pt-10">
           <div className="container-shell">
             <div className="surface-card p-6 sm:p-8">
               <span className="section-kicker">India HR Market</span>
-              <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+              <h2 className="homepage-market-title mt-4 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
                 Market demand is moving faster than disconnected HR stacks
               </h2>
               <p className="mt-5 max-w-4xl text-base leading-8 text-slate-600">
@@ -54,6 +70,7 @@ export default function Home() {
         <HowItWorks />
         <PricingSection />
         <TestimonialsSection />
+        <FaqSection />
         <CTASection />
       </main>
     </>

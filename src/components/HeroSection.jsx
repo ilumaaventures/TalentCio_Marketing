@@ -37,7 +37,7 @@ export default function HeroSection() {
             <motion.span variants={itemVariants} className="section-kicker">
               Modern HR Platform
             </motion.span>
-            <motion.h1 variants={itemVariants} className="mt-5 max-w-3xl text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+            <motion.h1 variants={itemVariants} className="homepage-hero-title mt-5 max-w-3xl text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
               The all-in-one HR platform built for modern Indian teams
             </motion.h1>
             <motion.p variants={itemVariants} className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
@@ -84,7 +84,7 @@ export default function HeroSection() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">Workspace Preview</p>
-                    <h2 className="mt-2 text-2xl font-bold">People Ops Command Center</h2>
+                    <h2 className="hero-preview-title mt-2 text-2xl font-bold">People Ops Command Center</h2>
                   </div>
                   <div className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-blue-100">
                     TalentCIO Suite
@@ -117,10 +117,20 @@ export default function HeroSection() {
                         <p className="text-2xl font-bold">Structured stages</p>
                       </div>
                     </div>
-                    <div className="mt-5 grid grid-cols-3 gap-2 text-center text-xs font-semibold text-blue-50">
-                      <div className="rounded-2xl bg-white/10 px-3 py-2">Sourced</div>
-                      <div className="rounded-2xl bg-white/10 px-3 py-2">Interview</div>
-                      <div className="rounded-2xl bg-white/10 px-3 py-2">Offer</div>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {[
+                        { label: 'Sourced', tone: 'bg-cyan-300' },
+                        { label: 'Interview', tone: 'bg-amber-300' },
+                        { label: 'Offer', tone: 'bg-emerald-300' }
+                      ].map((stage) => (
+                        <div
+                          key={stage.label}
+                          className="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/10 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-50"
+                        >
+                          <span className={`h-2 w-2 rounded-full ${stage.tone}`} />
+                          {stage.label}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
