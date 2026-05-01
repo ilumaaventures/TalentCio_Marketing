@@ -81,4 +81,28 @@
   .label-shell {
     @apply mb-2 block text-sm font-semibold text-slate-700;
   }
+
+  .homepage-shell .section-title {
+    @apply text-[1.75rem] sm:text-[2.15rem] lg:text-[2.6rem];
+  }
+
+  .homepage-shell .homepage-hero-title {
+    @apply text-[2rem] sm:text-[2.5rem] lg:text-[3.2rem];
+  }
+
+  .homepage-shell .homepage-market-title {
+    @apply text-[1.75rem] sm:text-[2.1rem];
+  }
+
+  .homepage-shell .hero-preview-title {
+    @apply text-xl sm:text-2xl;
+  }
+
+  .homepage-shell .faq-group-title {
+    @apply text-xl sm:text-2xl;
+  }
+
+  .homepage-shell .faq-question {
+    @apply text-base sm:text-lg;
+  }
 }
