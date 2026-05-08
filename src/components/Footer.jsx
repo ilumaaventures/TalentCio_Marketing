@@ -81,10 +81,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
-        <div className="mt-12 border-t border-white/10 pt-6 text-sm text-slate-400">
-          (c) 2026 TalentCIO. All rights reserved. Built by Ilumaa Ventures.
-        </div>
       </div>
     </footer>
   );

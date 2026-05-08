@@ -1,6 +1,7 @@
 import { startTransition, useDeferredValue, useEffect, useState } from 'react';
 import api from '../api/axios';
 import { clearPublicJobsApiMissing, isPublicJobsApiMissing, markPublicJobsApiMissing } from '../api/publicCapabilities';
+import isPrerender from '../utils/isPrerender';
 
 const defaultFilters = {
   search: '',
@@ -24,6 +25,15 @@ export default function useJobs(initialFilters = defaultFilters) {
     let isActive = true;
 
     const fetchJobs = async () => {
+      if (isPrerender()) {
+        setJobs([]);
+        setTotal(0);
+        setTotalPages(1);
+        setError('');
+        setLoading(false);
+        return;
+      }
+
       if (isPublicJobsApiMissing()) {
         setJobs([]);
         setTotal(0);

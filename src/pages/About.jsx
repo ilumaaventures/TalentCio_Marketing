@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
 import Seo from '../components/Seo';
 import { HOMEPAGE_MARKET_PARAGRAPH, MARKET_SOURCES, PAGE_COPY, SITE_URL } from '../content/marketingContent';
+import usePrerenderReady from '../hooks/usePrerenderReady';
 
 const pageSchema = {
   '@context': 'https://schema.org',
@@ -13,6 +14,8 @@ const pageSchema = {
 };
 
 export default function About() {
+  usePrerenderReady();
+
   return (
     <>
       <Seo

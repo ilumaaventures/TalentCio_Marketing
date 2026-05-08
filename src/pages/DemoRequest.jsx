@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import Seo from '../components/Seo';
 import { MARKET_SOURCES, PAGE_COPY, SITE_URL } from '../content/marketingContent';
+import usePrerenderReady from '../hooks/usePrerenderReady';
 import { trackEvent } from '../lib/analytics';
 
 const modules = [
@@ -29,6 +30,8 @@ const initialForm = {
 };
 
 export default function DemoRequest() {
+  usePrerenderReady();
+
   const [form, setForm] = useState(initialForm);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
