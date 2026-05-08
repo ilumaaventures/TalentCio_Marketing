@@ -4,6 +4,7 @@ import CTASection from '../components/CTASection';
 import PricingSection from '../components/PricingSection';
 import Seo from '../components/Seo';
 import { PAGE_COPY, SITE_URL } from '../content/marketingContent';
+import usePrerenderReady from '../hooks/usePrerenderReady';
 
 const pageSchema = {
   '@context': 'https://schema.org',
@@ -14,6 +15,8 @@ const pageSchema = {
 };
 
 export default function Pricing() {
+  usePrerenderReady();
+
   return (
     <>
       <Seo

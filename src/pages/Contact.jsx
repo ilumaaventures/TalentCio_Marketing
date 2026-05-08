@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CTASection from '../components/CTASection';
 import Seo from '../components/Seo';
 import { PAGE_COPY, SITE_URL } from '../content/marketingContent';
+import usePrerenderReady from '../hooks/usePrerenderReady';
 
 const pageSchema = {
   '@context': 'https://schema.org',
@@ -14,6 +15,8 @@ const pageSchema = {
 };
 
 export default function Contact() {
+  usePrerenderReady();
+
   return (
     <>
       <Seo

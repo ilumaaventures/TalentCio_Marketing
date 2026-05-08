@@ -6,6 +6,7 @@ import api from '../api/axios';
 import { clearPublicJobsApiMissing, isPublicJobsApiMissing, markPublicJobsApiMissing } from '../api/publicCapabilities';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import { trackEvent } from '../lib/analytics';
+import isPrerender from '../utils/isPrerender';
 
 function LogoMark() {
   return (
@@ -51,6 +52,11 @@ export default function Navbar() {
     let ignore = false;
 
     const fetchJobCount = async () => {
+      if (isPrerender()) {
+        setJobCount(0);
+        return;
+      }
+
       if (isPublicJobsApiMissing()) {
         setJobCount(0);
         return;

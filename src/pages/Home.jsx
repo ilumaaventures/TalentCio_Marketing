@@ -9,8 +9,11 @@ import PricingSection from '../components/PricingSection';
 import Seo from '../components/Seo';
 import TestimonialsSection from '../components/TestimonialsSection';
 import { HOMEPAGE_FAQS, HOMEPAGE_MARKET_PARAGRAPH, MARKET_SOURCES, PAGE_COPY, SITE_URL } from '../content/marketingContent';
+import usePrerenderReady from '../hooks/usePrerenderReady';
 
 export default function Home() {
+  usePrerenderReady();
+
   return (
     <>
       <Seo
@@ -25,6 +28,31 @@ export default function Home() {
               name: 'TalentCIO',
               url: SITE_URL,
               description: PAGE_COPY.home.description
+            },
+            {
+              '@type': 'SoftwareApplication',
+              name: 'TalentCIO',
+              applicationCategory: 'BusinessApplication',
+              operatingSystem: 'Web',
+              url: SITE_URL,
+              description:
+                'All-in-one HR platform for Indian businesses covering attendance, hiring, onboarding, leave management, and employee operations.',
+              offers: {
+                '@type': 'Offer',
+                price: '1499',
+                priceCurrency: 'INR',
+                priceSpecification: {
+                  '@type': 'UnitPriceSpecification',
+                  price: '1499',
+                  priceCurrency: 'INR',
+                  unitCode: 'MON'
+                }
+              },
+              provider: {
+                '@type': 'Organization',
+                name: 'Ilumaa Ventures',
+                url: SITE_URL
+              }
             },
             {
               '@type': 'FAQPage',

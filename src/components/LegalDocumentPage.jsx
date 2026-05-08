@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from './Seo';
 import { SITE_URL } from '../content/marketingContent';
+import usePrerenderReady from '../hooks/usePrerenderReady';
 
 function renderBody(body) {
   const blocks = body.split('\n\n');
@@ -32,6 +33,7 @@ export default function LegalDocumentPage({
   title,
   description,
   canonicalPath,
+  robots = 'index,follow',
   heroTitle,
   heroCopy,
   summary,
@@ -40,6 +42,8 @@ export default function LegalDocumentPage({
   effectiveDate,
   contactEmail
 }) {
+  usePrerenderReady();
+
   const schema = useMemo(
     () => ({
       '@context': 'https://schema.org',
@@ -57,6 +61,7 @@ export default function LegalDocumentPage({
         title={title}
         description={description}
         canonical={`${SITE_URL}${canonicalPath}`}
+        robots={robots}
         schema={schema}
       />
 

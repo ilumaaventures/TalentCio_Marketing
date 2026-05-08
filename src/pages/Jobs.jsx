@@ -5,6 +5,7 @@ import JobFilters from '../components/JobFilters';
 import Seo from '../components/Seo';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import { PAGE_COPY, SITE_URL } from '../content/marketingContent';
+import usePrerenderReady from '../hooks/usePrerenderReady';
 import useJobs from '../hooks/useJobs';
 
 function JobCardSkeleton() {
@@ -36,13 +37,15 @@ export default function Jobs() {
   const { isLoggedIn, profileCompletion } = useApplicantAuth();
   const { jobs, loading, error, page, setPage, total, totalPages, filters, updateFilters, resetFilters } = useJobs();
 
+  usePrerenderReady(!loading);
+
   return (
     <>
       <Seo
         title={PAGE_COPY.jobs.title}
         description={PAGE_COPY.jobs.description}
         canonical={`${SITE_URL}/jobs`}
-        robots={total >= 5 ? 'index,follow' : 'noindex,follow'}
+        robots="index,follow"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
