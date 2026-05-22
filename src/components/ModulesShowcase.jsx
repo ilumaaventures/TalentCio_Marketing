@@ -75,7 +75,7 @@ export default function ModulesShowcase() {
   const ActiveIcon = activeModule.icon;
 
   return (
-    <section id="modules" className="section-shell">
+    <section id="projects" className="section-shell">
       <div className="container-shell">
         <div className="max-w-3xl">
           <span className="section-kicker">Modules</span>

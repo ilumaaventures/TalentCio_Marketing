@@ -9,7 +9,7 @@ export default function FaqSection() {
     HOMEPAGE_FAQ_GROUPS.find((group) => group.title === activeGroup) || HOMEPAGE_FAQ_GROUPS[0];
 
   return (
-    <section className="section-shell bg-white">
+    <section id="faq" className="section-shell bg-white">
       <div className="container-shell">
         <div className="max-w-3xl">
           <span className="section-kicker">FAQ</span>

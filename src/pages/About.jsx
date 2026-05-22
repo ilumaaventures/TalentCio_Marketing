@@ -28,7 +28,7 @@ export default function About() {
       <main className="bg-white pb-20 pt-28">
         <section className="container-shell">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_360px]">
-            <div className="surface-card p-6 sm:p-10">
+            <div id="about-overview" className="surface-card p-6 sm:p-10">
               <span className="section-kicker">About</span>
               <h1 className="section-title">TalentCIO exists to reduce fragmentation in people operations</h1>
               <p className="section-copy max-w-3xl">
@@ -70,7 +70,7 @@ export default function About() {
               </div>
             </div>
 
-            <aside className="surface-card h-fit p-6">
+            <aside id="about-sources" className="surface-card h-fit p-6">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Sources used</p>
               <div className="mt-5 space-y-4 text-sm leading-7 text-slate-600">
                 {Object.values(MARKET_SOURCES).map((source) => (

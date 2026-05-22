@@ -29,7 +29,7 @@ export default function Contact() {
       <main className="bg-white pb-20 pt-28">
         <section className="container-shell">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
-            <div className="surface-card p-6 sm:p-10">
+            <div id="contact-details" className="surface-card p-6 sm:p-10">
               <span className="section-kicker">Contact</span>
               <h1 className="section-title">Talk to the TalentCIO team</h1>
               <p className="section-copy max-w-3xl">
@@ -68,7 +68,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <aside className="surface-card h-fit bg-[var(--dark)] p-6 text-white">
+            <aside id="contact-aside" className="surface-card h-fit bg-[var(--dark)] p-6 text-white">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">Before you reach out</p>
               <div className="mt-5 space-y-4 text-sm leading-7 text-slate-200">
                 <p>Share your team size, modules of interest, and expected rollout timeline.</p>

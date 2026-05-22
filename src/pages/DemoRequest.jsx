@@ -111,7 +111,7 @@ export default function DemoRequest() {
             </div>
           ) : (
             <div className="grid gap-10 lg:grid-cols-[0.95fr_minmax(0,1.05fr)]">
-              <div className="pt-4">
+              <div id="demo-overview" className="pt-4">
                 <span className="section-kicker">Request a Demo</span>
                 <h1 className="section-title">
                   See how TalentCIO fits your team before you commit
@@ -149,7 +149,7 @@ export default function DemoRequest() {
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="surface-card p-6 sm:p-8">
+              <form id="demo-form" onSubmit={handleSubmit} className="surface-card p-6 sm:p-8">
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="sm:col-span-2">
                     <label className="label-shell">Full Name*</label>

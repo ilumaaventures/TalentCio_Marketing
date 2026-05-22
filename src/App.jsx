@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import Assistant from './components/Assistant/Assistant';
 import CookieConsentBanner from './components/CookieConsentBanner';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -111,6 +112,7 @@ function RoutedApp() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {!isCompanyLogin && <Footer />}
+      <Assistant />
     </>
   );
 }

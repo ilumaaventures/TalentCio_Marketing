@@ -5,7 +5,7 @@ import { trackEvent } from '../lib/analytics';
 
 export default function CTASection() {
   return (
-    <section className="section-shell">
+    <section id="contact-cta" className="section-shell">
       <div className="container-shell">
         <div className="overflow-hidden rounded-[36px] bg-[var(--primary)] px-6 py-10 text-white shadow-[0_35px_80px_-45px_rgba(17,92,185,0.9)] sm:px-10 sm:py-12">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">

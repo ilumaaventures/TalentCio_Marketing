@@ -15,6 +15,10 @@
     scroll-behavior: smooth;
   }
 
+  main [id] {
+    scroll-margin-top: 120px;
+  }
+
   body {
     font-family: 'DM Sans', sans-serif;
     background:
@@ -104,5 +108,29 @@
 
   .homepage-shell .faq-question {
     @apply text-base sm:text-lg;
+  }
+
+  .assistant-spotlight {
+    position: relative;
+    box-shadow:
+      0 0 0 1px rgba(17, 92, 185, 0.26),
+      0 0 0 12px rgba(17, 92, 185, 0.08),
+      0 28px 80px -42px rgba(17, 92, 185, 0.8);
+    transition: box-shadow 220ms ease, transform 220ms ease;
+    animation: assistantSpotlight 2s ease forwards;
+  }
+}
+
+@keyframes assistantSpotlight {
+  0% {
+    transform: translateY(0) scale(0.995);
+  }
+
+  35% {
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
   }
 }

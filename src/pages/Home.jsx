@@ -72,7 +72,7 @@ export default function Home() {
       <main className="homepage-shell">
         <HeroSection />
 
-        <section className="section-shell pt-10">
+        <section id="market-overview" className="section-shell pt-10">
           <div className="container-shell">
             <div className="surface-card p-6 sm:p-8">
               <span className="section-kicker">India HR Market</span>

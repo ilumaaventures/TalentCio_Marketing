@@ -28,7 +28,7 @@ export default function Pricing() {
 
       <main className="bg-white pb-20 pt-28">
         <section className="container-shell">
-          <div className="surface-card overflow-hidden px-6 py-10 sm:px-10 sm:py-12">
+          <div id="pricing-overview" className="surface-card overflow-hidden px-6 py-10 sm:px-10 sm:py-12">
             <span className="section-kicker">Pricing</span>
             <h1 className="section-title">TalentCIO pricing should stay transparent and real</h1>
             <p className="section-copy max-w-3xl">

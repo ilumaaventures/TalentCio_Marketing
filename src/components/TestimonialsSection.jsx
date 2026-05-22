@@ -4,7 +4,7 @@ import { MARKET_SIGNALS } from '../content/marketingContent';
 
 export default function TestimonialsSection() {
   return (
-    <section className="section-shell">
+    <section id="insights" className="section-shell">
       <div className="container-shell">
         <div className="max-w-3xl">
           <span className="section-kicker">Market Signals</span>

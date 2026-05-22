@@ -21,7 +21,7 @@ const itemVariants = {
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden pt-28">
+    <section id="hero" className="relative overflow-hidden pt-28">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(17,92,185,0.18),transparent_35%),radial-gradient(circle_at_80%_20%,rgba(249,115,22,0.12),transparent_26%)]" />
       <div className="absolute left-[-120px] top-28 h-64 w-64 rounded-full bg-blue-200/40 blur-3xl" />
       <div className="absolute right-[-60px] top-40 h-52 w-52 rounded-full bg-cyan-100/70 blur-3xl" />

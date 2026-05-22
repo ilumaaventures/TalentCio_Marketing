@@ -52,7 +52,7 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="section-shell">
+    <section id="services" className="section-shell">
       <div className="container-shell">
         <div className="max-w-3xl">
           <span className="section-kicker">Features</span>

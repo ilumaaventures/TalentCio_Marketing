@@ -32,7 +32,7 @@ export default function Features() {
       />
 
       <main className="bg-white pb-20 pt-28">
-        <section className="container-shell">
+        <section id="features-overview" className="container-shell">
           <div className="surface-card overflow-hidden px-6 py-10 sm:px-10 sm:py-12">
             <span className="section-kicker">Features</span>
             <h1 className="section-title">TalentCIO features built for real HR and hiring workflows</h1>
