@@ -1,22 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ASSISTANT_ACTIONS, getAssistantConfig } from './assistantData';
+import { findAssistantAnswer, getAssistantPromptSuggestions } from './assistantKnowledge';
 
 const IDLE_TIMEOUT = 15000;
 const NAVBAR_OFFSET = 112;
 const ANNOUNCEMENT_COOLDOWN = 2600;
-const PREFERRED_VOICE_PATTERNS = [
-  /aria/i,
-  /jenny/i,
-  /samantha/i,
-  /zira/i,
-  /natasha/i,
-  /neerja/i,
-  /google uk english female/i,
-  /google us english/i,
-  /heera/i,
-  /priya/i
-];
 
 function getTargetElement(selector) {
   if (!selector || typeof document === 'undefined') {
@@ -44,47 +33,6 @@ function spotlightTarget(element) {
   }, 2200);
 }
 
-function scoreVoice(voice) {
-  const name = `${voice.name || ''} ${voice.voiceURI || ''}`;
-  let score = 0;
-
-  if (/en-in/i.test(voice.lang || '')) {
-    score += 5;
-  }
-
-  if (/en-gb|en-us/i.test(voice.lang || '')) {
-    score += 4;
-  }
-
-  if (voice.localService) {
-    score += 3;
-  }
-
-  if (voice.default) {
-    score += 2;
-  }
-
-  if (PREFERRED_VOICE_PATTERNS.some((pattern) => pattern.test(name))) {
-    score += 8;
-  }
-
-  if (/male/i.test(name)) {
-    score -= 1;
-  }
-
-  if (/robot|espeak|synthetic/i.test(name)) {
-    score -= 6;
-  }
-
-  return score;
-}
-
-function selectPreferredVoice(voices) {
-  return [...voices]
-    .filter((voice) => /^en/i.test(voice.lang || ''))
-    .sort((left, right) => scoreVoice(right) - scoreVoice(left))[0] || null;
-}
-
 export default function useAssistant() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -92,7 +40,6 @@ export default function useAssistant() {
   const isVisible = Boolean(config);
 
   const [panelState, setPanelState] = useState('expanded');
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [message, setMessage] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
   const [activeSectionKey, setActiveSectionKey] = useState('');
@@ -106,8 +53,6 @@ export default function useAssistant() {
   const lastAnnouncementRef = useRef(0);
   const announcedSectionsRef = useRef(new Set());
   const sectionVisibilityRef = useRef({});
-  const voiceRef = useRef(null);
-  const selectedVoiceRef = useRef(null);
 
   const actions = useMemo(() => {
     if (!config) {
@@ -121,6 +66,7 @@ export default function useAssistant() {
     () => config?.sections.find((section) => section.key === activeSectionKey) || config?.sections[0] || null,
     [activeSectionKey, config]
   );
+  const promptSuggestions = useMemo(() => getAssistantPromptSuggestions(location.pathname), [location.pathname]);
 
   const suggestedAction = useMemo(() => {
     if (!actions.length) {
@@ -138,29 +84,6 @@ export default function useAssistant() {
     return actions.find((action) => !visitedActionIds.includes(action.id)) || actions[0];
   }, [actions, activeSection, visitedActionIds]);
 
-  const speakMessage = useCallback((text) => {
-    if (
-      typeof window === 'undefined' ||
-      !window.speechSynthesis ||
-      !text
-    ) {
-      return;
-    }
-
-    const availableVoices = window.speechSynthesis.getVoices();
-    selectedVoiceRef.current = selectPreferredVoice(availableVoices) || selectedVoiceRef.current;
-
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text.replace(/\s+/g, ' ').trim());
-    utterance.voice = selectedVoiceRef.current;
-    utterance.lang = selectedVoiceRef.current?.lang || 'en-IN';
-    utterance.rate = 0.96;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-    voiceRef.current = utterance;
-    window.speechSynthesis.speak(utterance);
-  }, []);
-
   const pushMessage = useCallback(
     (text, options = {}) => {
       if (!text) {
@@ -173,6 +96,7 @@ export default function useAssistant() {
       setMessage({
         id: messageCounterRef.current,
         text,
+        question: options.question || '',
         contextLabel: options.contextLabel || config?.pageLabel || 'Guide',
         timestamp: Date.now()
       });
@@ -180,12 +104,8 @@ export default function useAssistant() {
       if (panelState !== 'expanded') {
         setHasNotification(true);
       }
-
-      if (voiceEnabled && !options.silent) {
-        speakMessage(text);
-      }
     },
-    [config?.pageLabel, panelState, speakMessage, voiceEnabled]
+    [config?.pageLabel, panelState]
   );
 
   const focusTarget = useCallback((selector, options = {}) => {
@@ -216,17 +136,27 @@ export default function useAssistant() {
     setPanelState('hidden');
   }, []);
 
-  const toggleVoice = useCallback(() => {
-    setVoiceEnabled((current) => {
-      const nextValue = !current;
+  const askAssistant = useCallback(
+    (question) => {
+      const trimmedQuestion = String(question || '').trim();
 
-      if (!nextValue && typeof window !== 'undefined' && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
+      if (!trimmedQuestion) {
+        return false;
       }
 
-      return nextValue;
-    });
-  }, []);
+      const answer = findAssistantAnswer(trimmedQuestion, location.pathname);
+
+      setPanelState('expanded');
+      setHasNotification(false);
+      pushMessage(answer.text, {
+        contextLabel: answer.contextLabel,
+        question: trimmedQuestion
+      });
+
+      return true;
+    },
+    [location.pathname, pushMessage]
+  );
 
   const handleAction = useCallback(
     (action) => {
@@ -384,39 +314,10 @@ export default function useAssistant() {
     };
   }, [activeSection, config, pushMessage]);
 
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) {
-      return undefined;
-    }
-
-    const loadVoices = () => {
-      const voices = window.speechSynthesis.getVoices();
-
-      if (voices.length) {
-        selectedVoiceRef.current = selectPreferredVoice(voices) || selectedVoiceRef.current;
-      }
-    };
-
-    loadVoices();
-    window.speechSynthesis.addEventListener('voiceschanged', loadVoices);
-
-    return () => {
-      window.speechSynthesis.removeEventListener('voiceschanged', loadVoices);
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (typeof window !== 'undefined' && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
-    };
-  }, []);
-
   return {
     actions,
     activeSection,
-    canUseVoice: typeof window !== 'undefined' && 'speechSynthesis' in window,
+    askAssistant,
     dismissAssistant,
     handleAction,
     hasNotification,
@@ -431,10 +332,9 @@ export default function useAssistant() {
     openAssistant,
     panelState,
     pendingActionId,
+    promptSuggestions,
     setHasNotification,
     setIsTyping,
-    suggestedAction,
-    toggleVoice,
-    voiceEnabled
+    suggestedAction
   };
 }

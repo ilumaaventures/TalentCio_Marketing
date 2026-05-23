@@ -1,43 +1,58 @@
 const baseWelcomeMessage = `Hi \u{1F44B}
 Welcome to our website.
-I can help you explore our services, projects, and solutions.
+I can help you explore solutions, platform, programs, industries, and pricing.
 
 What would you like to explore?`;
 
 export const ASSISTANT_ACTIONS = {
-  about: {
-    id: 'about',
-    label: 'About Us',
-    path: '/about',
-    selector: '#about-overview',
+  solutions: {
+    id: 'solutions',
+    label: 'Solutions',
+    helperText: 'Service areas',
+    path: '/solutions',
+    selector: '#solutions-services',
     message:
-      'This section explains the TalentCIO story, why the platform exists, and how the product reduces disconnected HR workflows.',
+      'Let me take you to the solutions page so you can review the current service areas and how each offering fits different workforce needs.',
     confirmation:
-      'Here is the About page. It gives you the product story, rollout perspective, and the problem TalentCIO is solving.'
+      'You are in the solutions area now. This section breaks down the current talent and workforce services on the site.'
   },
-  services: {
-    id: 'services',
-    label: 'Services',
-    path: '/',
-    selector: '#services',
+  platform: {
+    id: 'platform',
+    label: 'Platform',
+    helperText: 'Modules and workflows',
+    path: '/features',
+    selector: '#platform-modules',
     message:
-      'Let me take you to the services area so you can explore the platform modules and operational workflows in one place.',
+      'I will open the platform page and bring the core modules into view so you can scan the current product coverage faster.',
     confirmation:
-      'Here are our automation and digital solutions. You can explore each service card for more details.'
+      'This is the platform section. You can review the live modules and how the product supports the workforce lifecycle.'
   },
-  projects: {
-    id: 'projects',
-    label: 'Projects',
-    path: '/',
-    selector: '#projects',
+  programs: {
+    id: 'programs',
+    label: 'Programs',
+    helperText: 'TalentCard and CTP',
+    path: '/programs',
+    selector: '#programs-list',
     message:
-      'I will show you the interactive showcase next. It is the closest match to project-style walkthroughs on this site.',
+      'Let me bring you to the flagship programs section so you can compare the offerings for professionals and organizations.',
     confirmation:
-      'This showcase highlights the platform modules in action, so you can quickly understand how each workflow fits together.'
+      'You are in the programs section now. This is where TalentCard and CTP are explained in detail.'
+  },
+  industries: {
+    id: 'industries',
+    label: 'Industries',
+    helperText: 'Sector coverage',
+    path: '/industries',
+    selector: '#industries-grid',
+    message:
+      'I can take you to the industries page so you can see the sectors currently highlighted on the site.',
+    confirmation:
+      'This is the industries section. It shows the workforce contexts and sectors the TalentCIO model is designed for.'
   },
   contact: {
     id: 'contact',
     label: 'Contact',
+    helperText: 'Talk to the team',
     path: '/contact',
     selector: '#contact-details',
     message:
@@ -48,26 +63,17 @@ export const ASSISTANT_ACTIONS = {
   pricing: {
     id: 'pricing',
     label: 'Pricing',
+    helperText: 'Plans and rollout',
     path: '/pricing',
     selector: '#pricing-overview',
     message:
       'I will open the pricing page and bring the plan comparison into view so you can compare the rollout options faster.',
     confirmation:
       'Here is the pricing experience. You can compare plans, billing cadence, and the best fit for your team size.'
-  },
-  careers: {
-    id: 'careers',
-    label: 'Careers',
-    path: '/jobs',
-    selector: '#careers-overview',
-    message:
-      'Let me bring you to the careers area so you can browse live openings and narrow them with filters.',
-    confirmation:
-      'This is the careers section. You can filter open roles and move into job details from here.'
   }
 };
 
-const sharedActions = ['about', 'services', 'projects', 'contact', 'pricing', 'careers'];
+const sharedActions = ['solutions', 'platform', 'programs', 'industries', 'pricing', 'contact'];
 
 export function getAssistantConfig(pathname) {
   if (
@@ -75,7 +81,10 @@ export function getAssistantConfig(pathname) {
     pathname.startsWith('/applicant/login') ||
     pathname.startsWith('/applicant/register') ||
     pathname.startsWith('/profile') ||
-    pathname.startsWith('/my-applications')
+    pathname.startsWith('/my-applications') ||
+    pathname.startsWith('/terms') ||
+    pathname.startsWith('/privacy') ||
+    pathname.startsWith('/cookies')
   ) {
     return null;
   }
@@ -85,9 +94,9 @@ export function getAssistantConfig(pathname) {
       key: 'features',
       pageLabel: 'Features',
       welcomeMessage:
-        'You are on the features experience. I can walk you through the service cards, module showcase, and rollout guidance on this page.',
+        'You are on the features experience. I can walk you through the overview, platform modules, showcase, and rollout guidance on this page.',
       idleMessage:
-        'Need a quick product tour? I can jump you to service cards, workflow modules, or pricing next.',
+        'Need a quick product tour? I can jump you to the platform modules, workflow showcase, or pricing next.',
       quickActionIds: sharedActions,
       sections: [
         {
@@ -96,16 +105,16 @@ export function getAssistantConfig(pathname) {
           label: 'Features Overview',
           enterMessage:
             'This intro explains how TalentCIO connects hiring, onboarding, attendance, and employee operations.',
-          suggestionActionId: 'services',
-          idleMessage: 'Want me to jump into the service cards or the module showcase next?'
+          suggestionActionId: 'platform',
+          idleMessage: 'Want me to jump into the platform modules or the module showcase next?'
         },
         {
-          key: 'services',
-          selector: '#services',
-          label: 'Service Cards',
+          key: 'platform-modules',
+          selector: '#platform-modules',
+          label: 'Platform Modules',
           enterMessage:
-            'These cards break down the core service areas, from smart attendance to talent acquisition and internal workflows.',
-          suggestionActionId: 'projects'
+            'These module cards break down the core platform capabilities, from ATS and onboarding to attendance and HR operations.',
+          suggestionActionId: 'platform'
         },
         {
           key: 'projects',
@@ -181,7 +190,7 @@ export function getAssistantConfig(pathname) {
           label: 'About Overview',
           enterMessage:
             'This section explains why TalentCIO focuses on connected HR operations instead of fragmented tools.',
-          suggestionActionId: 'services'
+          suggestionActionId: 'solutions'
         },
         {
           key: 'about-sources',
@@ -197,6 +206,44 @@ export function getAssistantConfig(pathname) {
           label: 'Request a Demo',
           enterMessage:
             'This CTA moves visitors from research into a live product conversation.',
+          suggestionActionId: 'contact'
+        }
+      ]
+    };
+  }
+
+  if (pathname.startsWith('/solutions')) {
+    return {
+      key: 'solutions',
+      pageLabel: 'Solutions',
+      welcomeMessage:
+        'You are on the solutions page. I can help you understand the main service areas, where each solution fits, and the fastest next step for a consultation.',
+      idleMessage:
+        'Need a quick summary? I can point you to the solutions overview or the service grid next.',
+      quickActionIds: sharedActions,
+      sections: [
+        {
+          key: 'solutions-overview',
+          selector: '#solutions-overview',
+          label: 'Solutions Overview',
+          enterMessage:
+            'This overview introduces the strategic hiring and workforce advisory side of the ecosystem.',
+          suggestionActionId: 'solutions'
+        },
+        {
+          key: 'solutions-services',
+          selector: '#solutions-services',
+          label: 'Service Grid',
+          enterMessage:
+            'These cards break down the individual solution areas, from permanent hiring and RPO to HR consulting and workforce planning.',
+          suggestionActionId: 'contact'
+        },
+        {
+          key: 'contact-cta',
+          selector: '#contact-cta',
+          label: 'Consultation CTA',
+          enterMessage:
+            'This CTA is the easiest handoff into a consultation or product conversation.',
           suggestionActionId: 'contact'
         }
       ]
@@ -248,7 +295,7 @@ export function getAssistantConfig(pathname) {
       welcomeMessage:
         'You are in the careers experience. I can guide you to live roles, filters, and the fastest path to a detailed opening.',
       idleMessage:
-        'Need help finding the right role? I can point you to the filter panel or take you back to the services overview.',
+        'Need help finding the right role? I can point you to the filter panel or take you back to the ecosystem overview.',
       quickActionIds: sharedActions,
       sections: [
         {
@@ -257,7 +304,7 @@ export function getAssistantConfig(pathname) {
           label: 'Careers Overview',
           enterMessage:
             'This section introduces the public job board and explains how to search by role, location, and department.',
-          suggestionActionId: 'careers'
+          suggestionActionId: 'contact'
         },
         {
           key: 'careers-filters',
@@ -265,7 +312,7 @@ export function getAssistantConfig(pathname) {
           label: 'Job Filters',
           enterMessage:
             'These filters help visitors narrow the list quickly before opening a specific role.',
-          suggestionActionId: 'careers'
+          suggestionActionId: 'contact'
         },
         {
           key: 'careers-results',
@@ -273,6 +320,196 @@ export function getAssistantConfig(pathname) {
           label: 'Live Roles',
           enterMessage:
             'This is where the live openings appear. Each card can take you deeper into the role details.',
+          suggestionActionId: 'contact'
+        }
+      ]
+    };
+  }
+
+  if (pathname.startsWith('/taleex')) {
+    return {
+      key: 'taleex',
+      pageLabel: 'TaleEx',
+      welcomeMessage:
+        'You are on the TaleEx page. I can explain the opportunity exchange, referral model, and where to go next if you want to browse roles.',
+      idleMessage:
+        'Need the short version? I can walk you through the TaleEx overview or feature cards next.',
+      quickActionIds: sharedActions,
+      sections: [
+        {
+          key: 'taleex-overview',
+          selector: '#taleex-overview',
+          label: 'TaleEx Overview',
+          enterMessage:
+            'This opening section explains the positioning of TaleEx as an opportunity and referral exchange.',
+          suggestionActionId: 'contact'
+        },
+        {
+          key: 'taleex-features',
+          selector: '#taleex-features',
+          label: 'TaleEx Features',
+          enterMessage:
+            'These cards break down the core TaleEx capabilities, including opportunity discovery, referral hiring, and reward visibility.',
+          suggestionActionId: 'contact'
+        },
+        {
+          key: 'contact-cta',
+          selector: '#contact-cta',
+          label: 'Next Step CTA',
+          enterMessage:
+            'From here, visitors can move into a partnership discussion or continue into the jobs experience.',
+          suggestionActionId: 'contact'
+        }
+      ]
+    };
+  }
+
+  if (pathname.startsWith('/talentsphere')) {
+    return {
+      key: 'talentsphere',
+      pageLabel: 'TalentSphere',
+      welcomeMessage:
+        'You are on the TalentSphere page. I can help explain who the community is for, what topics it covers, and how it connects to the broader ecosystem.',
+      idleMessage:
+        'Need a quick orientation? I can take you through the overview, network audience, or knowledge areas next.',
+      quickActionIds: sharedActions,
+      sections: [
+        {
+          key: 'talentsphere-overview',
+          selector: '#talentsphere-overview',
+          label: 'TalentSphere Overview',
+          enterMessage:
+            'This section introduces TalentSphere as the ecosystem\'s leadership and talent community layer.',
+          suggestionActionId: 'programs'
+        },
+        {
+          key: 'network',
+          selector: '#network',
+          label: 'Community Audience',
+          enterMessage:
+            'This block shows the types of leaders, practitioners, and professionals the community is built for.',
+          suggestionActionId: 'programs'
+        },
+        {
+          key: 'knowledge',
+          selector: '#knowledge',
+          label: 'Focus Areas',
+          enterMessage:
+            'These focus areas show how TalentSphere supports workforce discussions, hiring insights, networking, and knowledge sharing.',
+          suggestionActionId: 'contact'
+        }
+      ]
+    };
+  }
+
+  if (pathname.startsWith('/programs')) {
+    return {
+      key: 'programs',
+      pageLabel: 'Programs',
+      welcomeMessage:
+        'You are on the flagship programs page. I can help you compare TalentCard and CTP and explain which audience each program is built for.',
+      idleMessage:
+        'Need a fast comparison? I can point you to the program overview or the detailed program cards.',
+      quickActionIds: sharedActions,
+      sections: [
+        {
+          key: 'programs-overview',
+          selector: '#programs-overview',
+          label: 'Programs Overview',
+          enterMessage:
+            'This section frames the flagship programs as offerings for both professionals and organizations.',
+          suggestionActionId: 'programs'
+        },
+        {
+          key: 'programs-list',
+          selector: '#programs-list',
+          label: 'Program Details',
+          enterMessage:
+            'This section breaks down TalentCard and CTP in detail, including positioning, services, focus areas, and scorecard thinking.',
+          suggestionActionId: 'contact'
+        },
+        {
+          key: 'contact-cta',
+          selector: '#contact-cta',
+          label: 'Programs CTA',
+          enterMessage:
+            'From here, visitors can move into a consultation or a broader platform conversation.',
+          suggestionActionId: 'contact'
+        }
+      ]
+    };
+  }
+
+  if (pathname.startsWith('/industries')) {
+    return {
+      key: 'industries',
+      pageLabel: 'Industries',
+      welcomeMessage:
+        'You are on the industries page. I can help explain which sectors talentCIO supports and how the model adapts across different workforce realities.',
+      idleMessage:
+        'Want a quick scan? I can point you to the industries overview or the industry grid next.',
+      quickActionIds: sharedActions,
+      sections: [
+        {
+          key: 'industries-overview',
+          selector: '#industries-overview',
+          label: 'Industries Overview',
+          enterMessage:
+            'This section sets up the idea that talentCIO is designed to adapt across different team structures, hiring models, and operational conditions.',
+          suggestionActionId: 'industries'
+        },
+        {
+          key: 'industries-grid',
+          selector: '#industries-grid',
+          label: 'Industry Grid',
+          enterMessage:
+            'These cards show the sectors currently highlighted on the site and the type of workforce context each one brings.',
+          suggestionActionId: 'contact'
+        },
+        {
+          key: 'contact-cta',
+          selector: '#contact-cta',
+          label: 'Industry CTA',
+          enterMessage:
+            'This CTA is the handoff point for teams that want to discuss fit in their sector.',
+          suggestionActionId: 'contact'
+        }
+      ]
+    };
+  }
+
+  if (pathname.startsWith('/insights')) {
+    return {
+      key: 'insights',
+      pageLabel: 'Insights',
+      welcomeMessage:
+        'You are on the insights page. I can summarize the market signals, explain why they matter, and point you to the supporting sources.',
+      idleMessage:
+        'Need a quick market summary? I can take you through the overview, signal cards, or sources next.',
+      quickActionIds: sharedActions,
+      sections: [
+        {
+          key: 'insights-overview',
+          selector: '#insights-overview',
+          label: 'Insights Overview',
+          enterMessage:
+            'This top section frames the page around hiring demand, HR technology context, and the cost of fragmented workforce systems.',
+          suggestionActionId: 'industries'
+        },
+        {
+          key: 'insights-signals',
+          selector: '#insights-signals',
+          label: 'Market Signals',
+          enterMessage:
+            'These cards contain the main market data points used to explain why connected workforce systems matter right now.',
+          suggestionActionId: 'industries'
+        },
+        {
+          key: 'insights-sources',
+          selector: '#insights-sources',
+          label: 'Sources',
+          enterMessage:
+            'This section gives visitors the underlying sources for the market positioning and supporting context.',
           suggestionActionId: 'contact'
         }
       ]
@@ -295,7 +532,7 @@ export function getAssistantConfig(pathname) {
           label: 'Demo Overview',
           enterMessage:
             'This section sets expectations for the product walkthrough and why the form asks about workflows and team size.',
-          suggestionActionId: 'services'
+          suggestionActionId: 'platform'
         },
         {
           key: 'demo-form',
@@ -322,8 +559,8 @@ export function getAssistantConfig(pathname) {
         label: 'Welcome',
         enterMessage:
           'This hero section gives the quickest overview of TalentCIO and the two primary next steps: request a demo or explore open roles.',
-        suggestionActionId: 'services',
-        idleMessage: 'I can show you the services area next if you want a faster product overview.'
+        suggestionActionId: 'solutions',
+        idleMessage: 'I can show you the ecosystem overview next if you want a faster product summary.'
       },
       {
         key: 'market-overview',
@@ -331,15 +568,15 @@ export function getAssistantConfig(pathname) {
         label: 'Market Overview',
         enterMessage:
           'This block explains the market pressure behind connected HR systems and why fragmented tools slow teams down.',
-        suggestionActionId: 'services'
+        suggestionActionId: 'solutions'
       },
       {
-        key: 'services',
-        selector: '#services',
-        label: 'Services',
+        key: 'ecosystem',
+        selector: '#ecosystem',
+        label: 'Ecosystem',
         enterMessage:
-          'Here are the main service areas. Each card introduces a core capability of the platform.',
-        suggestionActionId: 'projects'
+          'This ecosystem section introduces the four connected parts of talentCIO and what each one is responsible for.',
+        suggestionActionId: 'platform'
       },
       {
         key: 'projects',
@@ -355,7 +592,7 @@ export function getAssistantConfig(pathname) {
         label: 'How It Works',
         enterMessage:
           'This section shows the path from setup to everyday usage in three simple stages.',
-        suggestionActionId: 'pricing'
+        suggestionActionId: 'programs'
       },
       {
         key: 'pricing',
@@ -371,7 +608,7 @@ export function getAssistantConfig(pathname) {
         label: 'Market Signals',
         enterMessage:
           'These market signals reinforce why HR operations platforms matter right now.',
-        suggestionActionId: 'about'
+        suggestionActionId: 'industries'
       },
       {
         key: 'faq',

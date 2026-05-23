@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { BRAND_TAGLINE } from '../content/marketingContent';
 import { trackEvent } from '../lib/analytics';
 
 export default function CTASection() {
@@ -12,28 +13,28 @@ export default function CTASection() {
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-100">Get Started</p>
               <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl">
-                Ready to transform how your team works?
+                Ready to build a more intelligent talent ecosystem?
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-blue-50">
-                Use the demo flow to map TalentCIO around your attendance, hiring, onboarding, and employee
-                operations priorities.
+                {BRAND_TAGLINE}. Start with a consultation for talent strategy or request a platform demo to
+                map the right workflows for your team.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
               <Link
-                to="/demo"
+                to="/contact"
                 className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50"
-                onClick={() => trackEvent('demo_cta_click', { source: 'cta_section' })}
+                onClick={() => trackEvent('book_consultation_click', { source: 'cta_section' })}
               >
-                Request a Demo
+                Book a Consultation
               </Link>
               <Link
-                to="/jobs"
+                to="/demo"
                 className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-                onClick={() => trackEvent('explore_opportunities_click', { source: 'cta_section' })}
+                onClick={() => trackEvent('demo_cta_click', { source: 'cta_section' })}
               >
-                Browse Jobs
+                Request a Platform Demo
                 <ArrowRight size={16} />
               </Link>
             </div>

@@ -13,10 +13,10 @@ export default function FaqSection() {
       <div className="container-shell">
         <div className="max-w-3xl">
           <span className="section-kicker">FAQ</span>
-          <h2 className="section-title">Frequently asked questions about TalentCIO</h2>
+          <h2 className="section-title">Frequently asked questions about talentCIO</h2>
           <p className="section-copy">
-            These are the questions buyers usually ask when comparing TalentCIO with disconnected HR,
-            hiring, and employee operations tools.
+            These are the questions buyers usually ask when comparing talentCIO with fragmented hiring,
+            workforce, and employee operations tools.
           </p>
         </div>
 

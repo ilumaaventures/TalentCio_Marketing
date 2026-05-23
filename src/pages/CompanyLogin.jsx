@@ -199,7 +199,7 @@ export default function CompanyLogin() {
 
         <div className="w-full max-w-md">
           <div className="mb-8">
-            <span className="section-kicker">Employee Login</span>
+            <span className="section-kicker">Company Login</span>
             <h1 className="mt-3 font-['Sora'] text-2xl font-bold text-slate-950">Sign in to your workspace</h1>
             <p className="mt-2 text-sm text-slate-500">
               Enter your company and account details to continue.

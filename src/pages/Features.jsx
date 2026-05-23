@@ -1,23 +1,11 @@
 import React from 'react';
 import CTASection from '../components/CTASection';
-import FeaturesSection from '../components/FeaturesSection';
 import ModulesShowcase from '../components/ModulesShowcase';
 import Seo from '../components/Seo';
-import { MARKET_SIGNALS, PAGE_COPY, SITE_URL } from '../content/marketingContent';
+import { ECOSYSTEM_VERTICALS, PAGE_COPY, SITE_URL, buildBreadcrumbSchema } from '../content/marketingContent';
 import usePrerenderReady from '../hooks/usePrerenderReady';
 
-const pageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'TalentCIO Features',
-  url: `${SITE_URL}/features`,
-  description: PAGE_COPY.features.description,
-  about: {
-    '@type': 'SoftwareApplication',
-    name: 'TalentCIO',
-    applicationCategory: 'BusinessApplication'
-  }
-};
+const platform = ECOSYSTEM_VERTICALS.find((item) => item.id === 'platform');
 
 export default function Features() {
   usePrerenderReady();
@@ -28,72 +16,49 @@ export default function Features() {
         title={PAGE_COPY.features.title}
         description={PAGE_COPY.features.description}
         canonical={`${SITE_URL}/features`}
-        schema={pageSchema}
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: 'Platform', url: `${SITE_URL}/features` }
+        ])}
       />
 
       <main className="bg-white pb-20 pt-28">
         <section id="features-overview" className="container-shell">
           <div className="surface-card overflow-hidden px-6 py-10 sm:px-10 sm:py-12">
-            <span className="section-kicker">Features</span>
-            <h1 className="section-title">TalentCIO features built for real HR and hiring workflows</h1>
-            <p className="section-copy max-w-3xl">
-              TalentCIO brings attendance, hiring, onboarding, leave management, help desk workflows,
-              and employee operations into one connected system so teams can move faster with fewer manual
-              handoffs.
-            </p>
+            <span className="section-kicker">Platform</span>
+            <h1 className="section-title">{PAGE_COPY.features.h1}</h1>
+            <p className="section-copy max-w-3xl">{platform.subtitle}</p>
+            <p className="mt-5 max-w-4xl text-base leading-8 text-slate-600">{platform.description}</p>
 
-            <div className="mt-8 grid gap-4 lg:grid-cols-3">
-              {MARKET_SIGNALS.map((signal) => (
-                <article key={signal.title} className="rounded-[28px] border border-slate-200 bg-slate-50 p-5">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">{signal.title}</p>
-                  <p className="mt-3 text-3xl font-bold text-slate-950">{signal.value}</p>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{signal.detail}</p>
-                  <a
-                    href={signal.source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-4 inline-flex text-sm font-semibold text-blue-700 transition hover:text-blue-800"
-                  >
-                    Source: {signal.source.label}
-                  </a>
-                </article>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {platform.benefits.map((benefit) => (
+                <span key={benefit} className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-800">
+                  {benefit}
+                </span>
               ))}
             </div>
           </div>
         </section>
 
-        <FeaturesSection />
-        <ModulesShowcase />
-
-        <section className="section-shell bg-[var(--surface)]">
+        <section id="platform-modules" className="section-shell">
           <div className="container-shell">
-            <div className="grid gap-6 lg:grid-cols-3">
-              {[
-                {
-                  title: 'Operations in one place',
-                  body:
-                    'Keep attendance, leave approvals, employee records, and internal requests connected instead of split across spreadsheets and point tools.'
-                },
-                {
-                  title: 'Hiring that feeds onboarding',
-                  body:
-                    'Move from public job posts to candidate pipelines and pre-joining workflows without re-entering the same information at every step.'
-                },
-                {
-                  title: 'Modular rollout',
-                  body:
-                    'Start with the workflows you need now, then expand as new teams and operating models come online.'
-                }
-              ].map((item) => (
-                <article key={item.title} className="surface-card p-6">
-                  <h2 className="text-2xl font-bold text-slate-950">{item.title}</h2>
-                  <p className="mt-4 text-sm leading-7 text-slate-600">{item.body}</p>
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {platform.modules.map((module) => (
+                <article
+                  key={module.name}
+                  id={module.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}
+                  className="surface-card p-6"
+                >
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Module</p>
+                  <h2 className="mt-4 text-2xl font-bold text-slate-950">{module.name}</h2>
+                  <p className="mt-4 text-sm leading-7 text-slate-600">{module.desc}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
+        <ModulesShowcase />
         <CTASection />
       </main>
     </>
