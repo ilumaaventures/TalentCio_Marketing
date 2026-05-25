@@ -66,9 +66,9 @@ export default function PricingSection() {
             <span className="section-kicker">Pricing</span>
             <h2 className="section-title">Flexible plans that grow with your workforce</h2>
             <p className="section-copy">
-              Choose a plan based on your team size, module needs, and rollout scope. Yearly billing gives
-              you a lower effective monthly cost than the standard monthly plan, and this month all plans
-              include a 50% special-offer reduction.
+              Choose a plan based on team size, workflow scope, and the modules you want to activate first.
+              Use yearly billing for a lower effective monthly cost and request a guided demo if you need
+              help mapping the right rollout path.
             </p>
           </div>
 
@@ -115,7 +115,7 @@ export default function PricingSection() {
                 <div className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] ${
                   plan.isPopular ? 'bg-orange-400 text-slate-950' : 'bg-orange-50 text-orange-700'
                 }`}>
-                  50% Off This Month
+                  {plan.isPopular ? 'Most Chosen' : 'Platform Plan'}
                 </div>
                 <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${plan.isPopular ? 'text-blue-100' : 'text-slate-500'}`}>
                   {plan.name}
@@ -163,7 +163,7 @@ export default function PricingSection() {
                       : 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)]'
                   }`}
                 >
-                  Start Free Trial
+                  Request Demo
                 </Link>
               </motion.article>
             );

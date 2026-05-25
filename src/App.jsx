@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import Assistant from './components/Assistant/Assistant';
 import CookieConsentBanner from './components/CookieConsentBanner';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -19,6 +20,12 @@ import Features from './pages/Features';
 import Pricing from './pages/Pricing';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Solutions from './pages/Solutions';
+import TaleEx from './pages/TaleEx';
+import TalentSphere from './pages/TalentSphere';
+import Programs from './pages/Programs';
+import Industries from './pages/Industries';
+import Insights from './pages/Insights';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/DataPrivacyPage';
 import CookiesPolicy from './pages/CookiePreferencesPage';
@@ -82,6 +89,12 @@ function RoutedApp() {
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/about" element={<About />} />
+        <Route path="/solutions" element={<Solutions />} />
+        <Route path="/taleex" element={<TaleEx />} />
+        <Route path="/talentsphere" element={<TalentSphere />} />
+        <Route path="/programs" element={<Programs />} />
+        <Route path="/industries" element={<Industries />} />
+        <Route path="/insights" element={<Insights />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
@@ -111,6 +124,7 @@ function RoutedApp() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {!isCompanyLogin && <Footer />}
+      <Assistant />
     </>
   );
 }

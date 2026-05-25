@@ -4,11 +4,11 @@ import { MARKET_SIGNALS } from '../content/marketingContent';
 
 export default function TestimonialsSection() {
   return (
-    <section className="section-shell">
+    <section id="insights" className="section-shell">
       <div className="container-shell">
         <div className="max-w-3xl">
-          <span className="section-kicker">Market Signals</span>
-          <h2 className="section-title">Why connected HR operations matter right now</h2>
+          <span className="section-kicker">Talent Intelligence Signals</span>
+          <h2 className="section-title">Market context shaping workforce decisions right now</h2>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">

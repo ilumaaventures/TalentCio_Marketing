@@ -59,12 +59,12 @@ export default function Jobs() {
         <section className="container-shell">
           <div className="surface-card overflow-hidden">
             <div className="grid gap-8 lg:grid-cols-[300px_minmax(0,1fr)]">
-              <aside className="scrollbar-hidden border-b border-slate-200 bg-white px-5 py-6 lg:border-b-0 lg:border-r lg:px-6">
+              <aside id="careers-filters" className="scrollbar-hidden border-b border-slate-200 bg-white px-5 py-6 lg:border-b-0 lg:border-r lg:px-6">
                 <JobFilters filters={filters} onChange={updateFilters} onReset={resetFilters} />
               </aside>
 
-              <div className="px-5 py-6 sm:px-8 sm:py-8">
-                <div className="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+              <div id="careers-results" className="px-5 py-6 sm:px-8 sm:py-8">
+                <div id="careers-overview" className="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <span className="section-kicker">Careers</span>
                     <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">

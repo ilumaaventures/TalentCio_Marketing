@@ -83,7 +83,7 @@ export default function DemoRequest() {
         schema={{
           '@context': 'https://schema.org',
           '@type': 'ContactPage',
-          name: 'TalentCIO Demo Request',
+          name: 'talentCIO Demo Request',
           url: `${SITE_URL}/demo`,
           description: PAGE_COPY.demo.description
         }}
@@ -102,7 +102,7 @@ export default function DemoRequest() {
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">
                 Our team will reach out to understand your workflows, required modules, and expected
-                rollout scope before sharing next steps.
+                rollout scope before sharing the right next steps for your platform evaluation.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Link to="/jobs" className="btn-primary">Browse Open Jobs</Link>
@@ -111,14 +111,14 @@ export default function DemoRequest() {
             </div>
           ) : (
             <div className="grid gap-10 lg:grid-cols-[0.95fr_minmax(0,1.05fr)]">
-              <div className="pt-4">
+              <div id="demo-overview" className="pt-4">
                 <span className="section-kicker">Request a Demo</span>
                 <h1 className="section-title">
-                  See how TalentCIO fits your team before you commit
+                  {PAGE_COPY.demo.h1}
                 </h1>
                 <p className="section-copy">
-                  Tell us about your company, the modules you care about, and the workflows you want to
-                  improve. We use this information to tailor the walkthrough around your real operating
+                  Tell us about your company, the workflows you care about, and the platform modules you
+                  want to explore. We use this information to tailor the walkthrough around your actual
                   priorities instead of a generic product tour.
                 </p>
 
@@ -126,8 +126,8 @@ export default function DemoRequest() {
                   <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-200">What you can expect</p>
                   <ul className="mt-5 space-y-4 text-sm leading-6 text-slate-200">
                     <li>Live product walkthrough matched to your company size and workflow complexity.</li>
-                    <li>Suggested module mix across attendance, hiring, onboarding, projects, and employee operations.</li>
-                    <li>Answers on rollout, permissions, pricing, and multi-tenant workspace setup.</li>
+                    <li>Suggested module mix across ATS, onboarding, attendance, HR operations, and connected workforce workflows.</li>
+                    <li>Answers on rollout, permissions, pricing, and the best next implementation path.</li>
                   </ul>
                 </div>
 
@@ -149,7 +149,7 @@ export default function DemoRequest() {
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="surface-card p-6 sm:p-8">
+              <form id="demo-form" onSubmit={handleSubmit} className="surface-card p-6 sm:p-8">
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="sm:col-span-2">
                     <label className="label-shell">Full Name*</label>

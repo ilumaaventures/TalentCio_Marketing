@@ -13,6 +13,11 @@
 
   html {
     scroll-behavior: smooth;
+    font-size: 15px;
+  }
+
+  main [id] {
+    scroll-margin-top: 120px;
   }
 
   body {
@@ -34,11 +39,11 @@
 
 @layer components {
   .container-shell {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[74rem] px-4 sm:px-5 lg:px-6;
   }
 
   .section-shell {
-    @apply py-16 sm:py-20 lg:py-24;
+    @apply py-14 sm:py-[4.5rem] lg:py-20;
   }
 
   .section-kicker {
@@ -46,11 +51,11 @@
   }
 
   .section-title {
-    @apply mt-4 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl;
+    @apply mt-4 text-[1.9rem] font-bold tracking-tight text-slate-950 sm:text-[2.35rem] lg:text-[2.9rem];
   }
 
   .section-copy {
-    @apply mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg;
+    @apply mt-4 max-w-2xl text-[0.98rem] leading-7 text-slate-600 sm:text-[1.05rem];
   }
 
   .surface-card {
@@ -83,26 +88,50 @@
   }
 
   .homepage-shell .section-title {
-    @apply text-[1.75rem] sm:text-[2.15rem] lg:text-[2.6rem];
+    @apply text-[1.6rem] sm:text-[2rem] lg:text-[2.4rem];
   }
 
   .homepage-shell .homepage-hero-title {
-    @apply text-[2rem] sm:text-[2.5rem] lg:text-[3.2rem];
+    @apply text-[1.8rem] sm:text-[2.25rem] lg:text-[2.9rem];
   }
 
   .homepage-shell .homepage-market-title {
-    @apply text-[1.75rem] sm:text-[2.1rem];
+    @apply text-[1.55rem] sm:text-[1.95rem];
   }
 
   .homepage-shell .hero-preview-title {
-    @apply text-xl sm:text-2xl;
+    @apply text-[1.1rem] sm:text-[1.35rem];
   }
 
   .homepage-shell .faq-group-title {
-    @apply text-xl sm:text-2xl;
+    @apply text-[1.1rem] sm:text-[1.35rem];
   }
 
   .homepage-shell .faq-question {
-    @apply text-base sm:text-lg;
+    @apply text-[0.98rem] sm:text-[1.05rem];
+  }
+
+  .assistant-spotlight {
+    position: relative;
+    box-shadow:
+      0 0 0 1px rgba(17, 92, 185, 0.26),
+      0 0 0 12px rgba(17, 92, 185, 0.08),
+      0 28px 80px -42px rgba(17, 92, 185, 0.8);
+    transition: box-shadow 220ms ease, transform 220ms ease;
+    animation: assistantSpotlight 2s ease forwards;
+  }
+}
+
+@keyframes assistantSpotlight {
+  0% {
+    transform: translateY(0) scale(0.995);
+  }
+
+  35% {
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
   }
 }
