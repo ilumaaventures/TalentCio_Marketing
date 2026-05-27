@@ -79,7 +79,7 @@ const routePromptSuggestions = {
     'Which industries do you serve?'
   ],
   about: [
-    'What is talentCIO?',
+    'What is TalentCIO?',
     'What is your mission and vision?',
     'How are you different from a standard HRMS?'
   ],

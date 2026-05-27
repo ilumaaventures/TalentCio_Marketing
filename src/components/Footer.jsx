@@ -1,7 +1,7 @@
 import React from 'react';
 import { Linkedin, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BRAND_DESCRIPTION, BRAND_TAGLINE, FOOTER_TAGLINES, NAV_STRUCTURE } from '../content/marketingContent';
+import { BRAND_DESCRIPTION, BRAND_TAGLINE,  NAV_STRUCTURE } from '../content/marketingContent';
 
 export default function Footer() {
   const productLinks = [
@@ -35,12 +35,12 @@ export default function Footer() {
             <p className="mt-5 max-w-sm text-sm leading-7 text-slate-300">
               {BRAND_DESCRIPTION}
             </p>
-            <p className="mt-4 text-sm font-semibold text-blue-100">{BRAND_TAGLINE}</p>
-            <div className="mt-4 space-y-2 text-xs uppercase tracking-[0.18em] text-slate-400">
+            {/* <p className="mt-4 text-sm font-semibold text-blue-100">{BRAND_TAGLINE}</p> */}
+            {/* <div className="mt-4 space-y-2 text-xs uppercase tracking-[0.18em] text-slate-400">
               {FOOTER_TAGLINES.slice(1).map((tagline) => (
                 <p key={tagline}>{tagline}</p>
               ))}
-            </div>
+            </div> */}
             <div className="mt-6 flex items-center gap-3">
               <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/15 p-3 text-slate-200 transition hover:border-blue-300 hover:text-white">
                 <Linkedin size={16} />

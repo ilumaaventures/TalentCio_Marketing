@@ -19,7 +19,7 @@ export default function FeaturesSection() {
           <span className="section-kicker">Why talentCIO</span>
           <h2 className="section-title">Why organizations choose a connected talent ecosystem</h2>
           <p className="section-copy">
-            talentCIO is built around the idea that workforce outcomes improve when human expertise,
+            TalentCIO is built around the idea that workforce outcomes improve when human expertise,
             intelligent technology, and connected networks work together instead of in silos.
           </p>
         </div>

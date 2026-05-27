@@ -9,7 +9,7 @@ export default function HowItWorks() {
       <div className="container-shell">
         <div className="text-center">
           <span className="section-kicker">How It Works</span>
-          <h2 className="section-title mx-auto max-w-3xl">How the talentCIO ecosystem turns workforce needs into action</h2>
+          <h2 className="section-title mx-auto max-w-3xl">How the TalentCIO ecosystem turns workforce needs into action</h2>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">

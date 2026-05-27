@@ -3,7 +3,7 @@ export const SITE_URL = 'https://talentcio.in';
 export const BRAND_TAGLINE = 'Human Intelligence + Technology = Talent Intelligence';
 
 export const BRAND_DESCRIPTION =
-  'talentCIO is a modern talent intelligence ecosystem helping organizations attract, hire, manage and grow exceptional workforces through integrated talent solutions, intelligent workforce technology, opportunity networks and leadership communities.';
+  'TalentCIO is a modern talent intelligence ecosystem helping organizations attract, hire, manage and grow exceptional workforces through integrated talent solutions, intelligent workforce technology, opportunity networks and leadership communities.';
 
 export const FOOTER_TAGLINES = [
   'Human Intelligence + Technology = Talent Intelligence',
@@ -16,7 +16,7 @@ export const HERO_CONTENT = {
   kicker: 'Talent Intelligence Ecosystem',
   headline: 'Transforming Workforces Through Human Intelligence & Technology',
   subheadline:
-    'talentCIO is a modern talent intelligence ecosystem helping organizations attract, hire, manage and grow exceptional workforces through integrated talent solutions, intelligent workforce technology, opportunity networks and leadership communities.',
+    'TalentCIO is a modern talent intelligence ecosystem helping organizations attract, hire, manage and grow exceptional workforces through integrated talent solutions, intelligent workforce technology, opportunity networks and leadership communities.',
   cta1: { label: 'Explore Solutions', href: '/solutions', event: 'explore_solutions_click' },
   cta2: { label: 'Book a Consultation', href: '/contact', event: 'book_consultation_click' },
   statCards: [
@@ -73,7 +73,7 @@ export const ECOSYSTEM_VERTICALS = [
   {
     id: 'platform',
     number: '02',
-    title: 'talentCIO Platform',
+    title: 'TalentCIO Platform',
     subtitle: 'An integrated talent management platform designed to manage the entire workforce lifecycle from hiring to exit.',
     description:
       'The talentCIO Platform centralizes every workforce workflow into one connected system - eliminating the fragmentation of separate tools for attendance, hiring, onboarding, and employee operations.',
@@ -415,29 +415,29 @@ export const HOMEPAGE_FAQ_GROUPS = [
     intro: 'Core questions about the talentCIO Talent Intelligence Ecosystem and how it works.',
     items: [
       {
-        question: 'What is talentCIO?',
+        question: 'What is TalentCIO?',
         answer:
-          'talentCIO is a modern talent intelligence ecosystem that combines strategic human expertise with technology-driven intelligence. It operates through four interconnected verticals: Talent Intelligence Solutions (strategic hiring and workforce consulting), the talentCIO Platform (integrated workforce management software), TaleEx (talent opportunity and referral exchange), and TalentSphere (leadership and talent community network).'
+          'TalentCIO is a modern talent intelligence ecosystem that combines strategic human expertise with technology-driven intelligence. It operates through four interconnected verticals: Talent Intelligence Solutions (strategic hiring and workforce consulting), the talentCIO Platform (integrated workforce management software), TaleEx (talent opportunity and referral exchange), and TalentSphere (leadership and talent community network).'
       },
       {
         question: 'What does "Human Intelligence + Technology = Talent Intelligence" mean?',
         answer:
-          'It is the core philosophy of talentCIO - that the strongest workforce decisions happen when human expertise, strategic insights and intelligent technology work together. Human intelligence provides judgment, context and relationships. Technology provides scale, precision and speed. Together they create Talent Intelligence - smarter, faster and more accurate workforce outcomes than either can achieve alone.'
+          'It is the core philosophy of TalentCIO - that the strongest workforce decisions happen when human expertise, strategic insights and intelligent technology work together. Human intelligence provides judgment, context and relationships. Technology provides scale, precision and speed. Together they create Talent Intelligence - smarter, faster and more accurate workforce outcomes than either can achieve alone.'
       },
       {
-        question: 'Who is talentCIO designed for?',
+        question: 'Who is TalentCIO designed for?',
         answer:
-          'talentCIO serves three distinct audiences. Organizations of all sizes - from startups to enterprises - that need to attract, hire, manage and grow workforces. Individual professionals who want to grow their careers, find better opportunities or build their professional identity. And HR and talent acquisition communities looking to connect, collaborate and stay ahead of workforce trends.'
+          'TalentCIO serves three distinct audiences. Organizations of all sizes - from startups to enterprises - that need to attract, hire, manage and grow workforces. Individual professionals who want to grow their careers, find better opportunities or build their professional identity. And HR and talent acquisition communities looking to connect, collaborate and stay ahead of workforce trends.'
       },
       {
-        question: 'How is talentCIO different from a standard HRMS or recruitment agency?',
+        question: 'How is TalentCIO different from a standard HRMS or recruitment agency?',
         answer:
-          'talentCIO is neither a standalone HRMS nor a standard recruitment agency. It is a connected talent intelligence ecosystem. The Talent Intelligence Solutions vertical delivers strategic human-led hiring and workforce consulting. The Platform provides integrated workforce management technology. TaleEx enables community-powered opportunity exchange. TalentSphere builds leadership and talent communities. The four work together - creating a complete talent ecosystem rather than a single-point tool.'
+          'TalentCIO is neither a standalone HRMS nor a standard recruitment agency. It is a connected talent intelligence ecosystem. The Talent Intelligence Solutions vertical delivers strategic human-led hiring and workforce consulting. The Platform provides integrated workforce management technology. TaleEx enables community-powered opportunity exchange. TalentSphere builds leadership and talent communities. The four work together - creating a complete talent ecosystem rather than a single-point tool.'
       },
       {
-        question: 'What industries does talentCIO serve?',
+        question: 'What industries does TalentCIO serve?',
         answer:
-          'talentCIO serves Technology, IT & Digital Services, Healthcare, Financial Services, Professional Services, Retail & E-Commerce, Manufacturing, Logistics & Supply Chain, Education, Real Estate & Property, and Emerging Businesses & Startups. The ecosystem is designed to adapt to the talent and workforce complexities of each sector.'
+          'TalentCIO serves Technology, IT & Digital Services, Healthcare, Financial Services, Professional Services, Retail & E-Commerce, Manufacturing, Logistics & Supply Chain, Education, Real Estate & Property, and Emerging Businesses & Startups. The ecosystem is designed to adapt to the talent and workforce complexities of each sector.'
       }
     ]
   },
