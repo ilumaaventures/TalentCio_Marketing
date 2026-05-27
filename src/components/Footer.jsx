@@ -1,7 +1,7 @@
 import React from 'react';
 import { Linkedin, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BRAND_DESCRIPTION, BRAND_TAGLINE,  NAV_STRUCTURE } from '../content/marketingContent';
+import { BRAND_DESCRIPTION, NAV_STRUCTURE } from '../content/marketingContent';
 
 export default function Footer() {
   const productLinks = [
@@ -25,9 +25,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[var(--dark)] text-white">
+    <footer className="border-t border-slate-200 bg-[var(--dark)] text-white">
       <div className="container-shell py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,0.7fr))]">
           <div>
             <div className="py-1">
               <img src="/dark-logo-full.png" alt="talentCIO" className="h-16 w-auto max-w-[430px] object-contain" />
@@ -35,17 +35,11 @@ export default function Footer() {
             <p className="mt-5 max-w-sm text-sm leading-7 text-slate-300">
               {BRAND_DESCRIPTION}
             </p>
-            {/* <p className="mt-4 text-sm font-semibold text-blue-100">{BRAND_TAGLINE}</p> */}
-            {/* <div className="mt-4 space-y-2 text-xs uppercase tracking-[0.18em] text-slate-400">
-              {FOOTER_TAGLINES.slice(1).map((tagline) => (
-                <p key={tagline}>{tagline}</p>
-              ))}
-            </div> */}
             <div className="mt-6 flex items-center gap-3">
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/15 p-3 text-slate-200 transition hover:border-blue-300 hover:text-white">
+              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/15 p-3 text-slate-200 transition hover:border-white hover:text-white">
                 <Linkedin size={16} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/15 p-3 text-slate-200 transition hover:border-blue-300 hover:text-white">
+              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/15 p-3 text-slate-200 transition hover:border-white hover:text-white">
                 <Twitter size={16} />
               </a>
             </div>

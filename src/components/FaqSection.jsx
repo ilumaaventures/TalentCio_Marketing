@@ -9,10 +9,10 @@ export default function FaqSection() {
     HOMEPAGE_FAQ_GROUPS.find((group) => group.title === activeGroup) || HOMEPAGE_FAQ_GROUPS[0];
 
   return (
-    <section id="faq" className="section-shell bg-white">
+    <section id="faq" className="section-shell section-divider bg-white">
       <div className="container-shell">
         <div className="max-w-3xl">
-          <span className="section-kicker">FAQ</span>
+          <span className="section-kicker eyebrow-line">FAQ</span>
           <h2 className="section-title">Frequently asked questions about TalentCIO</h2>
           <p className="section-copy">
             These are the questions buyers usually ask when comparing TalentCIO with fragmented hiring,
@@ -30,10 +30,10 @@ export default function FaqSection() {
                   setActiveGroup(group.title);
                   setOpenKey(`${group.title}-0`);
                 }}
-                className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                className={`border px-5 py-2.5 text-sm font-semibold transition ${
                   activeGroup === group.title
-                    ? 'bg-[var(--primary)] text-white shadow-[0_16px_40px_-24px_rgba(17,92,185,0.9)]'
-                    : 'border border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:text-blue-700'
+                    ? 'border-[var(--primary)] bg-[var(--primary)] text-white shadow-[0_16px_40px_-24px_rgba(42,86,246,0.7)]'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:text-[var(--primary)]'
                 }`}
               >
                 {group.title}
@@ -53,7 +53,7 @@ export default function FaqSection() {
                 const isOpen = openKey === itemKey;
 
                 return (
-                  <article key={item.question} className="surface-card overflow-hidden">
+                  <article key={item.question} className="editorial-panel overflow-hidden">
                     <button
                       type="button"
                       onClick={() => setOpenKey(isOpen ? '' : itemKey)}
@@ -62,8 +62,8 @@ export default function FaqSection() {
                     >
                       <span className="faq-question text-lg font-semibold text-slate-950">{item.question}</span>
                       <span
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-600 transition ${
-                          isOpen ? 'rotate-180 border-blue-200 bg-blue-50 text-blue-700' : ''
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center border border-slate-200 bg-slate-50 text-slate-600 transition ${
+                          isOpen ? 'rotate-180 border-[var(--primary)] bg-[var(--primary)] text-white' : ''
                         }`}
                       >
                         <ChevronDown size={18} />

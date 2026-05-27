@@ -84,11 +84,9 @@ export const ECOSYSTEM_VERTICALS = [
       { name: 'Attendance & Leave Management', desc: 'Geo-fenced attendance, IP verification, leave policies and real-time balances.' },
       { name: 'HR Operations', desc: 'Employee records, dossiers, role management and org structure.' },
       { name: 'Performance Management', desc: 'Goal setting, reviews, 360-degree feedback and performance dashboards.' },
-      { name: 'Employee Engagement', desc: 'Pulse surveys, recognition programs and engagement analytics.' },
       { name: 'Workflow Automation', desc: 'Approval flows, escalation rules and automated HR notifications.' },
       { name: 'Analytics & Reporting', desc: 'Real-time dashboards across HR, hiring, attendance and workforce operations.' },
-      { name: 'Exit Management', desc: 'Structured offboarding, exit interviews and clearance workflows.' },
-      { name: 'Alumni Connect', desc: 'Stay connected with former employees through an alumni network.' }
+      { name: 'Exit Management', desc: 'Structured offboarding, exit interviews and clearance workflows.' }
     ],
     benefits: [
       'Centralized Workforce Management',
@@ -121,7 +119,6 @@ export const ECOSYSTEM_VERTICALS = [
       { name: 'Hiring Trends & Insights', desc: 'Stay current with what is shaping hiring markets and talent availability.' },
       { name: 'Leadership Collaboration', desc: 'Cross-functional collaboration between HR, business and talent leaders.' },
       { name: 'Career Opportunities', desc: 'Access exclusive opportunities shared within the TalentSphere community.' },
-      { name: 'Knowledge Sharing', desc: 'Exchange frameworks, templates and practical workforce knowledge.' },
       { name: 'Workforce Innovation', desc: 'Explore emerging workforce models, technology and practices.' }
     ]
   }
@@ -209,6 +206,12 @@ export const WHY_TALENTCIO = [
     title: 'Scalable Workforce Solutions',
     body: 'Our solutions are designed for startups, growing businesses and enterprise organizations - adapting in scope and depth to match where you are and where you are heading.',
     icon: 'TrendingUp'
+  },
+  {
+    id: 'accountability',
+    title: 'Outcome Accountability',
+    body: 'We measure success by outcomes - hires made, transformations delivered, careers advanced and communities built. Not by activity alone.',
+    icon: 'BadgeCheck'
   }
 ];
 
@@ -323,7 +326,6 @@ export const NAV_STRUCTURE = {
       href: '/talentsphere',
       submenu: [
         { label: 'Leadership Network', href: '/talentsphere#network' },
-        { label: 'Knowledge Sharing', href: '/talentsphere#knowledge' },
         { label: 'Career Network', href: '/talentsphere#careers' }
       ]
     },
@@ -461,7 +463,7 @@ export const HOMEPAGE_FAQ_GROUPS = [
       {
         question: 'What does the talentCIO Platform cover?',
         answer:
-          'The talentCIO Platform is an integrated talent management platform covering 11 modules across the complete workforce lifecycle: ATS, Recruitment Management, Employee Onboarding, Attendance & Leave Management, HR Operations, Performance Management, Employee Engagement, Workflow Automation, Analytics & Reporting, Exit Management, and Alumni Connect.'
+          'The talentCIO Platform is an integrated talent management platform covering 9 modules across the complete workforce lifecycle: ATS, Recruitment Management, Employee Onboarding, Attendance & Leave Management, HR Operations, Performance Management, Workflow Automation, Analytics & Reporting, and Exit Management.'
       },
       {
         question: 'Does the Platform handle attendance and leave management?',
@@ -474,9 +476,9 @@ export const HOMEPAGE_FAQ_GROUPS = [
           'Yes. The ATS and Recruitment Management modules handle hiring requisitions, candidate pipelines, interview coordination and offer management. The Onboarding module then picks up with pre-joining portal access, offer letter and declaration workflows, policy acknowledgements and document collection - creating a seamless hire-to-day-one experience.'
       },
       {
-        question: 'Does the Platform support performance management and employee engagement?',
+        question: 'Does the Platform support performance management?',
         answer:
-          'Yes. The Performance Management module supports goal setting, review cycles and performance dashboards. The Employee Engagement module supports pulse surveys, recognition and engagement analytics - giving HR teams visibility into workforce sentiment and performance.'
+          'Yes. The Performance Management module supports goal setting, review cycles and performance dashboards, giving HR teams structured visibility into workforce performance.'
       },
       {
         question: 'Is the Platform suitable for startups and growing teams?',
@@ -553,7 +555,7 @@ export const PAGE_COPY = {
   features: {
     title: 'talentCIO Platform - ATS, Onboarding, Attendance, HR Operations | Features',
     description:
-      'Explore talentCIO Platform features across ATS, recruitment management, employee onboarding, attendance & leave management, HR operations, performance management, employee engagement, analytics and exit management.',
+      'Explore talentCIO Platform features across ATS, recruitment management, employee onboarding, attendance & leave management, HR operations, performance management, analytics and exit management.',
     h1: 'The talentCIO Platform - Managing the Complete Workforce Lifecycle'
   },
   talentsphere: {

@@ -5,14 +5,20 @@ import { HOW_IT_WORKS_STEPS } from '../content/marketingContent';
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="section-shell bg-[#e8f0fd]">
+    <section id="how-it-works" className="section-shell section-divider bg-[var(--surface)]">
       <div className="container-shell">
-        <div className="text-center">
-          <span className="section-kicker">How It Works</span>
-          <h2 className="section-title mx-auto max-w-3xl">How the TalentCIO ecosystem turns workforce needs into action</h2>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+          <div>
+            <span className="section-kicker eyebrow-line">How It Works</span>
+            <h2 className="section-title max-w-3xl">How the TalentCIO ecosystem turns workforce needs into action</h2>
+          </div>
+          <p className="section-copy max-w-none lg:border-l lg:border-slate-200 lg:pl-8">
+            The flow is intentionally simple: diagnose the workforce problem, route it to the right talentCIO
+            layer, then execute with human expertise supported by technology.
+          </p>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
+        <div className="mt-12 grid gap-5 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
           {HOW_IT_WORKS_STEPS.map((step, index) => (
             <React.Fragment key={step.number}>
               <motion.article
@@ -20,9 +26,9 @@ export default function HowItWorks() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.35, delay: index * 0.08 }}
-                className="surface-card border-white/70 p-6 text-center"
+                className="editorial-panel p-6 text-center"
               >
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--primary)] text-xl font-bold text-white">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--primary)] text-xl font-bold text-white shadow-[0_18px_40px_-20px_rgba(42,86,246,0.6)]">
                   {step.number}
                 </div>
                 <h3 className="mt-5 text-2xl font-bold text-slate-950">{step.title}</h3>

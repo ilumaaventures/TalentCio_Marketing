@@ -59,11 +59,11 @@ export default function PricingSection() {
   const [selectedCycle, setSelectedCycle] = useState('Monthly');
 
   return (
-    <section id="pricing" className="section-shell bg-[var(--surface)]">
+    <section id="pricing" className="section-shell section-divider bg-[var(--surface)]">
       <div className="container-shell">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <span className="section-kicker">Pricing</span>
+            <span className="section-kicker eyebrow-line">Pricing</span>
             <h2 className="section-title">Flexible plans that grow with your workforce</h2>
             <p className="section-copy">
               Choose a plan based on team size, workflow scope, and the modules you want to activate first.
@@ -97,7 +97,7 @@ export default function PricingSection() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 xl:grid-cols-3">
+        <div className="mt-12 grid gap-5 xl:grid-cols-3">
           {predefinedPlans.map((plan, index) => {
             const displayPrice = selectedCycle === 'Yearly' ? plan.yearlyPrice : plan.monthlyPrice;
             const cycleLabel = selectedCycle === 'Yearly' ? 'year' : 'month';
@@ -110,7 +110,7 @@ export default function PricingSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.35, delay: index * 0.06 }}
-                className={`surface-card p-6 ${plan.isPopular ? 'border-2 border-blue-500 bg-blue-950 text-white' : ''}`}
+                className={`editorial-panel p-6 ${plan.isPopular ? 'border-2 border-[var(--primary)] bg-[linear-gradient(180deg,#17306f_0%,#2a56f6_100%)] text-white' : ''}`}
               >
                 <div className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] ${
                   plan.isPopular ? 'bg-orange-400 text-slate-950' : 'bg-orange-50 text-orange-700'
@@ -159,7 +159,7 @@ export default function PricingSection() {
                   to="/demo"
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${
                     plan.isPopular
-                      ? 'bg-white text-blue-700 hover:bg-blue-50'
+                      ? 'bg-white text-[var(--primary)] hover:bg-blue-50'
                       : 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)]'
                   }`}
                 >
