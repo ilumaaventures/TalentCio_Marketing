@@ -42,10 +42,8 @@ export default function Navbar() {
   const navLinks = useMemo(
     () => {
       const priorityLabels = new Set([
-        'About Us',
         'Solutions',
         'Platform',
-        'TaleEx',
         'TalentSphere',
         'Insights',
         'Contact Us'

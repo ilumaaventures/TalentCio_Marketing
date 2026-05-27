@@ -33,9 +33,8 @@ export default function Contact() {
               <span className="section-kicker">Contact</span>
               <h1 className="section-title">{PAGE_COPY.contact.h1}</h1>
               <p className="section-copy max-w-3xl">
-                Reach out for Talent Intelligence Solutions, Platform demos, TaleEx and TalentSphere
-                enquiries, or a broader CTP partnership conversation. We will help route you to the right
-                next step.
+                Reach out for Talent Intelligence Solutions, Platform demos, TalentSphere enquiries,
+                or a broader CTP partnership conversation. We will help route you to the right next step.
               </p>
 
               <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -73,7 +72,7 @@ export default function Contact() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">Before you reach out</p>
               <div className="mt-5 space-y-4 text-sm leading-7 text-slate-200">
                 <p>Share your team size, modules of interest, and expected rollout timeline.</p>
-                <p>Note whether the conversation is about solutions, platform adoption, TaleEx, TalentSphere, or a broader workforce partnership.</p>
+                <p>Note whether the conversation is about solutions, platform adoption, TalentSphere, or a broader workforce partnership.</p>
                 <p>If you need pricing, ask for approved INR plans and rollout guidance rather than sample quotes alone.</p>
               </div>
 

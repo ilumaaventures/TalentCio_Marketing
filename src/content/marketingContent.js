@@ -37,7 +37,7 @@ export const HERO_CONTENT = {
       }
     ],
     metrics: [
-      { title: 'TaleEx', value: 'Referral exchange' },
+      { title: 'Programs', value: 'Professional growth' },
       { title: 'TalentSphere', value: 'Leadership community' },
       { title: 'CTP', value: 'Outcome-driven' }
     ]
@@ -99,25 +99,8 @@ export const ECOSYSTEM_VERTICALS = [
     ]
   },
   {
-    id: 'taleex',
-    number: '03',
-    title: 'TaleEx',
-    subtitle: 'Talent Opportunity & Referral Exchange',
-    description:
-      'TaleEx is a modern opportunity and referral ecosystem connecting professionals, recruiters, communities and businesses through intelligent opportunities and rewarding referral networks. Professionals can apply directly to opportunities, refer suitable candidates and earn referral rewards through trusted professional connections.',
-    positioning: 'Where Opportunity Meets Talent. Where Referrals Get Rewarded.',
-    features: [
-      { name: 'Job & Opportunity Marketplace', desc: 'Browse and apply to curated opportunities matched to your profile.' },
-      { name: 'Referral-Based Hiring', desc: 'Refer candidates from your network and earn rewards for successful placements.' },
-      { name: 'Smart Opportunity Matching', desc: 'Intelligent matching of professionals to relevant roles and opportunities.' },
-      { name: 'Community-Driven Talent Discovery', desc: 'Leverage community connections for peer-validated talent discovery.' },
-      { name: 'Referral Reward System', desc: 'Transparent, structured rewards for every successful referral hire.' },
-      { name: 'Recruiter & Employer Access', desc: 'Recruiters and employers post opportunities and access referral-validated talent.' }
-    ]
-  },
-  {
     id: 'talentsphere',
-    number: '04',
+    number: '03',
     title: 'TalentSphere',
     subtitle: 'Leadership & Talent Community Network',
     description:
@@ -264,7 +247,7 @@ export const HOW_IT_WORKS_STEPS = [
   {
     number: '02',
     title: 'Connect to the Right Vertical',
-    desc: 'We route your need to the most relevant part of the talentCIO ecosystem - Solutions, Platform, TaleEx or TalentSphere - or a combination of all.'
+    desc: 'We route your need to the most relevant part of the talentCIO ecosystem - Solutions, Platform, TalentSphere, or a combination of them.'
   },
   {
     number: '03',
@@ -335,7 +318,6 @@ export const NAV_STRUCTURE = {
         { label: 'Exit Management', href: '/features#exit' }
       ]
     },
-    { label: 'TaleEx', href: '/taleex' },
     {
       label: 'TalentSphere',
       href: '/talentsphere',
@@ -417,7 +399,7 @@ export const HOMEPAGE_FAQ_GROUPS = [
       {
         question: 'What is TalentCIO?',
         answer:
-          'TalentCIO is a modern talent intelligence ecosystem that combines strategic human expertise with technology-driven intelligence. It operates through four interconnected verticals: Talent Intelligence Solutions (strategic hiring and workforce consulting), the talentCIO Platform (integrated workforce management software), TaleEx (talent opportunity and referral exchange), and TalentSphere (leadership and talent community network).'
+          'TalentCIO is a modern talent intelligence ecosystem that combines strategic human expertise with technology-driven intelligence. It operates through three interconnected verticals: Talent Intelligence Solutions (strategic hiring and workforce consulting), the talentCIO Platform (integrated workforce management software), and TalentSphere (leadership and talent community network).'
       },
       {
         question: 'What does "Human Intelligence + Technology = Talent Intelligence" mean?',
@@ -432,7 +414,7 @@ export const HOMEPAGE_FAQ_GROUPS = [
       {
         question: 'How is TalentCIO different from a standard HRMS or recruitment agency?',
         answer:
-          'TalentCIO is neither a standalone HRMS nor a standard recruitment agency. It is a connected talent intelligence ecosystem. The Talent Intelligence Solutions vertical delivers strategic human-led hiring and workforce consulting. The Platform provides integrated workforce management technology. TaleEx enables community-powered opportunity exchange. TalentSphere builds leadership and talent communities. The four work together - creating a complete talent ecosystem rather than a single-point tool.'
+          'TalentCIO is neither a standalone HRMS nor a standard recruitment agency. It is a connected talent intelligence ecosystem. The Talent Intelligence Solutions vertical delivers strategic human-led hiring and workforce consulting. The Platform provides integrated workforce management technology. TalentSphere builds leadership and talent communities. Together they create a complete talent ecosystem rather than a single-point tool.'
       },
       {
         question: 'What industries does TalentCIO serve?',
@@ -504,19 +486,9 @@ export const HOMEPAGE_FAQ_GROUPS = [
     ]
   },
   {
-    title: 'TaleEx & TalentSphere',
-    intro: 'Questions about the TaleEx opportunity exchange and TalentSphere leadership community.',
+    title: 'TalentSphere',
+    intro: 'Questions about the TalentSphere leadership community.',
     items: [
-      {
-        question: 'What is TaleEx?',
-        answer:
-          'TaleEx is a modern talent opportunity and referral exchange. It connects professionals, recruiters, communities and businesses through intelligent opportunities and rewarding referral networks. Professionals can browse and apply to opportunities, refer suitable candidates from their network, and earn structured referral rewards for successful placements.'
-      },
-      {
-        question: 'How does the TaleEx referral reward system work?',
-        answer:
-          'TaleEx operates a structured referral reward system where professionals earn rewards when a candidate they refer is successfully hired. The system is transparent - referrers can track their referral\'s status through the pipeline and rewards are disbursed upon confirmed placement.'
-      },
       {
         question: 'What is TalentSphere?',
         answer:
@@ -584,12 +556,6 @@ export const PAGE_COPY = {
       'Explore talentCIO Platform features across ATS, recruitment management, employee onboarding, attendance & leave management, HR operations, performance management, employee engagement, analytics and exit management.',
     h1: 'The talentCIO Platform - Managing the Complete Workforce Lifecycle'
   },
-  taleex: {
-    title: 'TaleEx - Talent Opportunity & Referral Exchange | talentCIO',
-    description:
-      'TaleEx connects professionals, recruiters and businesses through intelligent opportunities and rewarding referral networks. Apply to opportunities, refer candidates from your network and earn referral rewards on talentCIO.',
-    h1: 'TaleEx - Where Opportunity Meets Talent and Referrals Get Rewarded'
-  },
   talentsphere: {
     title: 'TalentSphere - Leadership & Talent Community Network | talentCIO',
     description:
@@ -617,7 +583,7 @@ export const PAGE_COPY = {
   contact: {
     title: 'Contact talentCIO - Book a Consultation or Request a Demo',
     description:
-      'Contact the talentCIO team to book a consultation for Talent Intelligence Solutions, request a Platform demo, enquire about TaleEx or TalentSphere, or discuss a CTP partnership engagement.',
+      'Contact the talentCIO team to book a consultation for Talent Intelligence Solutions, request a Platform demo, enquire about TalentSphere, or discuss a CTP partnership engagement.',
     h1: 'Talk to the talentCIO Team'
   },
   demo: {
