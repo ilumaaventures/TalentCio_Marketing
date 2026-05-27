@@ -3,7 +3,7 @@ export const SITE_URL = 'https://talentcio.in';
 export const BRAND_TAGLINE = 'Human Intelligence + Technology = Talent Intelligence';
 
 export const BRAND_DESCRIPTION =
-  'talentCIO is a modern talent intelligence ecosystem helping organizations attract, hire, manage and grow exceptional workforces through integrated talent solutions, intelligent workforce technology, opportunity networks and leadership communities.';
+  'TalentCIO is a modern talent intelligence ecosystem helping organizations attract, hire, manage and grow exceptional workforces through integrated talent solutions, intelligent workforce technology, opportunity networks and leadership communities.';
 
 export const FOOTER_TAGLINES = [
   'Human Intelligence + Technology = Talent Intelligence',
@@ -16,7 +16,7 @@ export const HERO_CONTENT = {
   kicker: 'Talent Intelligence Ecosystem',
   headline: 'Transforming Workforces Through Human Intelligence & Technology',
   subheadline:
-    'talentCIO is a modern talent intelligence ecosystem helping organizations attract, hire, manage and grow exceptional workforces through integrated talent solutions, intelligent workforce technology, opportunity networks and leadership communities.',
+    'TalentCIO is a modern talent intelligence ecosystem helping organizations attract, hire, manage and grow exceptional workforces through integrated talent solutions, intelligent workforce technology, opportunity networks and leadership communities.',
   cta1: { label: 'Explore Solutions', href: '/solutions', event: 'explore_solutions_click' },
   cta2: { label: 'Book a Consultation', href: '/contact', event: 'book_consultation_click' },
   statCards: [
@@ -37,7 +37,7 @@ export const HERO_CONTENT = {
       }
     ],
     metrics: [
-      { title: 'TaleEx', value: 'Referral exchange' },
+      { title: 'Programs', value: 'Professional growth' },
       { title: 'TalentSphere', value: 'Leadership community' },
       { title: 'CTP', value: 'Outcome-driven' }
     ]
@@ -73,7 +73,7 @@ export const ECOSYSTEM_VERTICALS = [
   {
     id: 'platform',
     number: '02',
-    title: 'talentCIO Platform',
+    title: 'TalentCIO Platform',
     subtitle: 'An integrated talent management platform designed to manage the entire workforce lifecycle from hiring to exit.',
     description:
       'The talentCIO Platform centralizes every workforce workflow into one connected system - eliminating the fragmentation of separate tools for attendance, hiring, onboarding, and employee operations.',
@@ -99,25 +99,8 @@ export const ECOSYSTEM_VERTICALS = [
     ]
   },
   {
-    id: 'taleex',
-    number: '03',
-    title: 'TaleEx',
-    subtitle: 'Talent Opportunity & Referral Exchange',
-    description:
-      'TaleEx is a modern opportunity and referral ecosystem connecting professionals, recruiters, communities and businesses through intelligent opportunities and rewarding referral networks. Professionals can apply directly to opportunities, refer suitable candidates and earn referral rewards through trusted professional connections.',
-    positioning: 'Where Opportunity Meets Talent. Where Referrals Get Rewarded.',
-    features: [
-      { name: 'Job & Opportunity Marketplace', desc: 'Browse and apply to curated opportunities matched to your profile.' },
-      { name: 'Referral-Based Hiring', desc: 'Refer candidates from your network and earn rewards for successful placements.' },
-      { name: 'Smart Opportunity Matching', desc: 'Intelligent matching of professionals to relevant roles and opportunities.' },
-      { name: 'Community-Driven Talent Discovery', desc: 'Leverage community connections for peer-validated talent discovery.' },
-      { name: 'Referral Reward System', desc: 'Transparent, structured rewards for every successful referral hire.' },
-      { name: 'Recruiter & Employer Access', desc: 'Recruiters and employers post opportunities and access referral-validated talent.' }
-    ]
-  },
-  {
     id: 'talentsphere',
-    number: '04',
+    number: '03',
     title: 'TalentSphere',
     subtitle: 'Leadership & Talent Community Network',
     description:
@@ -264,7 +247,7 @@ export const HOW_IT_WORKS_STEPS = [
   {
     number: '02',
     title: 'Connect to the Right Vertical',
-    desc: 'We route your need to the most relevant part of the talentCIO ecosystem - Solutions, Platform, TaleEx or TalentSphere - or a combination of all.'
+    desc: 'We route your need to the most relevant part of the talentCIO ecosystem - Solutions, Platform, TalentSphere, or a combination of them.'
   },
   {
     number: '03',
@@ -335,7 +318,6 @@ export const NAV_STRUCTURE = {
         { label: 'Exit Management', href: '/features#exit' }
       ]
     },
-    { label: 'TaleEx', href: '/taleex' },
     {
       label: 'TalentSphere',
       href: '/talentsphere',
@@ -415,29 +397,29 @@ export const HOMEPAGE_FAQ_GROUPS = [
     intro: 'Core questions about the talentCIO Talent Intelligence Ecosystem and how it works.',
     items: [
       {
-        question: 'What is talentCIO?',
+        question: 'What is TalentCIO?',
         answer:
-          'talentCIO is a modern talent intelligence ecosystem that combines strategic human expertise with technology-driven intelligence. It operates through four interconnected verticals: Talent Intelligence Solutions (strategic hiring and workforce consulting), the talentCIO Platform (integrated workforce management software), TaleEx (talent opportunity and referral exchange), and TalentSphere (leadership and talent community network).'
+          'TalentCIO is a modern talent intelligence ecosystem that combines strategic human expertise with technology-driven intelligence. It operates through three interconnected verticals: Talent Intelligence Solutions (strategic hiring and workforce consulting), the talentCIO Platform (integrated workforce management software), and TalentSphere (leadership and talent community network).'
       },
       {
         question: 'What does "Human Intelligence + Technology = Talent Intelligence" mean?',
         answer:
-          'It is the core philosophy of talentCIO - that the strongest workforce decisions happen when human expertise, strategic insights and intelligent technology work together. Human intelligence provides judgment, context and relationships. Technology provides scale, precision and speed. Together they create Talent Intelligence - smarter, faster and more accurate workforce outcomes than either can achieve alone.'
+          'It is the core philosophy of TalentCIO - that the strongest workforce decisions happen when human expertise, strategic insights and intelligent technology work together. Human intelligence provides judgment, context and relationships. Technology provides scale, precision and speed. Together they create Talent Intelligence - smarter, faster and more accurate workforce outcomes than either can achieve alone.'
       },
       {
-        question: 'Who is talentCIO designed for?',
+        question: 'Who is TalentCIO designed for?',
         answer:
-          'talentCIO serves three distinct audiences. Organizations of all sizes - from startups to enterprises - that need to attract, hire, manage and grow workforces. Individual professionals who want to grow their careers, find better opportunities or build their professional identity. And HR and talent acquisition communities looking to connect, collaborate and stay ahead of workforce trends.'
+          'TalentCIO serves three distinct audiences. Organizations of all sizes - from startups to enterprises - that need to attract, hire, manage and grow workforces. Individual professionals who want to grow their careers, find better opportunities or build their professional identity. And HR and talent acquisition communities looking to connect, collaborate and stay ahead of workforce trends.'
       },
       {
-        question: 'How is talentCIO different from a standard HRMS or recruitment agency?',
+        question: 'How is TalentCIO different from a standard HRMS or recruitment agency?',
         answer:
-          'talentCIO is neither a standalone HRMS nor a standard recruitment agency. It is a connected talent intelligence ecosystem. The Talent Intelligence Solutions vertical delivers strategic human-led hiring and workforce consulting. The Platform provides integrated workforce management technology. TaleEx enables community-powered opportunity exchange. TalentSphere builds leadership and talent communities. The four work together - creating a complete talent ecosystem rather than a single-point tool.'
+          'TalentCIO is neither a standalone HRMS nor a standard recruitment agency. It is a connected talent intelligence ecosystem. The Talent Intelligence Solutions vertical delivers strategic human-led hiring and workforce consulting. The Platform provides integrated workforce management technology. TalentSphere builds leadership and talent communities. Together they create a complete talent ecosystem rather than a single-point tool.'
       },
       {
-        question: 'What industries does talentCIO serve?',
+        question: 'What industries does TalentCIO serve?',
         answer:
-          'talentCIO serves Technology, IT & Digital Services, Healthcare, Financial Services, Professional Services, Retail & E-Commerce, Manufacturing, Logistics & Supply Chain, Education, Real Estate & Property, and Emerging Businesses & Startups. The ecosystem is designed to adapt to the talent and workforce complexities of each sector.'
+          'TalentCIO serves Technology, IT & Digital Services, Healthcare, Financial Services, Professional Services, Retail & E-Commerce, Manufacturing, Logistics & Supply Chain, Education, Real Estate & Property, and Emerging Businesses & Startups. The ecosystem is designed to adapt to the talent and workforce complexities of each sector.'
       }
     ]
   },
@@ -504,19 +486,9 @@ export const HOMEPAGE_FAQ_GROUPS = [
     ]
   },
   {
-    title: 'TaleEx & TalentSphere',
-    intro: 'Questions about the TaleEx opportunity exchange and TalentSphere leadership community.',
+    title: 'TalentSphere',
+    intro: 'Questions about the TalentSphere leadership community.',
     items: [
-      {
-        question: 'What is TaleEx?',
-        answer:
-          'TaleEx is a modern talent opportunity and referral exchange. It connects professionals, recruiters, communities and businesses through intelligent opportunities and rewarding referral networks. Professionals can browse and apply to opportunities, refer suitable candidates from their network, and earn structured referral rewards for successful placements.'
-      },
-      {
-        question: 'How does the TaleEx referral reward system work?',
-        answer:
-          'TaleEx operates a structured referral reward system where professionals earn rewards when a candidate they refer is successfully hired. The system is transparent - referrers can track their referral\'s status through the pipeline and rewards are disbursed upon confirmed placement.'
-      },
       {
         question: 'What is TalentSphere?',
         answer:
@@ -584,12 +556,6 @@ export const PAGE_COPY = {
       'Explore talentCIO Platform features across ATS, recruitment management, employee onboarding, attendance & leave management, HR operations, performance management, employee engagement, analytics and exit management.',
     h1: 'The talentCIO Platform - Managing the Complete Workforce Lifecycle'
   },
-  taleex: {
-    title: 'TaleEx - Talent Opportunity & Referral Exchange | talentCIO',
-    description:
-      'TaleEx connects professionals, recruiters and businesses through intelligent opportunities and rewarding referral networks. Apply to opportunities, refer candidates from your network and earn referral rewards on talentCIO.',
-    h1: 'TaleEx - Where Opportunity Meets Talent and Referrals Get Rewarded'
-  },
   talentsphere: {
     title: 'TalentSphere - Leadership & Talent Community Network | talentCIO',
     description:
@@ -617,7 +583,7 @@ export const PAGE_COPY = {
   contact: {
     title: 'Contact talentCIO - Book a Consultation or Request a Demo',
     description:
-      'Contact the talentCIO team to book a consultation for Talent Intelligence Solutions, request a Platform demo, enquire about TaleEx or TalentSphere, or discuss a CTP partnership engagement.',
+      'Contact the talentCIO team to book a consultation for Talent Intelligence Solutions, request a Platform demo, enquire about TalentSphere, or discuss a CTP partnership engagement.',
     h1: 'Talk to the talentCIO Team'
   },
   demo: {

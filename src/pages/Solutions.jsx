@@ -55,7 +55,6 @@ export default function Solutions() {
                   id={service.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}
                   className="surface-card p-6"
                 >
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Service</p>
                   <h2 className="mt-4 text-2xl font-bold text-slate-950">{service.name}</h2>
                   <p className="mt-4 text-sm leading-7 text-slate-600">{service.desc}</p>
                 </article>

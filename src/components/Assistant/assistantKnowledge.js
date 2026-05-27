@@ -51,7 +51,6 @@ const STOP_WORDS = new Set([
 
 const solutionsVertical = ECOSYSTEM_VERTICALS.find((item) => item.id === 'solutions');
 const platformVertical = ECOSYSTEM_VERTICALS.find((item) => item.id === 'platform');
-const taleExVertical = ECOSYSTEM_VERTICALS.find((item) => item.id === 'taleex');
 const talentSphereVertical = ECOSYSTEM_VERTICALS.find((item) => item.id === 'talentsphere');
 const talentCardProgram = FLAGSHIP_PROGRAMS.find((item) => item.id === 'talentcard');
 const ctpProgram = FLAGSHIP_PROGRAMS.find((item) => item.id === 'ctp');
@@ -79,7 +78,7 @@ const routePromptSuggestions = {
     'Which industries do you serve?'
   ],
   about: [
-    'What is talentCIO?',
+    'What is TalentCIO?',
     'What is your mission and vision?',
     'How are you different from a standard HRMS?'
   ],
@@ -199,16 +198,6 @@ function buildPageSummary(pathname) {
     };
   }
 
-  if (pathname.startsWith('/taleex')) {
-    return {
-      contextLabel: 'TaleEx Summary',
-      actionId: 'careers',
-      text: `${PAGE_COPY.taleex.h1}. TaleEx is positioned as an opportunity and referral exchange with features like ${joinReadable(
-        taleExVertical.features.slice(0, 4).map((item) => item.name)
-      )}.`
-    };
-  }
-
   if (pathname.startsWith('/talentsphere')) {
     return {
       contextLabel: 'TalentSphere Summary',
@@ -262,7 +251,6 @@ function getRouteKey(pathname) {
   if (pathname.startsWith('/demo')) return 'demo';
   if (pathname.startsWith('/contact')) return 'contact';
   if (pathname.startsWith('/solutions')) return 'default';
-  if (pathname.startsWith('/taleex')) return 'default';
   if (pathname.startsWith('/talentsphere')) return 'default';
   if (pathname.startsWith('/programs')) return 'default';
   if (pathname.startsWith('/industries')) return 'default';
@@ -282,7 +270,7 @@ function buildBaseEntries() {
             ? 'projects'
             : group.title === 'Solutions'
               ? 'services'
-              : group.title === 'TaleEx & TalentSphere'
+              : group.title === 'TalentSphere'
                 ? 'about'
                 : 'contact',
       keywords: [group.title, item.question],
@@ -316,15 +304,6 @@ function buildBaseEntries() {
       keywords: ['platform', 'features', 'modules', 'ats', 'onboarding', 'attendance', 'leave'],
       response: `${platformVertical.title} includes ${platformVertical.modules.length} modules across the workforce lifecycle. Some of the main modules are ${joinReadable(
         platformVertical.modules.slice(0, 6).map((item) => item.name)
-      )}.`
-    },
-    {
-      id: 'taleex',
-      title: 'TaleEx',
-      actionId: 'careers',
-      keywords: ['taleex', 'referral', 'opportunity exchange', 'job marketplace'],
-      response: `${taleExVertical.description} Key capabilities include ${joinReadable(
-        taleExVertical.features.slice(0, 4).map((item) => item.name)
       )}.`
     },
     {

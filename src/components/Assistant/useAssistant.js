@@ -39,7 +39,7 @@ export default function useAssistant() {
   const config = useMemo(() => getAssistantConfig(location.pathname), [location.pathname]);
   const isVisible = Boolean(config);
 
-  const [panelState, setPanelState] = useState('expanded');
+  const [panelState, setPanelState] = useState('hidden');
   const [message, setMessage] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
   const [activeSectionKey, setActiveSectionKey] = useState('');

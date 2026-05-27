@@ -8,13 +8,13 @@ export const ASSISTANT_ACTIONS = {
   solutions: {
     id: 'solutions',
     label: 'Solutions',
-    helperText: 'Service areas',
+    helperText: 'Solution areas',
     path: '/solutions',
     selector: '#solutions-services',
     message:
-      'Let me take you to the solutions page so you can review the current service areas and how each offering fits different workforce needs.',
+      'Let me take you to the solutions page so you can review the current solution areas and how each offering fits different workforce needs.',
     confirmation:
-      'You are in the solutions area now. This section breaks down the current talent and workforce services on the site.'
+      'You are in the solutions area now. This section breaks down the current talent and workforce solutions on the site.'
   },
   platform: {
     id: 'platform',
@@ -217,9 +217,9 @@ export function getAssistantConfig(pathname) {
       key: 'solutions',
       pageLabel: 'Solutions',
       welcomeMessage:
-        'You are on the solutions page. I can help you understand the main service areas, where each solution fits, and the fastest next step for a consultation.',
+        'You are on the solutions page. I can help you understand the main solution areas, where each solution fits, and the fastest next step for a consultation.',
       idleMessage:
-        'Need a quick summary? I can point you to the solutions overview or the service grid next.',
+        'Need a quick summary? I can point you to the solutions overview or the solutions grid next.',
       quickActionIds: sharedActions,
       sections: [
         {
@@ -233,7 +233,7 @@ export function getAssistantConfig(pathname) {
         {
           key: 'solutions-services',
           selector: '#solutions-services',
-          label: 'Service Grid',
+          label: 'Solutions Grid',
           enterMessage:
             'These cards break down the individual solution areas, from permanent hiring and RPO to HR consulting and workforce planning.',
           suggestionActionId: 'contact'
@@ -320,44 +320,6 @@ export function getAssistantConfig(pathname) {
           label: 'Live Roles',
           enterMessage:
             'This is where the live openings appear. Each card can take you deeper into the role details.',
-          suggestionActionId: 'contact'
-        }
-      ]
-    };
-  }
-
-  if (pathname.startsWith('/taleex')) {
-    return {
-      key: 'taleex',
-      pageLabel: 'TaleEx',
-      welcomeMessage:
-        'You are on the TaleEx page. I can explain the opportunity exchange, referral model, and where to go next if you want to browse roles.',
-      idleMessage:
-        'Need the short version? I can walk you through the TaleEx overview or feature cards next.',
-      quickActionIds: sharedActions,
-      sections: [
-        {
-          key: 'taleex-overview',
-          selector: '#taleex-overview',
-          label: 'TaleEx Overview',
-          enterMessage:
-            'This opening section explains the positioning of TaleEx as an opportunity and referral exchange.',
-          suggestionActionId: 'contact'
-        },
-        {
-          key: 'taleex-features',
-          selector: '#taleex-features',
-          label: 'TaleEx Features',
-          enterMessage:
-            'These cards break down the core TaleEx capabilities, including opportunity discovery, referral hiring, and reward visibility.',
-          suggestionActionId: 'contact'
-        },
-        {
-          key: 'contact-cta',
-          selector: '#contact-cta',
-          label: 'Next Step CTA',
-          enterMessage:
-            'From here, visitors can move into a partnership discussion or continue into the jobs experience.',
           suggestionActionId: 'contact'
         }
       ]

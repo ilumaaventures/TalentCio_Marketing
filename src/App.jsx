@@ -21,7 +21,6 @@ import Pricing from './pages/Pricing';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Solutions from './pages/Solutions';
-import TaleEx from './pages/TaleEx';
 import TalentSphere from './pages/TalentSphere';
 import Programs from './pages/Programs';
 import Industries from './pages/Industries';
@@ -90,7 +89,6 @@ function RoutedApp() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/about" element={<About />} />
         <Route path="/solutions" element={<Solutions />} />
-        <Route path="/taleex" element={<TaleEx />} />
         <Route path="/talentsphere" element={<TalentSphere />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/industries" element={<Industries />} />

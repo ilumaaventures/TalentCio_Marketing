@@ -28,7 +28,6 @@ import usePrerenderReady from '../hooks/usePrerenderReady';
 const routeMap = {
   solutions: '/solutions',
   platform: '/features',
-  taleex: '/taleex',
   talentsphere: '/talentsphere'
 };
 
@@ -69,10 +68,10 @@ export default function Home() {
           <div className="container-shell">
             <div className="max-w-3xl">
               <span className="section-kicker">The Ecosystem</span>
-              <h2 className="section-title">One connected ecosystem across talent solutions, platform, opportunities, and community</h2>
+              <h2 className="section-title">One connected ecosystem across talent solutions, platform, community, and flagship programs</h2>
             </div>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {ECOSYSTEM_VERTICALS.map((vertical) => (
                 <article key={vertical.id} className="surface-card p-6">
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">{vertical.number}</p>
