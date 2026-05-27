@@ -47,8 +47,8 @@ export default function Contact() {
                     Reach the team for consulting discussions, platform questions, implementation scope, and
                     commercial follow-up.
                   </p>
-                  <a href="mailto:hello@talentcio.in" className="mt-4 inline-flex text-sm font-semibold text-blue-700">
-                    hello@talentcio.in
+                  <a href="mailto:connect@talentcio.in" className="mt-4 inline-flex text-sm font-semibold text-blue-700">
+                    connect@talentcio.in
                   </a>
                 </article>
 
