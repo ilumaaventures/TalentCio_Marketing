@@ -102,7 +102,7 @@ export const ECOSYSTEM_VERTICALS = [
     title: 'TalentSphere',
     subtitle: 'Leadership & Talent Community Network',
     description:
-      "TalentSphere is talentCIO's collaborative leadership and talent community connecting talent acquisition leaders, HR professionals, founders, consultants, business leaders, industry experts and job seekers. The community is designed to encourage networking, knowledge sharing, workforce discussions, leadership collaboration and opportunity exchange for the future of work.",
+      "TalentSphere is TalentCIO's collaborative leadership and talent community connecting talent acquisition leaders, HR professionals, founders, consultants, business leaders, industry experts and job seekers. The community is designed to encourage networking, knowledge sharing, workforce discussions, leadership collaboration and opportunity exchange for the future of work.",
     positioning: 'Connecting Leaders, Talent & Opportunity.',
     members: [
       'Talent Acquisition Leaders',
@@ -556,7 +556,7 @@ export const PAGE_COPY = {
     title: 'talentCIO Platform - ATS, Onboarding, Attendance, HR Operations | Features',
     description:
       'Explore talentCIO Platform features across ATS, recruitment management, employee onboarding, attendance & leave management, HR operations, performance management, analytics and exit management.',
-    h1: 'The talentCIO Platform - Managing the Complete Workforce Lifecycle'
+    h1: 'The TalentCIO Platform - Managing the Complete Workforce Lifecycle'
   },
   talentsphere: {
     title: 'TalentSphere - Leadership & Talent Community Network | talentCIO',
@@ -586,7 +586,7 @@ export const PAGE_COPY = {
     title: 'Contact talentCIO - Book a Consultation or Request a Demo',
     description:
       'Contact the talentCIO team to book a consultation for Talent Intelligence Solutions, request a Platform demo, enquire about TalentSphere, or discuss a CTP partnership engagement.',
-    h1: 'Talk to the talentCIO Team'
+    h1: 'Talk to the TalentCIO Team'
   },
   demo: {
     title: 'Request a talentCIO Platform Demo | Workforce Management Walkthrough',
