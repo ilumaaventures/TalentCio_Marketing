@@ -8,6 +8,11 @@ module.exports = async () => {
   const react = (await import('@vitejs/plugin-react')).default;
 
   return defineConfig({
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src')
+      }
+    },
     plugins: [
       react(),
       vitePrerender({

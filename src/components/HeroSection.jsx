@@ -24,30 +24,32 @@ export default function HeroSection() {
   const [firstPanel, secondPanel] = HERO_CONTENT.preview.panels;
 
   return (
-    <section id="hero" className="relative overflow-hidden pt-28">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(17,92,185,0.18),transparent_35%),radial-gradient(circle_at_80%_20%,rgba(249,115,22,0.12),transparent_26%)]" />
-      <div className="absolute left-[-120px] top-28 h-64 w-64 rounded-full bg-blue-200/40 blur-3xl" />
-      <div className="absolute right-[-60px] top-40 h-52 w-52 rounded-full bg-cyan-100/70 blur-3xl" />
+    <section id="hero" className="relative overflow-hidden border-b border-slate-200 pt-[7.75rem]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,rgba(42,86,246,0.12),transparent_26%),radial-gradient(circle_at_86%_12%,rgba(255,107,87,0.14),transparent_18%),linear-gradient(180deg,#ffffff_0%,#f5f8ff_100%)]" />
+      <div className="absolute left-[4%] top-28 h-24 w-24 rounded-[28px] bg-[var(--primary-light)]" />
+      <div className="absolute left-[10%] top-[20rem] h-8 w-8 rounded-full bg-[rgba(255,107,87,0.3)]" />
+      <div className="absolute right-[9%] top-[9rem] h-40 w-40 rounded-full bg-blue-100/60 blur-2xl" />
+      <div className="absolute right-[16%] top-[20rem] h-14 w-14 rounded-[20px] bg-[var(--accent-soft)]" />
 
       <div className="container-shell relative">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid items-center gap-12 pb-10 lg:min-h-[calc(100vh-120px)] lg:grid-cols-[1.05fr_minmax(0,0.95fr)]"
+          className="grid items-center gap-10 pb-12 lg:min-h-[calc(100vh-130px)] lg:grid-cols-[minmax(0,1.08fr)_minmax(380px,0.92fr)]"
         >
-          <div>
-            <motion.span variants={itemVariants} className="section-kicker">
+          <div className="relative">
+            <motion.span variants={itemVariants} className="section-kicker eyebrow-line">
               {HERO_CONTENT.kicker}
             </motion.span>
-            <motion.h1 variants={itemVariants} className="homepage-hero-title mt-5 max-w-3xl text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+            <motion.h1 variants={itemVariants} className="homepage-hero-title mt-6 max-w-4xl text-slate-950">
               {HERO_CONTENT.headline}
             </motion.h1>
-            <motion.p variants={itemVariants} className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            <motion.p variants={itemVariants} className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
               {HERO_CONTENT.subheadline}
             </motion.p>
 
-            <motion.div variants={itemVariants} className="mt-8 flex flex-wrap items-center gap-3">
+            <motion.div variants={itemVariants} className="mt-9 flex flex-wrap items-center gap-4">
               <Link
                 to={HERO_CONTENT.cta1.href}
                 className="btn-primary"
@@ -65,34 +67,47 @@ export default function HeroSection() {
               </Link>
             </motion.div>
 
+            <motion.div variants={itemVariants} className="mt-8 flex flex-wrap gap-3">
+              <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">Talent Solutions</span>
+              <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">HRMS Platform</span>
+              <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">Leadership Network</span>
+            </motion.div>
+
             <motion.div variants={itemVariants} className="mt-10 grid gap-4 sm:grid-cols-3">
               {HERO_CONTENT.statCards.map((item) => (
-                <div key={item.label} className="rounded-[26px] border border-white/70 bg-white/80 p-4 shadow-[0_20px_50px_-35px_rgba(15,23,42,0.5)] backdrop-blur-xl">
-                  <p className="text-sm font-semibold text-slate-500">{item.label}</p>
-                  <p className="mt-2 text-base font-bold text-slate-900">{item.value}</p>
+                <div key={item.label} className="metric-block">
+                  <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-slate-500">{item.label}</p>
+                  <p className="mt-2 max-w-[15rem] text-lg font-bold text-slate-950">{item.value}</p>
                 </div>
               ))}
             </motion.div>
           </div>
 
           <motion.div variants={itemVariants} className="relative">
-            <div className="surface-card relative overflow-hidden bg-slate-950 p-6 text-white">
-              <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(17,92,185,0.88),rgba(13,27,42,0.96))]" />
+            <div className="absolute -left-5 top-8 hidden rounded-[28px] bg-[var(--accent)] px-5 py-4 text-white shadow-[0_20px_45px_-26px_rgba(255,107,87,0.8)] lg:block">
+              <p className="text-xs font-bold uppercase tracking-[0.22em]">Growth Focus</p>
+              <p className="mt-2 text-lg font-bold">Human + tech execution</p>
+            </div>
+
+            <div className="editorial-panel relative overflow-hidden bg-slate-950 p-6 text-white sm:p-8">
+              <div className="absolute inset-0 bg-[linear-gradient(145deg,#11204d_0%,#2a56f6_85%)]" />
+              <div className="absolute right-5 top-5 h-24 w-24 rounded-full border border-white/18" />
+              <div className="absolute bottom-5 left-5 h-16 w-16 rounded-[20px] bg-white/10" />
               <div className="relative">
-                <div className="flex items-center justify-between">
+                <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
+                    <p className="text-xs font-bold uppercase tracking-[0.3em] text-blue-100">
                       {HERO_CONTENT.preview.badge}
                     </p>
-                    <h2 className="hero-preview-title mt-2 text-2xl font-bold">{HERO_CONTENT.preview.title}</h2>
+                    <h2 className="hero-preview-title mt-3 max-w-xs font-bold">{HERO_CONTENT.preview.title}</h2>
                   </div>
-                  <div className="rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-blue-100">
-                    talentCIO Suite
+                  <div className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-blue-100">
+                    Live System
                   </div>
                 </div>
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-[26px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
+                  <div className="rounded-[26px] border border-white/10 bg-white/[0.08] p-5 backdrop-blur-sm">
                     <div className="flex items-center gap-3">
                       <div className="rounded-2xl bg-emerald-400/20 p-3 text-emerald-200">
                         <CheckCircle2 size={20} />
@@ -110,7 +125,7 @@ export default function HeroSection() {
                     </div>
                   </div>
 
-                  <div className="rounded-[26px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
+                  <div className="rounded-[26px] border border-white/10 bg-white/[0.08] p-5 backdrop-blur-sm">
                     <div className="flex items-center gap-3">
                       <div className="rounded-2xl bg-orange-400/20 p-3 text-orange-200">
                         <BriefcaseBusiness size={20} />
@@ -136,14 +151,14 @@ export default function HeroSection() {
                   </div>
                 </div>
 
-                <div className="mt-5 rounded-[26px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
+                <div className="mt-5 rounded-[26px] border border-white/10 bg-white/[0.08] p-5 backdrop-blur-sm">
                   <div className="flex items-center justify-between">
                     <p className="text-base font-semibold">Operational Snapshot</p>
                     <BarChart3 size={18} className="text-blue-100" />
                   </div>
                   <div className="mt-5 grid gap-4 sm:grid-cols-3">
                     {HERO_CONTENT.preview.metrics.map((metric) => (
-                      <div key={metric.title} className="rounded-2xl bg-white/10 px-4 py-3">
+                      <div key={metric.title} className="rounded-[20px] border border-white/[0.08] bg-white/10 px-4 py-3">
                         <p className="text-xs uppercase tracking-[0.18em] text-blue-100">{metric.title}</p>
                         <p className="mt-2 text-sm font-semibold text-white">{metric.value}</p>
                       </div>
@@ -153,7 +168,7 @@ export default function HeroSection() {
               </div>
             </div>
 
-            <div className="absolute -bottom-6 left-4 right-4 rounded-full border border-blue-100/80 bg-white/95 px-5 py-4 text-center text-sm font-semibold text-slate-700 shadow-[0_22px_60px_-30px_rgba(15,23,42,0.45)]">
+            <div className="absolute -bottom-8 left-4 right-4 rounded-[24px] border border-slate-200 bg-white px-5 py-4 text-center text-sm font-semibold text-slate-700 shadow-[0_22px_60px_-36px_rgba(37,99,235,0.28)]">
               Talent Solutions | Platform | Opportunity Networks | Leadership Community
             </div>
           </motion.div>

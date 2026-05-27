@@ -75,10 +75,10 @@ export default function ModulesShowcase() {
   const ActiveIcon = activeModule.icon;
 
   return (
-    <section id="projects" className="section-shell">
+    <section id="projects" className="section-shell section-divider bg-[var(--surface)]">
       <div className="container-shell">
         <div className="max-w-3xl">
-          <span className="section-kicker">Modules</span>
+          <span className="section-kicker eyebrow-line">Modules</span>
           <h2 className="section-title">Choose the capabilities your team actually needs</h2>
           <p className="section-copy">
             TalentCIO is modular by design. Turn on the workflows that fit your operating model and add more
@@ -86,8 +86,8 @@ export default function ModulesShowcase() {
           </p>
         </div>
 
-        <div className="mt-12 grid items-start gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
-          <div className="surface-card p-3 xl:h-[620px]">
+        <div className="mt-12 grid items-start gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
+          <div className="editorial-panel p-3 xl:h-[620px]">
             <div className="grid max-h-full gap-2 overflow-y-auto pr-1 scrollbar-hidden">
               {modules.map((module) => {
                 const Icon = module.icon;
@@ -98,13 +98,13 @@ export default function ModulesShowcase() {
                     key={module.key}
                     type="button"
                     onClick={() => setActiveKey(module.key)}
-                    className={`flex items-center gap-3 rounded-[22px] px-4 py-4 text-left transition ${
+                    className={`flex items-center gap-3 rounded-[24px] border px-4 py-4 text-left transition ${
                       isActive
-                        ? 'bg-[var(--primary)] text-white shadow-[0_18px_45px_-28px_rgba(17,92,185,0.85)]'
-                        : 'bg-white text-slate-700 hover:bg-blue-50'
+                        ? 'border-[var(--primary)] bg-[var(--primary)] text-white shadow-[0_18px_45px_-28px_rgba(18,59,109,0.85)]'
+                        : 'border-transparent bg-white text-slate-700 hover:border-blue-100 hover:bg-[var(--surface)]'
                     }`}
                   >
-                    <div className={`rounded-2xl p-2.5 ${isActive ? 'bg-white/15' : 'bg-blue-50 text-blue-700'}`}>
+                    <div className={`rounded-2xl p-2.5 ${isActive ? 'bg-white/15' : 'bg-[var(--primary-light)] text-[var(--primary)]'}`}>
                       <Icon size={18} />
                     </div>
                     <div>
@@ -117,14 +117,14 @@ export default function ModulesShowcase() {
             </div>
           </div>
 
-          <div className="surface-card self-start overflow-hidden bg-slate-950 text-white">
+          <div className="editorial-panel self-start overflow-hidden bg-slate-950 text-white">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeModule.key}
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -18 }}
-                className="grid gap-6 bg-[linear-gradient(135deg,#0d1b2a_10%,#115cb9_100%)] p-6 lg:grid-cols-[minmax(0,1.05fr)_320px] sm:p-8"
+                className="grid gap-6 bg-[linear-gradient(135deg,#16244f_10%,#2a56f6_100%)] p-6 lg:grid-cols-[minmax(0,1.05fr)_320px] sm:p-8"
               >
                 <div>
                   <div className="flex items-center gap-3">
@@ -132,7 +132,7 @@ export default function ModulesShowcase() {
                       <ActiveIcon size={20} />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">Module</p>
+                      <p className="text-xs font-bold uppercase tracking-[0.28em] text-blue-100">Module</p>
                       <h3 className="mt-1 text-3xl font-bold">{activeModule.label}</h3>
                     </div>
                   </div>
@@ -157,8 +157,8 @@ export default function ModulesShowcase() {
                   </div>
                 </div>
 
-                <div className="rounded-[30px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">Mockup Preview</p>
+                <div className="rounded-[28px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
+                  <p className="text-xs font-bold uppercase tracking-[0.28em] text-blue-100">Mockup Preview</p>
                   <div className="mt-5 rounded-[24px] bg-white p-4 text-slate-900 shadow-[0_30px_80px_-45px_rgba(15,23,42,0.55)]">
                     <div className="flex items-center justify-between">
                       <div>
@@ -172,7 +172,7 @@ export default function ModulesShowcase() {
 
                     <div className="mt-5 grid gap-3">
                       {activeModule.bullets.slice(0, 3).map((bullet, index) => (
-                        <div key={bullet} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                        <div key={bullet} className="rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-3">
                           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Metric {index + 1}</p>
                           <p className="mt-2 text-sm font-semibold text-slate-800">{bullet}</p>
                         </div>

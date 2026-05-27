@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRightLeft, Brain, Network, TrendingUp, Users } from 'lucide-react';
+import { ArrowRightLeft, BadgeCheck, Brain, Network, TrendingUp, Users } from 'lucide-react';
 import { WHY_TALENTCIO } from '../content/marketingContent';
 
 const iconMap = {
@@ -8,23 +8,34 @@ const iconMap = {
   Network,
   Users,
   ArrowRightLeft,
-  TrendingUp
+  TrendingUp,
+  BadgeCheck
 };
 
 export default function FeaturesSection() {
   return (
-    <section id="why-talentcio" className="section-shell">
+    <section id="why-talentcio" className="section-shell section-divider bg-[var(--surface)]">
       <div className="container-shell">
-        <div className="max-w-3xl">
-          <span className="section-kicker">Why talentCIO</span>
-          <h2 className="section-title">Why organizations choose a connected talent ecosystem</h2>
-          <p className="section-copy">
-            TalentCIO is built around the idea that workforce outcomes improve when human expertise,
-            intelligent technology, and connected networks work together instead of in silos.
-          </p>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
+          <div className="max-w-3xl">
+            <span className="section-kicker eyebrow-line">Why talentCIO</span>
+            <h2 className="section-title">People strategy backed by technology, execution, and accountability</h2>
+            <p className="section-copy">
+              TalentCIO is designed for teams that need more than a vendor. We combine consulting judgment,
+              operational support, and modern workforce tools to create a more dependable HR growth engine.
+            </p>
+          </div>
+
+          <div className="rounded-[30px] border border-slate-200 bg-white p-5 shadow-sm">
+            <img
+              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"
+              alt="HR and business consulting team meeting"
+              className="h-[240px] w-full rounded-[24px] object-cover"
+            />
+          </div>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {WHY_TALENTCIO.map((feature, index) => {
             const Icon = iconMap[feature.icon] || Brain;
 
@@ -35,10 +46,10 @@ export default function FeaturesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.35, delay: index * 0.04 }}
-                className="group surface-card border-slate-200 p-6 transition hover:-translate-y-1 hover:border-blue-200"
+                className="group editorial-panel p-6 transition hover:-translate-y-1 hover:border-blue-200"
               >
                 <div className="flex items-start gap-4">
-                  <div className="rounded-2xl bg-blue-50 p-3 text-blue-700 transition group-hover:bg-blue-600 group-hover:text-white">
+                  <div className="rounded-2xl border border-[var(--primary)]/10 bg-[var(--primary-light)] p-3 text-[var(--primary)] transition group-hover:border-[var(--primary)] group-hover:bg-[var(--primary)] group-hover:text-white">
                     <Icon size={22} />
                   </div>
                   <div className="flex-1">
@@ -46,7 +57,10 @@ export default function FeaturesSection() {
                     <p className="mt-3 text-sm leading-7 text-slate-600">{feature.body}</p>
                   </div>
                 </div>
-                <div className="mt-6 h-1 w-14 rounded-full bg-blue-100 transition group-hover:w-24 group-hover:bg-blue-600" />
+                <div className="mt-8 flex items-center justify-between border-t border-slate-200 pt-4 text-[0.72rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                  <span>Advisory strength</span>
+                  <span className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-[var(--accent)]">0{index + 1}</span>
+                </div>
               </motion.article>
             );
           })}

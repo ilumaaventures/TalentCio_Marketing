@@ -122,10 +122,10 @@ export default function Navbar() {
     <>
       <header className="fixed inset-x-0 top-0 z-50 px-3 py-3 sm:px-5">
         <div
-          className={`mx-auto w-full max-w-[86rem] px-4 sm:px-5 lg:px-6 rounded-[28px] border transition-all duration-300 ${
+          className={`mx-auto w-full max-w-[86rem] rounded-full border px-4 transition-all duration-300 sm:px-5 lg:px-6 ${
             scrolled
-              ? 'border-white/70 bg-white/90 shadow-[0_20px_55px_-30px_rgba(15,23,42,0.45)] backdrop-blur-xl'
-              : 'border-transparent bg-white/70 backdrop-blur-md'
+              ? 'border-slate-200 bg-white/92 shadow-[0_20px_55px_-30px_rgba(15,23,42,0.4)] backdrop-blur-xl'
+              : 'border-white/80 bg-white/78 shadow-[0_12px_35px_-30px_rgba(42,86,246,0.5)] backdrop-blur-md'
           }`}
         >
           <div className="flex items-center justify-between px-2.5 py-2.5 sm:px-4">
@@ -140,17 +140,17 @@ export default function Navbar() {
                   key={link.label}
                   to={link.href}
                   aria-current={active ? 'page' : undefined}
-                  className={`whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold transition ${
+                  className={`whitespace-nowrap rounded-full border px-3 py-2 text-sm font-semibold transition ${
                     active
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-slate-600 hover:text-blue-700'
+                      ? 'border-[var(--primary)] bg-[var(--primary)] text-white'
+                      : 'border-transparent text-slate-600 hover:border-blue-100 hover:text-[var(--primary)]'
                   } ${link.label === 'Jobs' && jobCount > 0 ? 'relative pr-4' : ''
                   }`}
                 >
                   <span className="inline-flex items-center">
                     {link.shortLabel || link.label}
                     {link.label === 'Jobs' && jobCount > 0 && (
-                      <span className="absolute -right-1 -top-2 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full border border-white bg-blue-600 px-1.5 text-[10px] font-bold leading-none text-white shadow-sm">
+                      <span className="absolute -right-1 -top-2 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full border border-white bg-[var(--accent)] px-1.5 text-[10px] font-bold leading-none text-white shadow-sm">
                         {jobCountLabel}
                       </span>
                     )}
@@ -165,16 +165,16 @@ export default function Navbar() {
                 <div className="group relative">
                   <button
                     type="button"
-                    className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-100"
+                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-blue-200"
                   >
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--primary)] text-xs font-bold text-white">
                       {applicant?.firstName?.charAt(0)?.toUpperCase() || 'A'}
                     </span>
                     My Account
                     <ChevronDown size={13} />
                   </button>
 
-                  <div className="invisible absolute right-0 top-full z-50 mt-2 w-52 rounded-2xl border border-slate-200 bg-white py-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
+                  <div className="invisible absolute right-0 top-full z-50 mt-2 w-52 rounded-[24px] border border-slate-200 bg-white py-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
                     <Link to="/my-applications" className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50">
                       <Briefcase size={14} />
                       My Applications
@@ -219,7 +219,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMenuOpen((current) => !current)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 lg:hidden"
               aria-label="Toggle menu"
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -243,19 +243,19 @@ export default function Navbar() {
                       key={link.label}
                       to={link.href}
                       aria-current={active ? 'page' : undefined}
-                      className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                      className={`flex items-center justify-between rounded-[22px] border px-4 py-3 text-sm font-semibold transition ${
                         active
-                          ? 'border-blue-200 bg-blue-50 text-blue-700'
+                          ? 'border-[var(--primary)] bg-[var(--primary)] text-white'
                           : 'border-slate-200 bg-white text-slate-700'
                       }`}
                     >
                       <span>{link.label}</span>
                       {link.label === 'Jobs' && jobCount > 0 ? (
-                        <span className="rounded-full bg-blue-50 px-2 py-1 text-xs font-bold text-blue-700">
+                        <span className="bg-[var(--surface)] px-2 py-1 text-xs font-bold text-[var(--primary)]">
                           {jobCountLabel}
                         </span>
                       ) : (
-                        <Sparkles size={16} className="text-blue-600" />
+                        <Sparkles size={16} className={active ? 'text-white' : 'text-[var(--primary)]'} />
                       )}
                     </Link>
                     );
@@ -291,8 +291,8 @@ export default function Navbar() {
                   >
                     Request Demo
                   </Link>
-                  <Link to="/company/login" className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-blue-200 hover:text-blue-700">
-                    <Building2 size={16} className="text-blue-600" />
+                  <Link to="/company/login" className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-blue-200 hover:text-[var(--primary)]">
+                    <Building2 size={16} className="text-[var(--primary)]" />
                     Company Login
                   </Link>
                 </div>
