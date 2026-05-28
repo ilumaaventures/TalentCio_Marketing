@@ -592,7 +592,7 @@ export const PAGE_COPY = {
     title: 'Request a talentCIO Platform Demo | Workforce Management Walkthrough',
     description:
       'Request a talentCIO Platform demo. Walk through ATS, onboarding, attendance, HR operations and analytics workflows with the team to confirm the right modules and rollout plan for your organization.',
-    h1: 'See the talentCIO Platform in Action'
+    h1: 'See the TalentCIO Platform in Action'
   },
   jobs: {
     title: 'Jobs - Verified Open Roles | talentCIO Opportunity Board',
