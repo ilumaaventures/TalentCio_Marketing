@@ -76,7 +76,7 @@ export const ECOSYSTEM_VERTICALS = [
     title: 'TalentCIO Platform',
     subtitle: 'An integrated talent management platform designed to manage the entire workforce lifecycle from hiring to exit.',
     description:
-      'The talentCIO Platform centralizes every workforce workflow into one connected system - eliminating the fragmentation of separate tools for attendance, hiring, onboarding, and employee operations.',
+      'The TalentCIO Platform centralizes every workforce workflow into one connected system - eliminating the fragmentation of separate tools for attendance, hiring, onboarding, and employee operations.',
     modules: [
       { name: 'Applicant Tracking System (ATS)', desc: 'Structured hiring pipelines with candidate tracking and interview coordination.' },
       { name: 'Recruitment Management', desc: 'Hiring requests, approvals, job boards and bulk candidate import.' },
