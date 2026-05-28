@@ -58,10 +58,10 @@ export default function Navbar() {
               link.label === 'About Us'
                 ? 'About'
                 : link.label === 'Contact Us'
-                  ? 'Contact'
+                  ? 'Connect'
                   : link.label
           })),
-        { label: 'Jobs', href: '/jobs' }
+        { label: 'Jobs', shortLabel: 'Opportunities', href: '/jobs' }
       ];
     },
     []
@@ -249,7 +249,7 @@ export default function Navbar() {
                           : 'border-slate-200 bg-white text-slate-700'
                       }`}
                     >
-                      <span>{link.label}</span>
+                      <span>{link.shortLabel || link.label}</span>
                       {link.label === 'Jobs' && jobCount > 0 ? (
                         <span className="bg-[var(--surface)] px-2 py-1 text-xs font-bold text-[var(--primary)]">
                           {jobCountLabel}
