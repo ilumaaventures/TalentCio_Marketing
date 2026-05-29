@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BadgeCheck, BriefcaseBusiness, CalendarDays, PhoneCall, Plus } from 'lucide-react';
+import { BadgeCheck, BriefcaseBusiness, CalendarDays, PhoneCall } from 'lucide-react';
 
 import { destroyCanvas, renderCanvas } from '@/components/ui/canvas';
 import { HERO_CONTENT } from '@/content/marketingContent';
@@ -42,13 +42,8 @@ export function Hero() {
 
       <div className="container-shell relative z-10 pb-14">
         <div className="grid items-start gap-10 lg:min-h-[calc(100vh-138px)] lg:grid-cols-[minmax(0,0.92fr)_minmax(360px,1.08fr)] lg:items-stretch">
-          <div className="flex h-full flex-col">
-            <div className="relative flex min-h-[23rem] w-full max-w-[41rem] flex-1 flex-col rounded-[34px] border border-white/70 bg-white/72 p-6 shadow-[0_30px_70px_-45px_rgba(25,50,73,0.28)] backdrop-blur-sm sm:min-h-[25.5rem] sm:p-8 lg:max-w-none lg:p-10">
-              <Plus className="absolute -left-3 -top-3 h-8 w-8 text-[var(--accent)] sm:-left-4 sm:-top-4 sm:h-10 sm:w-10" strokeWidth={3} />
-              <Plus className="absolute -bottom-3 -left-3 h-8 w-8 text-[var(--primary)] sm:-bottom-4 sm:-left-4 sm:h-10 sm:w-10" strokeWidth={3} />
-              <Plus className="absolute -right-3 -top-3 h-8 w-8 text-[var(--primary)] sm:-right-4 sm:-top-4 sm:h-10 sm:w-10" strokeWidth={3} />
-              <Plus className="absolute -bottom-3 -right-3 h-8 w-8 text-[var(--accent)] sm:-bottom-4 sm:-right-4 sm:h-10 sm:w-10" strokeWidth={3} />
-
+          <div className="flex flex-col">
+            <div className="relative w-full max-w-[41rem] py-2 lg:max-w-none">
               <span className="section-kicker">Talent Intelligence Ecosystem</span>
               <h1
                 className="homepage-hero-title mt-5 max-w-[11.5ch] leading-[0.96] tracking-[-0.05em] text-slate-950"
