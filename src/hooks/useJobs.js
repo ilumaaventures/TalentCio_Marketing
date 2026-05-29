@@ -1,7 +1,9 @@
-import { startTransition, useDeferredValue, useEffect, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import api from '../api/axios';
 import { clearPublicJobsApiMissing, isPublicJobsApiMissing, markPublicJobsApiMissing } from '../api/publicCapabilities';
 import isPrerender from '../utils/isPrerender';
+
+const FILTER_DEBOUNCE_MS = 1500;
 
 const defaultFilters = {
   search: '',
@@ -18,8 +20,24 @@ export default function useJobs(initialFilters = defaultFilters) {
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState(initialFilters);
+  const [debouncedSearch, setDebouncedSearch] = useState(initialFilters.search || '');
+  const [debouncedDepartment, setDebouncedDepartment] = useState(initialFilters.department || '');
 
-  const deferredSearch = useDeferredValue(filters.search);
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setDebouncedSearch(filters.search);
+    }, FILTER_DEBOUNCE_MS);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [filters.search]);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setDebouncedDepartment(filters.department);
+    }, FILTER_DEBOUNCE_MS);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [filters.department]);
 
   useEffect(() => {
     let isActive = true;
@@ -51,10 +69,10 @@ export default function useJobs(initialFilters = defaultFilters) {
           params: {
             page,
             limit: 12,
-            search: deferredSearch || undefined,
+            search: debouncedSearch || undefined,
             location: filters.location || undefined,
             type: filters.type || undefined,
-            department: filters.department || undefined
+            department: debouncedDepartment || undefined
           }
         });
 
@@ -92,7 +110,7 @@ export default function useJobs(initialFilters = defaultFilters) {
     return () => {
       isActive = false;
     };
-  }, [page, filters.location, filters.type, filters.department, deferredSearch]);
+  }, [page, filters.location, filters.type, debouncedDepartment, debouncedSearch]);
 
   const updateFilters = (updates) => {
     startTransition(() => {
@@ -108,6 +126,8 @@ export default function useJobs(initialFilters = defaultFilters) {
     startTransition(() => {
       setPage(1);
       setFilters(defaultFilters);
+      setDebouncedSearch(defaultFilters.search);
+      setDebouncedDepartment(defaultFilters.department);
     });
   };
 

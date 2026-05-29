@@ -23,7 +23,7 @@ export default function Insights() {
         <section id="insights-overview" className="container-shell">
           <div className="surface-card px-6 py-10 sm:px-10 sm:py-12">
             <span className="section-kicker">Insights</span>
-            <h1 className="section-title">{PAGE_COPY.insights.h1}</h1>
+            <h1 className="section-title section-title-compact">{PAGE_COPY.insights.h1}</h1>
             <p className="section-copy max-w-3xl">
               Market signals and practical context for leaders thinking about hiring demand, HR technology,
               and the cost of fragmented workforce systems.

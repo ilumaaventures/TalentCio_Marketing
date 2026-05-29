@@ -25,7 +25,7 @@ export default function TalentSphere() {
         <section id="talentsphere-overview" className="container-shell">
           <div className="surface-card px-6 py-10 sm:px-10 sm:py-12">
             <span className="section-kicker">{talentsphere.number} Community</span>
-            <h1 className="section-title">{PAGE_COPY.talentsphere.h1}</h1>
+            <h1 className="section-title section-title-compact">{PAGE_COPY.talentsphere.h1}</h1>
             <p className="section-copy max-w-3xl">{talentsphere.subtitle}</p>
             <p className="mt-5 max-w-4xl text-base leading-8 text-slate-600">{talentsphere.description}</p>
             <div className="mt-6 rounded-[28px] border border-blue-200 bg-blue-50 px-5 py-4 text-sm font-semibold text-blue-900">

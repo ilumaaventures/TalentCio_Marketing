@@ -62,11 +62,11 @@ export default function FaqSection() {
                     >
                       <span className="faq-question text-lg font-semibold text-slate-950">{item.question}</span>
                       <span
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center border border-slate-200 bg-slate-50 text-slate-600 transition ${
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-600 transition ${
                           isOpen ? 'rotate-180 border-[var(--primary)] bg-[var(--primary)] text-white' : ''
                         }`}
                       >
-                        <ChevronDown size={18} />
+                        <ChevronDown size={18} className={isOpen ? 'text-slate-950' : 'text-slate-600'} />
                       </span>
                     </button>
 
