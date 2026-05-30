@@ -86,7 +86,7 @@ export default function ModulesShowcase() {
           </p>
         </div>
 
-        <div className="mt-12 grid items-start gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
+        <div className="mt-12 grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)] xl:items-stretch">
           <div className="editorial-panel p-3 xl:h-[620px]">
             <div className="grid max-h-full gap-2 overflow-y-auto pr-1 scrollbar-hidden">
               {modules.map((module) => {
@@ -117,16 +117,16 @@ export default function ModulesShowcase() {
             </div>
           </div>
 
-          <div className="editorial-panel self-start overflow-hidden bg-slate-950 text-white">
+          <div className="editorial-panel overflow-hidden bg-slate-950 text-white xl:h-[620px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeModule.key}
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -18 }}
-                className="grid gap-6 bg-[linear-gradient(135deg,#16244f_10%,#2a56f6_100%)] p-6 lg:grid-cols-[minmax(0,1.05fr)_320px] sm:p-8"
+                className="grid h-full gap-6 bg-[linear-gradient(135deg,#16244f_10%,#2a56f6_100%)] p-6 lg:grid-cols-[minmax(0,1.05fr)_320px] sm:p-8"
               >
-                <div>
+                <div className="flex flex-col">
                   <div className="flex items-center gap-3">
                     <div className="rounded-2xl bg-white/10 p-3 text-blue-100">
                       <ActiveIcon size={20} />
@@ -157,9 +157,9 @@ export default function ModulesShowcase() {
                   </div>
                 </div>
 
-                <div className="rounded-[28px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
+                <div className="flex h-full flex-col rounded-[28px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
                   <p className="text-xs font-bold uppercase tracking-[0.28em] text-blue-100">Mockup Preview</p>
-                  <div className="mt-5 rounded-[24px] bg-white p-4 text-slate-900 shadow-[0_30px_80px_-45px_rgba(15,23,42,0.55)]">
+                  <div className="mt-5 flex-1 rounded-[24px] bg-white p-4 text-slate-900 shadow-[0_30px_80px_-45px_rgba(15,23,42,0.55)]">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-xs uppercase tracking-[0.18em] text-slate-400">{activeModule.label}</p>

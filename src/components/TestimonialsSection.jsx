@@ -10,7 +10,7 @@ const clientHighlights = [
     quote:
       'Organizations need partners who can connect hiring, people operations, and technology without adding more complexity.',
     image:
-      'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=900&q=80'
+      'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80'
   }
 ];
 
@@ -36,7 +36,7 @@ export default function TestimonialsSection() {
               <div className="grid h-full gap-0 sm:grid-cols-[240px_minmax(0,1fr)] lg:grid-cols-[320px_minmax(0,1fr)]">
                 <img
                   src={highlight.image}
-                  alt={highlight.name}
+                  alt="Digital workforce dashboard and analytics workspace"
                   className="h-full min-h-[320px] w-full object-cover"
                 />
                 <div className="flex min-w-0 flex-col justify-between p-6 sm:p-8">

@@ -30,8 +30,8 @@ export default function FeaturesSection() {
 
           <div className="rounded-[30px] border border-slate-200 bg-white p-5 shadow-sm">
             <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"
-              alt="HR and business consulting team meeting"
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80"
+              alt="Workforce analytics dashboard on a laptop screen"
               className="h-[240px] w-full rounded-[24px] object-cover"
             />
           </div>
