@@ -26,7 +26,7 @@ export default function Features() {
         <section id="features-overview" className="container-shell">
           <div className="surface-card overflow-hidden px-6 py-10 sm:px-10 sm:py-12">
             <span className="section-kicker">Platform</span>
-            <h1 className="section-title">{PAGE_COPY.features.h1}</h1>
+            <h1 className="section-title section-title-compact">{PAGE_COPY.features.h1}</h1>
             <p className="section-copy max-w-3xl">{platform.subtitle}</p>
             <p className="mt-5 max-w-4xl text-base leading-8 text-slate-600">{platform.description}</p>
 

@@ -7,7 +7,7 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="section-shell section-divider bg-[var(--surface)]">
       <div className="container-shell">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
           <div>
             <span className="section-kicker eyebrow-line">How It Works</span>
             <h2 className="section-title max-w-3xl">How the TalentCIO ecosystem turns workforce needs into action</h2>

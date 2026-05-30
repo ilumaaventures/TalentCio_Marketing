@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Briefcase, Building2, ChevronDown, LogOut, Menu, Sparkles, User, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -36,7 +36,10 @@ export default function Navbar() {
   const { isLoggedIn, applicant, logout } = useApplicantAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [authMenuOpen, setAuthMenuOpen] = useState(false);
   const [jobCount, setJobCount] = useState(0);
+  const desktopAuthMenuRef = useRef(null);
+  const mobileAuthMenuRef = useRef(null);
   const jobCountLabel = jobCount > 99 ? '99+' : String(jobCount);
 
   const navLinks = useMemo(
@@ -76,7 +79,29 @@ export default function Navbar() {
 
   useEffect(() => {
     setMenuOpen(false);
+    setAuthMenuOpen(false);
   }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    if (!authMenuOpen) return undefined;
+
+    const handlePointerDown = (event) => {
+      const clickedDesktopMenu = desktopAuthMenuRef.current?.contains(event.target);
+      const clickedMobileMenu = mobileAuthMenuRef.current?.contains(event.target);
+
+      if (!clickedDesktopMenu && !clickedMobileMenu) {
+        setAuthMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('touchstart', handlePointerDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('touchstart', handlePointerDown);
+    };
+  }, [authMenuOpen]);
 
   useEffect(() => {
     let ignore = false;
@@ -195,18 +220,50 @@ export default function Navbar() {
                   </div>
                 </div>
               ) : (
-                <Link
-                  to="/applicant/login"
-                  className="btn-secondary whitespace-nowrap"
-                  onClick={() => trackEvent('applicant_sign_in_click', { source: 'navbar_desktop' })}
-                >
-                  Sign In
-                </Link>
+                <div ref={desktopAuthMenuRef} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setAuthMenuOpen((current) => !current)}
+                    className="btn-secondary whitespace-nowrap"
+                    aria-expanded={authMenuOpen}
+                    aria-haspopup="menu"
+                  >
+                    Login
+                    <ChevronDown size={14} className={`transition ${authMenuOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {authMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 8 }}
+                        className="absolute right-0 top-full z-50 mt-2 w-56 rounded-[24px] border border-slate-200 bg-white p-2 shadow-[0_22px_54px_-28px_rgba(15,23,42,0.32)]"
+                      >
+                        <Link
+                          to="/applicant/login"
+                          className="flex items-center gap-3 rounded-[18px] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[var(--primary)]"
+                          onClick={() => {
+                            setAuthMenuOpen(false);
+                            trackEvent('applicant_sign_in_click', { source: 'navbar_desktop_dropdown' });
+                          }}
+                        >
+                          <User size={15} />
+                          Sign In
+                        </Link>
+                        <Link
+                          to="/company/login"
+                          className="flex items-center gap-3 rounded-[18px] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[var(--primary)]"
+                          onClick={() => setAuthMenuOpen(false)}
+                        >
+                          <Building2 size={15} />
+                          Company Login
+                        </Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               )}
-              <Link to="/company/login" className="btn-secondary flex items-center gap-2 whitespace-nowrap">
-                <Building2 size={14} />
-                Company Login
-              </Link>
               <Link
                 to="/demo"
                 className="btn-primary whitespace-nowrap"
@@ -276,13 +333,51 @@ export default function Navbar() {
                       </button>
                     </>
                   ) : (
-                    <Link
-                      to="/applicant/login"
-                      className="btn-secondary w-full"
-                      onClick={() => trackEvent('applicant_sign_in_click', { source: 'navbar_mobile' })}
-                    >
-                      Sign In
-                    </Link>
+                    <div ref={mobileAuthMenuRef} className="space-y-3">
+                      <button
+                        type="button"
+                        onClick={() => setAuthMenuOpen((current) => !current)}
+                        className="btn-secondary flex w-full items-center justify-center gap-2"
+                        aria-expanded={authMenuOpen}
+                        aria-haspopup="menu"
+                      >
+                        Login
+                        <ChevronDown size={16} className={`transition ${authMenuOpen ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      <AnimatePresence>
+                        {authMenuOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden rounded-[24px] border border-slate-200 bg-white p-2"
+                          >
+                            <div className="grid gap-2">
+                              <Link
+                                to="/applicant/login"
+                                className="flex items-center gap-3 rounded-[18px] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[var(--primary)]"
+                                onClick={() => {
+                                  setAuthMenuOpen(false);
+                                  trackEvent('applicant_sign_in_click', { source: 'navbar_mobile_dropdown' });
+                                }}
+                              >
+                                <User size={16} />
+                                Sign In
+                              </Link>
+                              <Link
+                                to="/company/login"
+                                className="flex items-center gap-3 rounded-[18px] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[var(--primary)]"
+                                onClick={() => setAuthMenuOpen(false)}
+                              >
+                                <Building2 size={16} className="text-[var(--primary)]" />
+                                Company Login
+                              </Link>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   )}
                   <Link
                     to="/demo"
@@ -290,10 +385,6 @@ export default function Navbar() {
                     onClick={() => trackEvent('demo_cta_click', { source: 'navbar_mobile' })}
                   >
                     Request Demo
-                  </Link>
-                  <Link to="/company/login" className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-blue-200 hover:text-[var(--primary)]">
-                    <Building2 size={16} className="text-[var(--primary)]" />
-                    Company Login
                   </Link>
                 </div>
               </motion.div>

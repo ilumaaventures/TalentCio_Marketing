@@ -19,7 +19,9 @@ export default function FeaturesSection() {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end">
           <div className="max-w-3xl">
             <span className="section-kicker eyebrow-line">Why talentCIO</span>
-            <h2 className="section-title">People strategy backed by technology, execution, and accountability</h2>
+            <h2 className="section-title">
+              People strategy backed by technology, execution, and accountability
+            </h2>
             <p className="section-copy">
               TalentCIO is designed for teams that need more than a vendor. We combine consulting judgment,
               operational support, and modern workforce tools to create a more dependable HR growth engine.

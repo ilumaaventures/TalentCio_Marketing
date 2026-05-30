@@ -79,7 +79,7 @@ export default function ModulesShowcase() {
       <div className="container-shell">
         <div className="max-w-3xl">
           <span className="section-kicker eyebrow-line">Modules</span>
-          <h2 className="section-title">Choose the capabilities your team actually needs</h2>
+          <h2 className="section-title section-title-compact">Choose the capabilities your team actually needs</h2>
           <p className="section-copy">
             TalentCIO is modular by design. Turn on the workflows that fit your operating model and add more
             as your organization grows.

@@ -113,7 +113,7 @@ export default function DemoRequest() {
             <div className="grid gap-10 lg:grid-cols-[0.95fr_minmax(0,1.05fr)]">
               <div id="demo-overview" className="pt-4">
                 <span className="section-kicker">Request a Demo</span>
-                <h1 className="section-title">
+                <h1 className="section-title section-title-compact">
                   {PAGE_COPY.demo.h1}
                 </h1>
                 <p className="section-copy">

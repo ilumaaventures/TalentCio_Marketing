@@ -31,7 +31,7 @@ export default function Contact() {
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
             <div id="contact-details" className="surface-card p-6 sm:p-10">
               <span className="section-kicker">Contact</span>
-              <h1 className="section-title">{PAGE_COPY.contact.h1}</h1>
+              <h1 className="section-title section-title-compact">{PAGE_COPY.contact.h1}</h1>
               <p className="section-copy max-w-3xl">
                 Reach out for Talent Intelligence Solutions, Platform demos, TalentSphere enquiries,
                 or a broader CTP partnership conversation. We will help route you to the right next step.
