@@ -81,8 +81,8 @@ export function Hero() {
               <div className="grid h-full w-full gap-4 lg:grid-cols-[minmax(0,1fr)_252px]">
                 <div className="relative overflow-hidden rounded-[28px] bg-slate-100">
                   <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80"
-                    alt="HR advisor consulting with a client"
+                    src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80"
+                    alt="Modern workspace with digital strategy and operations setup"
                     className="h-full min-h-[420px] w-full object-cover"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent,rgba(25,50,73,0.82))] p-6 text-white">
