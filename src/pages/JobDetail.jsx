@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AlertCircle, ArrowRight, Building2, CalendarRange, Clock3, Layers3, MapPin, Users2 } from 'lucide-react';
 import api from '../api/axios';
 import applicantApi from '../api/applicantApi';
@@ -47,6 +47,8 @@ function SkillChips({ title, items, tone = 'blue' }) {
 
 export default function JobDetail() {
   const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { isLoggedIn, profileCompletion } = useApplicantAuth();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -163,7 +165,10 @@ export default function JobDetail() {
   const companyLabel = job.client || company.name || 'Hiring Partner';
   const reportingManager = job.roleDetails?.reportingManager;
   const jobDescription = job.publicJobDescription || job.jobDescription;
-  const applyButtonLabel = alreadyApplied ? 'View Application Status' : isLoggedIn ? 'Apply Now' : 'Sign in to apply in 30 seconds';
+  const applyButtonLabel = alreadyApplied ? 'View Application Status' : isLoggedIn ? 'Apply Now' : 'Quick Apply';
+  const authRedirectState = {
+    from: `${location.pathname}${location.search}${location.hash}`
+  };
 
   return (
     <main className="bg-[var(--surface)] pb-20 pt-28">
@@ -316,6 +321,12 @@ export default function JobDetail() {
                       company_name: companyLabel,
                       state: alreadyApplied ? 'already_applied' : isLoggedIn ? 'logged_in' : 'guest'
                     });
+
+                    if (!isLoggedIn) {
+                      navigate('/applicant/login', { state: authRedirectState });
+                      return;
+                    }
+
                     setIsModalOpen(true);
                   }}
                   className="btn-primary mt-8 w-full"
