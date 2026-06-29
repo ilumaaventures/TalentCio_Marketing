@@ -231,6 +231,10 @@ export default function ApplicantLogin() {
                   <strong>Are you a company employee?</strong> Use your workspace subdomain login instead of this applicant account.
                 </p>
               </div>
+
+              <p className="mt-4 text-center text-[10px] text-slate-400">
+                By signing in, I authorize the Company to retain my profile and consider it for suitable employment opportunities.
+              </p>
             </div>
           )}
 
