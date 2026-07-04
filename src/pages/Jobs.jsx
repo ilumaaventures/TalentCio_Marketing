@@ -13,7 +13,6 @@ function JobCardSkeleton() {
     <div className="surface-card animate-pulse p-6">
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex min-w-0 flex-1 items-start gap-4">
-          <div className="h-14 w-14 rounded-2xl bg-slate-200" />
           <div className="min-w-0 flex-1">
             <div className="h-6 w-3/4 rounded-full bg-slate-200" />
             <div className="mt-3 h-4 w-1/2 rounded-full bg-slate-200" />

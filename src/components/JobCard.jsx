@@ -88,14 +88,6 @@ export default function JobCard({ job }) {
 
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="flex min-w-0 flex-1 items-start gap-4">
-          {logo ? (
-            <img src={logo} alt={companyLabel} className="h-14 w-14 rounded-2xl object-cover" />
-          ) : (
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 font-['Sora'] text-sm font-bold text-blue-700">
-              {getInitials(companyLabel)}
-            </div>
-          )}
-
           <div className="min-w-0 flex-1">
             <div className="min-w-0 pr-28 sm:pr-32">
               <h2 className="truncate text-lg font-bold text-slate-950">{title}</h2>
