@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight, LayoutPanelTop, Sparkles, Users } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import FaqSection from '../components/FaqSection';
 import FeaturesSection from '../components/FeaturesSection';
@@ -27,6 +28,12 @@ const routeMap = {
   solutions: '/solutions',
   platform: '/features',
   talentsphere: '/talentsphere'
+};
+
+const verticalIcons = {
+  solutions: Sparkles,
+  platform: LayoutPanelTop,
+  talentsphere: Users
 };
 
 export default function Home() {
@@ -78,21 +85,33 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {ECOSYSTEM_VERTICALS.map((vertical) => (
-                <article key={vertical.id} className="editorial-panel group p-6 sm:p-7">
-                  <div className="flex items-start justify-between gap-4">
-                    <p className="text-xs font-bold uppercase tracking-[0.28em] text-slate-500">{vertical.number}</p>
-                    <span className="h-11 w-11 rounded-2xl bg-[var(--primary-light)] transition group-hover:bg-[var(--primary)]" />
-                  </div>
-                  <h3 className="mt-10 text-[1.65rem] font-bold tracking-[-0.04em] text-slate-950">{vertical.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-slate-600">{vertical.subtitle}</p>
-                  <Link to={routeMap[vertical.id]} className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--primary)]">
-                    Explore
-                    <span className="inline-block h-px w-10 bg-[var(--primary)]" />
-                  </Link>
-                </article>
-              ))}
+            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {ECOSYSTEM_VERTICALS.map((vertical) => {
+                const IconComponent = verticalIcons[vertical.id] || Sparkles;
+                return (
+                  <article
+                    key={vertical.id}
+                    className="editorial-panel group flex flex-col items-center text-center p-7 sm:p-8"
+                  >
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--primary-light)] text-[var(--primary)] transition-all duration-300 group-hover:bg-[var(--primary)] group-hover:text-white group-hover:scale-105 shadow-xs">
+                      <IconComponent className="h-7 w-7 stroke-[1.8]" />
+                    </div>
+                    <h3 className="mt-6 text-[1.5rem] font-bold tracking-[-0.03em] text-slate-950">
+                      {vertical.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600 flex-1">
+                      {vertical.subtitle}
+                    </p>
+                    <Link
+                      to={routeMap[vertical.id]}
+                      className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-[var(--primary)] transition-colors hover:text-[var(--primary-hover)]"
+                    >
+                      Explore
+                      <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                    </Link>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
