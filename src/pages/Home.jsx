@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, LayoutPanelTop, Sparkles, Users } from 'lucide-react';
+import { ArrowRight, Brain, LayoutPanelTop, Users, ShieldCheck } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import FaqSection from '../components/FaqSection';
 import FeaturesSection from '../components/FeaturesSection';
@@ -31,7 +31,7 @@ const routeMap = {
 };
 
 const verticalIcons = {
-  solutions: Sparkles,
+  solutions: ShieldCheck,
   platform: LayoutPanelTop,
   talentsphere: Users
 };

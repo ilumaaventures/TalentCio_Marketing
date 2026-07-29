@@ -47,7 +47,7 @@ export const HERO_CONTENT = {
 export const ECOSYSTEM_VERTICALS = [
   {
     id: 'solutions',
-    number: '01',
+    // number: '01',
     title: 'Talent Intelligence Solutions',
     subtitle:
       'Strategic talent and workforce solutions powered by industry expertise, hiring intelligence and human-centered consulting.',
@@ -72,7 +72,7 @@ export const ECOSYSTEM_VERTICALS = [
   },
   {
     id: 'platform',
-    number: '02',
+    // number: '02',
     title: 'TalentCIO Platform',
     subtitle: 'An integrated talent management platform designed to manage the entire workforce lifecycle from hiring to exit.',
     description:
@@ -98,7 +98,7 @@ export const ECOSYSTEM_VERTICALS = [
   },
   {
     id: 'talentsphere',
-    number: '03',
+    // number: '03',
     title: 'TalentSphere',
     subtitle: 'Leadership & Talent Community Network',
     description:
@@ -243,17 +243,17 @@ export const MISSION = {
 
 export const HOW_IT_WORKS_STEPS = [
   {
-    number: '01',
+    // number: '01',
     title: 'Understand Your Workforce Need',
     desc: 'We begin with a deep understanding of your talent challenges - whether hiring, workforce planning, platform adoption or community engagement.'
   },
   {
-    number: '02',
+    // number: '02',
     title: 'Connect to the Right Vertical',
     desc: 'We route your need to the most relevant part of the talentCIO ecosystem - Solutions, Platform, TalentSphere, or a combination of them.'
   },
   {
-    number: '03',
+    // number: '03',
     title: 'Deliver Through Intelligence',
     desc: 'Human expertise and intelligent technology work together to deliver outcomes - from hires and workforce transformations to platform adoption and community growth.'
   }
