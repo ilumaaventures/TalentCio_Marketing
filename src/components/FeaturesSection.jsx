@@ -59,10 +59,10 @@ export default function FeaturesSection() {
                     <p className="mt-3 text-sm leading-7 text-slate-600">{feature.body}</p>
                   </div>
                 </div>
-                <div className="mt-8 flex items-center justify-between border-t border-slate-200 pt-4 text-[0.72rem] font-bold uppercase tracking-[0.18em] text-slate-500">
+                {/* <div className="mt-8 flex items-center justify-between border-t border-slate-200 pt-4 text-[0.72rem] font-bold uppercase tracking-[0.18em] text-slate-500">
                   <span>Advisory strength</span>
                   <span className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-[var(--accent)]">0{index + 1}</span>
-                </div>
+                </div> */}
               </motion.article>
             );
           })}
