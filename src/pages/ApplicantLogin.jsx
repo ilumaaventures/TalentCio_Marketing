@@ -29,13 +29,13 @@ export default function ApplicantLogin() {
       const response = await applicantApi.post('/google', { credential });
       login(response.data.token, response.data.applicant);
       toast.success(`Welcome${response.data.applicant.firstName ? `, ${response.data.applicant.firstName}` : ''}.`);
-      navigate(from, { replace: true });
+      navigate(from, { replace: true, state: location.state });
     } catch (error) {
       toast.error(error.response?.data?.message || 'Google sign-in failed.');
     } finally {
       setSubmitting(false);
     }
-  }, [from, login, navigate]);
+  }, [from, login, navigate, location.state]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -49,7 +49,7 @@ export default function ApplicantLogin() {
       });
       login(response.data.token, response.data.applicant);
       toast.success(`Welcome back, ${response.data.applicant.firstName}.`);
-      navigate(from, { replace: true });
+      navigate(from, { replace: true, state: location.state });
     } catch (error) {
       if (error.response?.data?.needsVerification) {
         setVerificationEmail(error.response.data.email || normalizeEmail(form.email));

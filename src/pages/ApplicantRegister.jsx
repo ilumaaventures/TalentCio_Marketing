@@ -92,7 +92,7 @@ export default function ApplicantRegister() {
 
       login(response.data.token, response.data.applicant);
       toast.success('Email verified successfully.');
-      navigate(from, { replace: true });
+      navigate(from, { replace: true, state: location.state });
     } catch (error) {
       toast.error(error.response?.data?.message || 'Verification failed.');
     } finally {

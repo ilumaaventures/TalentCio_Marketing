@@ -3,6 +3,7 @@ import { BriefcaseBusiness, ChevronLeft, ChevronRight, SearchX } from 'lucide-re
 import JobCard from '../components/JobCard';
 import JobFilters from '../components/JobFilters';
 import Seo from '../components/Seo';
+import { GeneralApplicationBanner } from '../components/opportunities';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import { PAGE_COPY, SITE_URL } from '../content/marketingContent';
 import usePrerenderReady from '../hooks/usePrerenderReady';
@@ -132,17 +133,24 @@ export default function Jobs() {
                         </button>
                       </div>
                     </div>
+
+                    <div className="mt-12">
+                      <GeneralApplicationBanner variant="card" />
+                    </div>
                   </>
                 ) : (
-                  <div className="mt-10 flex flex-col items-center rounded-[32px] border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-50 text-blue-600">
-                      <SearchX size={34} />
+                  <div className="space-y-8">
+                    <div className="mt-10 flex flex-col items-center rounded-[32px] border border-dashed border-slate-300 bg-white px-6 py-12 text-center">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+                        <SearchX size={30} />
+                      </div>
+                      <h2 className="mt-4 text-xl font-bold text-slate-900">No matching positions found</h2>
+                      <p className="mt-2 max-w-md text-sm text-slate-600">
+                        Try adjusting your filters or search terms, or submit your details below for upcoming roles.
+                      </p>
                     </div>
-                    <h2 className="mt-6 text-2xl font-bold text-slate-900">No open positions right now</h2>
-                    <p className="mt-3 max-w-md text-sm leading-6 text-slate-600">
-                      Check back soon for new opportunities, or clear the active filters to browse every
-                      current listing.
-                    </p>
+
+                    <GeneralApplicationBanner variant="empty-state" />
                   </div>
                 )}
               </div>
