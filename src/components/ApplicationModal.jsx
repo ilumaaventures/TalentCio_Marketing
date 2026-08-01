@@ -346,9 +346,10 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
                   <label className="label-shell">Email Address*</label>
                   <input
                     type="email"
-                    className={`input-shell ${errors.email ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
+                    readOnly={isLoggedIn}
+                    className={`input-shell ${isLoggedIn ? 'bg-slate-100 text-slate-600 cursor-not-allowed font-medium' : ''} ${errors.email ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
                     value={form.email}
-                    onChange={(event) => setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
+                    onChange={(event) => !isLoggedIn && setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
                     placeholder="name@example.com"
                   />
                   {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Filter, RotateCcw } from 'lucide-react';
+import { GeneralApplicationBanner } from './opportunities';
 
 const locationOptions = ['Onsite', 'Remote', 'Hybrid'];
 const typeOptions = ['Full-time', 'Intern', 'Contract', 'Freelance'];
@@ -69,6 +70,11 @@ export default function JobFilters({ filters, onChange, onReset }) {
             value={filters.department}
             onChange={(event) => onChange({ department: event.target.value })}
           />
+        </div>
+
+        {/* Option on left side below department field */}
+        <div className="pt-2">
+          <GeneralApplicationBanner variant="sidebar" />
         </div>
       </div>
     </div>
