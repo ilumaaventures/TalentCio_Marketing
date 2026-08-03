@@ -14,12 +14,54 @@ export default function GeneralApplicationBanner({
   const location = useLocation();
   const { isLoggedIn } = useApplicantAuth();
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    // Clear openApplication state if still in location state
+    if (location.state?.openApplication) {
+      const newState = { ...location.state };
+      delete newState.openApplication;
+      navigate(`${location.pathname}${location.search}${location.hash}`, {
+        replace: true,
+        state: newState
+      });
+    }
+  };
+
   // Auto-open application modal if candidate redirected back after login
   useEffect(() => {
-    if (isLoggedIn && (location.state?.openApplication || new URLSearchParams(location.search).get('openApplication') === 'true')) {
+    const searchParams = new URLSearchParams(location.search);
+    const hasSearchFlag = searchParams.get('openApplication') === 'true';
+    const hasStateFlag = Boolean(location.state?.openApplication);
+
+    if (isLoggedIn && (hasStateFlag || hasSearchFlag)) {
+      // Prevent duplicate auto-open across multiple banner instances mounted on the same page
+      if (window._generalAppModalAutoOpened) {
+        return;
+      }
+      window._generalAppModalAutoOpened = true;
+
       setModalOpen(true);
+
+      // Clean up history state and query params immediately to prevent reopening on back navigation
+      const newState = { ...location.state };
+      delete newState.openApplication;
+
+      if (hasSearchFlag) {
+        searchParams.delete('openApplication');
+      }
+      const newSearch = searchParams.toString() ? `?${searchParams.toString()}` : '';
+
+      navigate(`${location.pathname}${newSearch}${location.hash}`, {
+        replace: true,
+        state: newState
+      });
+
+      // Reset global guard after brief delay
+      setTimeout(() => {
+        window._generalAppModalAutoOpened = false;
+      }, 800);
     }
-  }, [isLoggedIn, location]);
+  }, [isLoggedIn, location, navigate]);
 
   const handleOpenModal = () => {
     if (!isLoggedIn) {
@@ -37,9 +79,9 @@ export default function GeneralApplicationBanner({
   // Variant for Left Sidebar (under Department field)
   if (variant === 'sidebar') {
     return (
-      <div className="mt-6 rounded-2xl border border-blue-100 bg-gradient-to-b from-blue-50/60 via-white to-slate-50 p-4 transition-all hover:border-blue-200 hover:shadow-md">
+      <div className="mt-6 rounded-2xl border border-blue-100 bg-gradient-to-b from-blue-50/60 via-white to-slate-50 p-4 transition-all duration-200 hover:border-blue-200 hover:shadow-md">
         <div className="flex items-center gap-2 text-blue-700">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-100 text-blue-700 shadow-sm">
             <UserPlus size={16} />
           </div>
           <span className="text-xs font-bold uppercase tracking-wider text-blue-800">
@@ -58,7 +100,7 @@ export default function GeneralApplicationBanner({
         <button
           type="button"
           onClick={handleOpenModal}
-          className="mt-3.5 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-3.5 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700 active:scale-[0.98]"
+          className="mt-3.5 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-3.5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-blue-700 active:scale-[0.98]"
         >
           <FilePlus size={14} />
           Fill Details & Resume
@@ -66,7 +108,7 @@ export default function GeneralApplicationBanner({
 
         <GeneralApplicationModal
           isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={handleCloseModal}
         />
       </div>
     );
@@ -106,13 +148,13 @@ export default function GeneralApplicationBanner({
 
         <GeneralApplicationModal
           isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={handleCloseModal}
         />
       </div>
     );
   }
 
-  // Default White-themed Card variant for page sections
+  // Default Card variant for page sections
   return (
     <div className="relative overflow-hidden rounded-[32px] border border-slate-200 bg-white p-8 text-slate-900 shadow-xl shadow-slate-900/5 sm:p-10">
       <div className="relative z-10 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
@@ -146,7 +188,7 @@ export default function GeneralApplicationBanner({
 
       <GeneralApplicationModal
         isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={handleCloseModal}
       />
     </div>
   );

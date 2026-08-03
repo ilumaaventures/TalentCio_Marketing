@@ -34,7 +34,7 @@ export default function GeneralApplicationModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity"
           />
 
           {/* Modal Container */}
@@ -42,21 +42,29 @@ export default function GeneralApplicationModal({
             initial={{ opacity: 0, scale: 0.95, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 16 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-[28px] border border-white/60 bg-white shadow-2xl overflow-hidden z-10"
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-2xl max-h-[88vh] flex flex-col rounded-[32px] border border-white/80 bg-white shadow-2xl overflow-hidden z-10"
           >
+            {/* Top Accent Bar */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500" />
+
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/80 px-6 py-4 sm:px-8">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/20">
-                  <Briefcase size={20} />
+            <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-6 py-4.5 sm:px-8">
+              <div className="flex items-center gap-3.5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/20">
+                  <Briefcase size={22} />
                 </div>
                 <div>
-                  <h2 className="text-lg font-bold text-slate-900 sm:text-xl">
-                    Submit Candidate Application
-                  </h2>
-                  <p className="text-xs text-slate-500">
-                    Tell us which position you want to fill & upload your details
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-lg font-bold text-slate-950 sm:text-xl">
+                      Submit Candidate Application
+                    </h2>
+                    <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-blue-50 border border-blue-100 px-2.5 py-0.5 text-[11px] font-bold text-blue-700">
+                      <Sparkles size={11} /> Open Talent Network
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Specify your target role & share your profile details with our hiring team
                   </p>
                 </div>
               </div>
@@ -64,7 +72,7 @@ export default function GeneralApplicationModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 active:scale-95"
                 aria-label="Close dialog"
               >
                 <X size={18} />

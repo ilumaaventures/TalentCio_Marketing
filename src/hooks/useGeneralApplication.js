@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import { submitGeneralApplication } from '../api/generalApplicationApi';
+import applicantApi from '../api/applicantApi';
 
 const INITIAL_FORM = {
   desiredPosition: '',
@@ -30,6 +31,7 @@ export default function useGeneralApplication(defaultPosition = '') {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [alreadyAppliedWarning, setAlreadyAppliedWarning] = useState(null);
 
   // Auto-fill logged in applicant profile info & lock email
   useEffect(() => {
@@ -56,10 +58,41 @@ export default function useGeneralApplication(defaultPosition = '') {
     }
   }, [defaultPosition]);
 
+  // Pre-check: if logged in, check if a general application was submitted within 3 months
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setAlreadyAppliedWarning(null);
+      return;
+    }
+    applicantApi.get('/my-applications')
+      .then(res => {
+        const apps = res.data?.applications || [];
+        const threeMonthsAgo = new Date();
+        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+        const recentGeneral = apps.find(a => !a.hiringRequestId && new Date(a.createdAt) >= threeMonthsAgo);
+        if (recentGeneral) {
+          const dateStr = new Date(recentGeneral.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+          setAlreadyAppliedWarning(`Your application was submitted on ${dateStr}. You can re-apply after 3 months.`);
+        } else {
+          setAlreadyAppliedWarning(null);
+        }
+      })
+      .catch(() => {});
+  }, [isLoggedIn]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     // Candidate cannot edit email if logged in
     if (name === 'email' && isLoggedIn) {
+      return;
+    }
+
+    if (name === 'mobile') {
+      const sanitized = value.replace(/\D/g, '').slice(0, 10);
+      setFormData((prev) => ({ ...prev, mobile: sanitized }));
+      if (errors.mobile) {
+        setErrors((prev) => ({ ...prev, mobile: null }));
+      }
       return;
     }
 
@@ -98,7 +131,8 @@ export default function useGeneralApplication(defaultPosition = '') {
   const validate = () => {
     const newErrors = {};
 
-    if (!isLoggedIn) {
+    const token = localStorage.getItem('applicant_token');
+    if (!isLoggedIn || !token) {
       setError('Please log in first to submit your candidate application.');
       newErrors.auth = 'Please log in first to submit your candidate application.';
       setErrors(newErrors);
@@ -120,8 +154,11 @@ export default function useGeneralApplication(defaultPosition = '') {
       newErrors.email = 'Please enter a valid email address.';
     }
 
-    if (!formData.mobile?.trim()) {
+    const mobileDigits = (formData.mobile || '').replace(/\D/g, '');
+    if (!mobileDigits) {
       newErrors.mobile = 'Mobile phone number is required.';
+    } else if (mobileDigits.length !== 10) {
+      newErrors.mobile = 'Mobile phone number must be exactly 10 digits.';
     }
 
     if (!formData.useProfileResume && !resumeFile) {
@@ -174,8 +211,12 @@ export default function useGeneralApplication(defaultPosition = '') {
       setIsSubmitted(true);
       return true;
     } catch (err) {
-      const msg = err.response?.data?.message || err.message || 'Failed to submit application. Please try again.';
-      setError(msg);
+      if (err.response?.data?.alreadyApplied) {
+        setAlreadyAppliedWarning(err.response.data.message);
+      } else {
+        const msg = err.response?.data?.message || err.message || 'Failed to submit application. Please try again.';
+        setError(msg);
+      }
       return false;
     } finally {
       setLoading(false);
@@ -192,6 +233,7 @@ export default function useGeneralApplication(defaultPosition = '') {
     setError(null);
     setSuccessMessage(null);
     setIsSubmitted(false);
+    setAlreadyAppliedWarning(null);
   };
 
   return {
@@ -204,6 +246,7 @@ export default function useGeneralApplication(defaultPosition = '') {
     isSubmitted,
     applicant,
     isLoggedIn,
+    alreadyAppliedWarning,
     handleChange,
     handleFileChange,
     handleSubmit,
