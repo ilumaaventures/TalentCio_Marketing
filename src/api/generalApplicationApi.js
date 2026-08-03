@@ -5,10 +5,15 @@ import api from './axios';
  * @param {FormData} formData
  */
 export async function submitGeneralApplication(formData) {
-  const response = await api.post('/public/general-application', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  });
+  const token = localStorage.getItem('applicant_token');
+  const headers = {
+    'Content-Type': 'multipart/form-data'
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await api.post('/public/general-application', formData, { headers });
   return response.data;
 }
