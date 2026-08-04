@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { HOMEPAGE_FAQ_GROUPS } from '../content/marketingContent';
 
 export default function FaqSection() {
@@ -12,7 +13,7 @@ export default function FaqSection() {
     <section id="faq" className="section-shell section-divider bg-white">
       <div className="container-shell">
         <div className="max-w-3xl">
-          <span className="section-kicker eyebrow-line">FAQ</span>
+          <span className="section-kicker">FAQ</span>
           <h2 className="section-title">Frequently asked questions about TalentCIO</h2>
           <p className="section-copy">
             These are the questions buyers usually ask when comparing TalentCIO with fragmented hiring,
@@ -21,7 +22,7 @@ export default function FaqSection() {
         </div>
 
         <div className="mt-12">
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2.5">
             {HOMEPAGE_FAQ_GROUPS.map((group) => (
               <button
                 key={group.title}
@@ -30,10 +31,10 @@ export default function FaqSection() {
                   setActiveGroup(group.title);
                   setOpenKey(`${group.title}-0`);
                 }}
-                className={`border px-5 py-2.5 text-sm font-semibold transition ${
+                className={`rounded-full px-5 py-2 font-['Nunito_Sans'] text-sm font-semibold transition-all duration-200 ${
                   activeGroup === group.title
-                    ? 'border-[var(--primary)] bg-[var(--primary)] text-white shadow-[0_16px_40px_-24px_rgba(42,86,246,0.7)]'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:text-[var(--primary)]'
+                    ? 'bg-[#ea7c00] text-white shadow-sm'
+                    : 'border border-black/[0.08] bg-[#f5f2ef]/60 text-[#444444] hover:border-[#ea7c00] hover:text-[#ea7c00]'
                 }`}
               >
                 {group.title}
@@ -42,40 +43,54 @@ export default function FaqSection() {
           </div>
 
           <div className="mt-8">
-            <div className="mb-4">
-              <h3 className="faq-group-title text-2xl font-bold text-slate-950">{currentGroup.title}</h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">{currentGroup.intro}</p>
+            <div className="mb-5">
+              <h3 className="faq-group-title font-['Nunito_Sans'] text-2xl font-bold text-[#282828]">{currentGroup.title}</h3>
+              <p className="mt-1.5 font-['Nunito_Sans'] text-sm leading-relaxed text-[#6c757d]">{currentGroup.intro}</p>
             </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-3.5">
               {currentGroup.items.map((item, index) => {
                 const itemKey = `${currentGroup.title}-${index}`;
                 const isOpen = openKey === itemKey;
 
                 return (
-                  <article key={item.question} className="editorial-panel overflow-hidden">
+                  <motion.article
+                    key={item.question}
+                    initial={{ opacity: 0, x: -18 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false, amount: 0.2 }}
+                    transition={{ duration: 0.35, delay: index * 0.05 }}
+                    whileHover={{ x: 4, transition: { duration: 0.2 } }}
+                    className="overflow-hidden rounded-[16px] border border-black/[0.06] bg-white transition-all duration-200 hover:border-[#ea7c00]/30"
+                  >
                     <button
                       type="button"
                       onClick={() => setOpenKey(isOpen ? '' : itemKey)}
-                      className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left sm:px-8"
+                      className="flex w-full items-center justify-between gap-4 p-5 text-left transition hover:bg-[#f5f2ef]/30 sm:px-7 sm:py-5"
                       aria-expanded={isOpen}
                     >
-                      <span className="faq-question text-lg font-semibold text-slate-950">{item.question}</span>
+                      <span className="faq-question font-['Nunito_Sans'] text-base font-bold text-[#282828] sm:text-lg">{item.question}</span>
                       <span
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-600 transition ${
-                          isOpen ? 'rotate-180 border-[var(--primary)] bg-[var(--primary)] text-white' : ''
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                          isOpen ? 'rotate-180 bg-[#ea7c00] text-white shadow-xs' : 'border border-black/[0.08] bg-[#f5f2ef]/60 text-[#444444]'
                         }`}
                       >
-                        <ChevronDown size={18} className={isOpen ? 'text-slate-950' : 'text-slate-600'} />
+                        <ChevronDown size={16} />
                       </span>
                     </button>
 
                     {isOpen && (
-                      <div className="border-t border-slate-200 px-6 py-5 sm:px-8">
-                        <p className="max-w-4xl text-sm leading-8 text-slate-600">{item.answer}</p>
-                      </div>
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="border-t border-black/[0.06] bg-[#f5f2ef]/20 p-5 sm:px-7 sm:py-5"
+                      >
+                        <p className="max-w-4xl font-['Nunito_Sans'] text-sm leading-relaxed text-[#444444]">{item.answer}</p>
+                      </motion.div>
                     )}
-                  </article>
+                  </motion.article>
                 );
               })}
             </div>
@@ -85,3 +100,4 @@ export default function FaqSection() {
     </section>
   );
 }
+

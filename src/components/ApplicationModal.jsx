@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { CheckCircle, FileText, LockKeyhole, Paperclip, X } from 'lucide-react';
@@ -211,290 +212,299 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
     }
   };
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/60 px-4 py-6 backdrop-blur-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-        >
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+          {/* Full Screen Dark Overlay - Less Blur */}
           <motion.div
-            className="surface-card max-h-[92vh] w-full max-w-2xl overflow-y-auto bg-white"
-            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/60 backdrop-blur-[2px] transition-opacity"
+          />
+
+          <motion.div
+            className="relative z-10 flex flex-col w-full max-w-2xl max-h-[85vh] sm:max-h-[90vh] my-auto rounded-3xl border border-slate-200 bg-white shadow-2xl overflow-hidden"
+            initial={{ opacity: 0, y: 12, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
+            exit={{ opacity: 0, y: 12, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-start justify-between border-b border-slate-200 px-6 py-5">
+            <div className="flex shrink-0 items-start justify-between border-b border-slate-200 px-6 py-5 bg-slate-50/80">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">Apply Now</p>
-                <h2 className="mt-2 text-2xl font-bold text-slate-950">{jobTitle}</h2>
-                <p className="mt-1 text-sm text-slate-500">{companyName}</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#ea7c00]">Apply Now</p>
+                <h2 className="mt-1 text-2xl font-bold text-slate-950">{jobTitle}</h2>
+                <p className="mt-0.5 text-sm text-slate-500">{companyName}</p>
               </div>
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 text-slate-500 transition hover:border-slate-300 hover:text-slate-800"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 active:scale-95"
               >
                 <X size={18} />
               </button>
             </div>
 
-            {!isLoggedIn ? (
-              <div className="p-6">
-                <div className="rounded-[28px] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-slate-50 p-6">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-[0_18px_45px_-24px_rgba(17,92,185,0.95)]">
-                    <LockKeyhole size={24} />
+            <div className="flex-1 min-h-0 overflow-y-auto">
+              {!isLoggedIn ? (
+                <div className="p-6">
+                  <div className="rounded-[28px] border border-amber-100 bg-gradient-to-br from-amber-50/60 via-white to-slate-50 p-6">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ea7c00] text-white shadow-md shadow-[#ea7c00]/20">
+                      <LockKeyhole size={24} />
+                    </div>
+                    <h3 className="mt-5 text-2xl font-bold text-slate-950">Sign in to apply</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">
+                      You can browse every public job on TalentCIO without logging in. To submit an application,
+                      please sign in or create an applicant account so you can track your status later.
+                    </p>
+
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                      <Link
+                        to="/applicant/login"
+                        state={authRedirectState}
+                        onClick={() => {
+                          trackEvent('applicant_sign_in_click', { source: 'application_modal' });
+                          onClose();
+                        }}
+                        className="btn-primary"
+                      >
+                        Sign In to Apply
+                      </Link>
+                      <Link
+                        to="/applicant/register"
+                        state={authRedirectState}
+                        onClick={onClose}
+                        className="btn-secondary"
+                      >
+                        Create Account
+                      </Link>
+                    </div>
+
+                    <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+                      Public viewing stays open. Applying requires an applicant login.
+                    </p>
                   </div>
-                  <h3 className="mt-5 text-2xl font-bold text-slate-950">Sign in to apply</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    You can browse every public job on TalentCIO without logging in. To submit an application,
-                    please sign in or create an applicant account so you can track your status later.
-                  </p>
+
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <button type="button" onClick={onClose} className="btn-secondary">
+                      Close
+                    </button>
+                  </div>
+                </div>
+              ) : alreadyApplied ? (
+                <div className="p-6">
+                  <div className="rounded-2xl border border-amber-200 bg-[#fff6ee] px-4 py-4 text-sm font-semibold text-slate-800">
+                    You have already applied for this position. Check{' '}
+                    <Link to="/my-applications" className="underline text-[#ea7c00]" onClick={onClose}>
+                      My Applications
+                    </Link>{' '}
+                    to review your current status.
+                  </div>
 
                   <div className="mt-6 flex flex-wrap items-center gap-3">
-                    <Link
-                      to="/applicant/login"
-                      state={authRedirectState}
-                      onClick={() => {
-                        trackEvent('applicant_sign_in_click', { source: 'application_modal' });
-                        onClose();
-                      }}
-                      className="btn-primary"
-                    >
-                      Sign In to Apply
+                    <Link to="/my-applications" onClick={onClose} className="btn-primary">
+                      View My Applications
                     </Link>
-                    <Link
-                      to="/applicant/register"
-                      state={authRedirectState}
-                      onClick={onClose}
-                      className="btn-secondary"
-                    >
-                      Create Account
-                    </Link>
+                    <button type="button" onClick={onClose} className="btn-secondary">
+                      Close
+                    </button>
                   </div>
-
-                  <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
-                    Public viewing stays open. Applying requires an applicant login.
-                  </p>
                 </div>
-
-                <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <button type="button" onClick={onClose} className="btn-secondary">
-                    Close
-                  </button>
-                </div>
-              </div>
-            ) : alreadyApplied ? (
-              <div className="p-6">
-                <div className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-4 text-sm font-semibold text-blue-700">
-                  You have already applied for this position. Check{' '}
-                  <Link to="/my-applications" className="underline" onClick={onClose}>
-                    My Applications
-                  </Link>{' '}
-                  to review your current status.
-                </div>
-
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <Link to="/my-applications" onClick={onClose} className="btn-primary">
-                    View My Applications
-                  </Link>
-                  <button type="button" onClick={onClose} className="btn-secondary">
-                    Close
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form className="p-6" onSubmit={handleSubmit}>
-                {token ? (
-                  <div className="mb-5 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3">
-                    <div className="flex items-start gap-2 text-sm text-blue-700">
-                      <CheckCircle size={15} className="mt-0.5 shrink-0" />
-                      <span>
-                        <strong>Pre-filled from your profile.</strong>{' '}
-                        <Link to="/profile" target="_blank" className="underline hover:no-underline" onClick={onClose}>
-                          Update profile
-                        </Link>{' '}
-                        if anything has changed.
-                      </span>
+              ) : (
+                <form className="p-6" onSubmit={handleSubmit}>
+                  {token ? (
+                    <div className="mb-5 rounded-2xl border border-amber-200 bg-[#fff6ee] px-4 py-3">
+                      <div className="flex items-start gap-2 text-sm text-slate-800">
+                        <CheckCircle size={15} className="mt-0.5 shrink-0 text-[#ea7c00]" />
+                        <span>
+                          <strong>Pre-filled from your profile.</strong>{' '}
+                          <Link to="/profile" target="_blank" className="underline hover:no-underline text-[#ea7c00]" onClick={onClose}>
+                            Update profile
+                          </Link>{' '}
+                          if anything has changed.
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ) : null}
+                  ) : null}
 
-                {token && profileCompletion && profileCompletion.score < 60 ? (
-                  <div className="mb-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-                    Your profile is {profileCompletion.score}% complete. Finish it to make future applications faster.
-                  </div>
-                ) : null}
+                  {token && profileCompletion && profileCompletion.score < 60 ? (
+                    <div className="mb-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+                      Your profile is {profileCompletion.score}% complete. Finish it to make future applications faster.
+                    </div>
+                  ) : null}
 
-                <div className="grid gap-5 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <label className="label-shell">Full Name*</label>
-                  <input
-                    className={`input-shell ${errors.candidateName ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
-                    value={form.candidateName}
-                    onChange={(event) => setForm((current) => ({ ...current, candidateName: event.target.value }))}
-                    placeholder="Your full name"
-                  />
-                  {errors.candidateName && <p className="mt-2 text-sm text-red-600">{errors.candidateName}</p>}
-                </div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="sm:col-span-2">
+                      <label className="label-shell">Full Name*</label>
+                      <input
+                        className={`input-shell ${errors.candidateName ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
+                        value={form.candidateName}
+                        onChange={(event) => setForm((current) => ({ ...current, candidateName: event.target.value }))}
+                        placeholder="Your full name"
+                      />
+                      {errors.candidateName && <p className="mt-2 text-sm text-red-600">{errors.candidateName}</p>}
+                    </div>
 
-                <div>
-                  <label className="label-shell">Email Address*</label>
-                  <input
-                    type="email"
-                    readOnly={isLoggedIn}
-                    className={`input-shell ${isLoggedIn ? 'bg-slate-100 text-slate-600 cursor-not-allowed font-medium' : ''} ${errors.email ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
-                    value={form.email}
-                    onChange={(event) => !isLoggedIn && setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
-                    placeholder="name@example.com"
-                  />
-                  {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
-                </div>
+                    <div>
+                      <label className="label-shell">Email Address*</label>
+                      <input
+                        type="email"
+                        readOnly={isLoggedIn}
+                        className={`input-shell ${isLoggedIn ? 'bg-slate-100 text-slate-600 cursor-not-allowed font-medium' : ''} ${errors.email ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
+                        value={form.email}
+                        onChange={(event) => !isLoggedIn && setForm((current) => ({ ...current, email: event.target.value.toLowerCase() }))}
+                        placeholder="name@example.com"
+                      />
+                      {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
+                    </div>
 
-                <div>
-                  <label className="label-shell">Phone Number*</label>
-                  <input
-                    type="tel"
-                    className={`input-shell ${errors.mobile ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
-                    value={form.mobile}
-                    onChange={(event) => setForm((current) => ({ ...current, mobile: event.target.value.replace(/\D/g, '').slice(0, 10) }))}
-                    placeholder="10-digit mobile number"
-                  />
-                  {errors.mobile && <p className="mt-2 text-sm text-red-600">{errors.mobile}</p>}
-                </div>
+                    <div>
+                      <label className="label-shell">Phone Number*</label>
+                      <input
+                        type="tel"
+                        className={`input-shell ${errors.mobile ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
+                        value={form.mobile}
+                        onChange={(event) => setForm((current) => ({ ...current, mobile: event.target.value.replace(/\D/g, '').slice(0, 10) }))}
+                        placeholder="10-digit mobile number"
+                      />
+                      {errors.mobile && <p className="mt-2 text-sm text-red-600">{errors.mobile}</p>}
+                    </div>
 
-                <div>
-                  <label className="label-shell">Current CTC (LPA)</label>
-                  <input
-                    type="number"
-                    className="input-shell"
-                    value={form.currentCTC}
-                    onChange={(event) => setForm((current) => ({ ...current, currentCTC: event.target.value }))}
-                    placeholder="e.g. 8.5"
-                  />
-                </div>
+                    <div>
+                      <label className="label-shell">Current CTC (LPA)</label>
+                      <input
+                        type="number"
+                        className="input-shell"
+                        value={form.currentCTC}
+                        onChange={(event) => setForm((current) => ({ ...current, currentCTC: event.target.value }))}
+                        placeholder="e.g. 8.5"
+                      />
+                    </div>
 
-                <div>
-                  <label className="label-shell">Expected CTC (LPA)</label>
-                  <input
-                    type="number"
-                    className="input-shell"
-                    value={form.expectedCTC}
-                    onChange={(event) => setForm((current) => ({ ...current, expectedCTC: event.target.value }))}
-                    placeholder="e.g. 11"
-                  />
-                </div>
+                    <div>
+                      <label className="label-shell">Expected CTC (LPA)</label>
+                      <input
+                        type="number"
+                        className="input-shell"
+                        value={form.expectedCTC}
+                        onChange={(event) => setForm((current) => ({ ...current, expectedCTC: event.target.value }))}
+                        placeholder="e.g. 11"
+                      />
+                    </div>
 
-                <div className="sm:col-span-2">
-                  <label className="label-shell">Notice Period (days)</label>
-                  <input
-                    type="number"
-                    className="input-shell"
-                    value={form.noticePeriod}
-                    onChange={(event) => setForm((current) => ({ ...current, noticePeriod: event.target.value }))}
-                    placeholder="e.g. 30"
-                  />
-                </div>
+                    <div className="sm:col-span-2">
+                      <label className="label-shell">Notice Period (days)</label>
+                      <input
+                        type="number"
+                        className="input-shell"
+                        value={form.noticePeriod}
+                        onChange={(event) => setForm((current) => ({ ...current, noticePeriod: event.target.value }))}
+                        placeholder="e.g. 30"
+                      />
+                    </div>
 
-                <div className="sm:col-span-2">
-                  <label className="label-shell">Cover Note</label>
-                  <textarea
-                    rows={4}
-                    className={`input-shell resize-none ${errors.coverNote ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
-                    value={form.coverNote}
-                    onChange={(event) => setForm((current) => ({ ...current, coverNote: event.target.value.slice(0, 500) }))}
-                    placeholder="Share any context that can help the hiring team understand your fit."
-                  />
-                  <div className="mt-2 flex items-center justify-between">
-                    {errors.coverNote ? <p className="text-sm text-red-600">{errors.coverNote}</p> : <span />}
-                    <p className="text-xs text-slate-500">{form.coverNote.length}/500</p>
-                  </div>
-                </div>
+                    <div className="sm:col-span-2">
+                      <label className="label-shell">Cover Note</label>
+                      <textarea
+                        rows={4}
+                        className={`input-shell resize-none ${errors.coverNote ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
+                        value={form.coverNote}
+                        onChange={(event) => setForm((current) => ({ ...current, coverNote: event.target.value.slice(0, 500) }))}
+                        placeholder="Share any context that can help the hiring team understand your fit."
+                      />
+                      <div className="mt-2 flex items-center justify-between">
+                        {errors.coverNote ? <p className="text-sm text-red-600">{errors.coverNote}</p> : <span />}
+                        <p className="text-xs text-slate-500">{form.coverNote.length}/500</p>
+                      </div>
+                    </div>
 
-                <div className="sm:col-span-2">
-                  <label className="label-shell">Resume*</label>
-                  {usingProfileResume && profileData?.resumeUrl ? (
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3">
-                        <div className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
-                          <FileText size={15} />
-                          Using your saved resume
-                          {profileData.resumeFileName ? (
-                            <span className="text-xs font-normal text-emerald-600">({profileData.resumeFileName})</span>
+                    <div className="sm:col-span-2">
+                      <label className="label-shell">Resume*</label>
+                      {usingProfileResume && profileData?.resumeUrl ? (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+                            <div className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
+                              <FileText size={15} />
+                              Using your saved resume
+                              {profileData.resumeFileName ? (
+                                <span className="text-xs font-normal text-emerald-600">({profileData.resumeFileName})</span>
+                              ) : null}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setUsingProfileResume(false)}
+                              className="text-xs font-semibold text-slate-500 underline hover:text-slate-700"
+                            >
+                              Upload different
+                            </button>
+                          </div>
+                          {profileData.resumeUpdatedAt ? (
+                            <p className="px-1 text-xs text-slate-400">
+                              Last updated {new Date(profileData.resumeUpdatedAt).toLocaleDateString('en-IN', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric'
+                              })}
+                            </p>
                           ) : null}
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => setUsingProfileResume(false)}
-                          className="text-xs font-semibold text-slate-500 underline hover:text-slate-700"
-                        >
-                          Upload different
-                        </button>
-                      </div>
-                      {profileData.resumeUpdatedAt ? (
-                        <p className="px-1 text-xs text-slate-400">
-                          Last updated {new Date(profileData.resumeUpdatedAt).toLocaleDateString('en-IN', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric'
-                          })}
-                        </p>
-                      ) : null}
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <label className={`flex cursor-pointer items-center gap-3 rounded-[24px] border border-dashed px-4 py-4 transition ${errors.resume ? 'border-red-300 bg-red-50' : 'border-slate-300 bg-slate-50 hover:border-blue-300 hover:bg-blue-50'}`}>
-                        <div className="rounded-2xl bg-white p-3 text-blue-700 shadow-sm">
-                          <Paperclip size={18} />
+                      ) : (
+                        <div className="space-y-2">
+                          <label className={`flex cursor-pointer items-center gap-3 rounded-[24px] border border-dashed px-4 py-4 transition ${errors.resume ? 'border-red-300 bg-red-50' : 'border-slate-300 bg-slate-50 hover:border-[#ea7c00] hover:bg-[#fff6ee]'}`}>
+                            <div className="rounded-2xl bg-white p-3 text-[#ea7c00] shadow-sm">
+                              <Paperclip size={18} />
+                            </div>
+                            <div className="min-w-0">
+                              <p className="truncate text-sm font-semibold text-slate-800">
+                                {fileName || 'Upload PDF, DOC, or DOCX'}
+                              </p>
+                              <p className="mt-1 text-xs text-slate-500">Maximum file size: 5MB</p>
+                            </div>
+                            <input
+                              type="file"
+                              accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                              className="hidden"
+                              onChange={(event) => setForm((current) => ({ ...current, resume: event.target.files?.[0] || null }))}
+                            />
+                          </label>
+                          {profileData?.resumeUrl ? (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setUsingProfileResume(true);
+                                setForm((current) => ({ ...current, resume: null }));
+                              }}
+                              className="text-xs font-semibold text-[#ea7c00] hover:underline"
+                            >
+                              Use saved resume instead
+                            </button>
+                          ) : null}
                         </div>
-                        <div className="min-w-0">
-                          <p className="truncate text-sm font-semibold text-slate-800">
-                            {fileName || 'Upload PDF, DOC, or DOCX'}
-                          </p>
-                          <p className="mt-1 text-xs text-slate-500">Maximum file size: 5MB</p>
-                        </div>
-                        <input
-                          type="file"
-                          accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                          className="hidden"
-                          onChange={(event) => setForm((current) => ({ ...current, resume: event.target.files?.[0] || null }))}
-                        />
-                      </label>
-                      {profileData?.resumeUrl ? (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setUsingProfileResume(true);
-                            setForm((current) => ({ ...current, resume: null }));
-                          }}
-                          className="text-xs font-semibold text-blue-600 hover:underline"
-                        >
-                          Use saved resume instead
-                        </button>
-                      ) : null}
+                      )}
+                      {errors.resume && <p className="mt-2 text-sm text-red-600">{errors.resume}</p>}
                     </div>
-                  )}
-                  {errors.resume && <p className="mt-2 text-sm text-red-600">{errors.resume}</p>}
-                </div>
-                </div>
+                  </div>
 
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <button type="submit" disabled={submitting} className="btn-primary disabled:opacity-70">
-                    {submitting ? 'Submitting...' : 'Submit Application'}
-                  </button>
-                  <button type="button" onClick={onClose} className="btn-secondary">
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            )}
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                    <button type="submit" disabled={submitting} className="btn-primary disabled:opacity-70">
+                      {submitting ? 'Submitting...' : 'Submit Application'}
+                    </button>
+                    <button type="button" onClick={onClose} className="btn-secondary">
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
