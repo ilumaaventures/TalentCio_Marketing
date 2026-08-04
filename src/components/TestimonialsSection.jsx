@@ -16,41 +16,42 @@ const clientHighlights = [
 
 export default function TestimonialsSection() {
   return (
-    <section id="insights" className="section-shell section-divider bg-white">
+    <section id="insights" className="section-shell section-divider bg-[#f5f2ef]/40">
       <div className="container-shell">
         <div className="max-w-3xl">
-          <span className="section-kicker eyebrow-line">Insights & Trust</span>
+          <span className="section-kicker">Insights & Trust</span>
           <h2 className="section-title">What decision-makers need from a modern HR advisory partner</h2>
         </div>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1.45fr)_repeat(2,minmax(0,0.75fr))]">
+        <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_repeat(2,minmax(0,0.75fr))]">
           {clientHighlights.map((highlight, index) => (
             <motion.article
               key={highlight.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.35, delay: index * 0.06 }}
-              className="editorial-panel overflow-hidden p-0 lg:col-span-1"
+              initial={{ opacity: 0, x: -35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.25 }}
+              transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="overflow-hidden rounded-[20px] border border-black/[0.06] bg-white shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-[#ea7c00]/30 hover:shadow-[0_15px_35px_rgba(234,124,0,0.1)] lg:col-span-1"
             >
-              <div className="grid h-full gap-0 sm:grid-cols-[240px_minmax(0,1fr)] lg:grid-cols-[320px_minmax(0,1fr)]">
+              <div className="grid h-full gap-0 sm:grid-cols-[240px_minmax(0,1fr)] lg:grid-cols-[300px_minmax(0,1fr)]">
                 <img
                   src={highlight.image}
                   alt="Digital workforce dashboard and analytics workspace"
-                  className="h-full min-h-[320px] w-full object-cover"
+                  className="h-full min-h-[300px] w-full object-cover"
                 />
                 <div className="flex min-w-0 flex-col justify-between p-6 sm:p-8">
                   <div>
-                    <div className="inline-flex rounded-full bg-[var(--accent-soft)] p-3 text-[var(--accent)]">
+                    <div className="inline-flex rounded-full bg-[#ea7c00]/10 p-3 text-[#ea7c00]">
                       <Quote className="h-5 w-5" />
                     </div>
-                    <p className="mt-5 max-w-[26rem] text-xl font-semibold leading-8 text-slate-900 sm:text-2xl">
+                    <p className="mt-4 max-w-[26rem] font-['Nunito_Sans'] text-xl font-bold leading-relaxed text-[#282828] sm:text-2xl">
                       {highlight.quote}
                     </p>
                   </div>
-                  <div className="mt-8 border-t border-slate-200 pt-5">
-                    <p className="font-semibold text-slate-950">{highlight.name}</p>
-                    <p className="mt-1 text-sm text-slate-500">{highlight.role}</p>
+                  <div className="mt-6 border-t border-black/[0.06] pt-4">
+                    <p className="font-['Nunito_Sans'] font-extrabold text-[#282828]">{highlight.name}</p>
+                    <p className="mt-0.5 font-['Nunito_Sans'] text-xs font-medium text-[#6c757d]">{highlight.role}</p>
                   </div>
                 </div>
               </div>
@@ -60,22 +61,25 @@ export default function TestimonialsSection() {
           {MARKET_SIGNALS.slice(0, 2).map((signal, index) => (
             <motion.article
               key={signal.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.35, delay: (index + 1) * 0.06 }}
-              className="editorial-panel p-6"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.25 }}
+              transition={{ duration: 0.45, delay: (index + 1) * 0.1, ease: 'easeOut' }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="flex flex-col justify-between rounded-[20px] border border-black/[0.06] bg-white p-7 shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-[#ea7c00]/30 hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)]"
             >
-              <p className="inline-flex rounded-full bg-[var(--primary-light)] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[var(--primary)]">{signal.title}</p>
-              <p className="mt-5 text-5xl font-bold tracking-[-0.05em] text-slate-950">{signal.value}</p>
-              <p className="mt-6 text-base leading-8 text-slate-700">{signal.detail}</p>
-              <div className="mt-8 border-t border-slate-200 pt-5">
-                <p className="font-semibold text-slate-950">{signal.source.label}</p>
+              <div>
+                <span className="inline-block rounded-full bg-[#ea7c00]/10 px-3 py-1 font-['Nunito_Sans'] text-[10px] font-bold uppercase tracking-[0.18em] text-[#ea7c00]">{signal.title}</span>
+                <p className="mt-4 font-['Nunito_Sans'] text-4xl font-extrabold tracking-tight text-[#282828] sm:text-5xl">{signal.value}</p>
+                <p className="mt-4 font-['Nunito_Sans'] text-sm leading-relaxed text-[#444444]">{signal.detail}</p>
+              </div>
+              <div className="mt-6 border-t border-black/[0.06] pt-4">
+                <p className="font-['Nunito_Sans'] text-xs font-bold text-[#282828]">{signal.source.label}</p>
                 <a
                   href={signal.source.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-1 inline-flex text-sm text-[var(--primary)] transition hover:text-[var(--primary-hover)]"
+                  className="mt-0.5 font-['Nunito_Sans'] text-xs font-medium text-[#ea7c00] transition hover:underline"
                 >
                   {signal.source.date}
                 </a>

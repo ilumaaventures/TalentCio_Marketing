@@ -75,10 +75,10 @@ export default function ModulesShowcase() {
   const ActiveIcon = activeModule.icon;
 
   return (
-    <section id="projects" className="section-shell section-divider bg-[var(--surface)]">
+    <section id="projects" className="section-shell section-divider bg-white">
       <div className="container-shell">
         <div className="max-w-3xl">
-          <span className="section-kicker eyebrow-line">Modules</span>
+          <span className="section-kicker">Modules</span>
           <h2 className="section-title section-title-compact">Choose the capabilities your team actually needs</h2>
           <p className="section-copy">
             TalentCIO is modular by design. Turn on the workflows that fit your operating model and add more
@@ -86,9 +86,9 @@ export default function ModulesShowcase() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)] xl:items-stretch">
-          <div className="editorial-panel p-3 xl:h-[620px]">
-            <div className="grid max-h-full gap-2 overflow-y-auto pr-1 scrollbar-hidden">
+        <div className="mt-12 grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)] xl:items-stretch">
+          <div className="rounded-[20px] border border-black/[0.06] bg-[#f5f2ef]/60 p-3 xl:h-[620px]">
+            <div className="grid max-h-full gap-2.5 overflow-y-auto pr-1 scrollbar-hidden">
               {modules.map((module) => {
                 const Icon = module.icon;
                 const isActive = module.key === activeKey;
@@ -98,18 +98,18 @@ export default function ModulesShowcase() {
                     key={module.key}
                     type="button"
                     onClick={() => setActiveKey(module.key)}
-                    className={`flex items-center gap-3 rounded-[24px] border px-4 py-4 text-left transition ${
+                    className={`flex items-center gap-3.5 rounded-[16px] border p-4 text-left transition-all duration-200 ${
                       isActive
-                        ? 'border-[var(--primary)] bg-[var(--primary)] text-white shadow-[0_18px_45px_-28px_rgba(18,59,109,0.85)]'
-                        : 'border-transparent bg-white text-slate-700 hover:border-blue-100 hover:bg-[var(--surface)]'
+                        ? 'border-[#ea7c00] bg-[#ea7c00] text-white shadow-[0_8px_20px_rgba(234,124,0,0.25)]'
+                        : 'border-transparent bg-white text-[#444444] hover:border-black/[0.08] hover:bg-white/80'
                     }`}
                   >
-                    <div className={`rounded-2xl p-2.5 ${isActive ? 'bg-white/15' : 'bg-[var(--primary-light)] text-[var(--primary)]'}`}>
+                    <div className={`rounded-xl p-2.5 ${isActive ? 'bg-white/20 text-white' : 'bg-[#ea7c00]/10 text-[#ea7c00]'}`}>
                       <Icon size={18} />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold">{module.label}</p>
-                      <p className={`mt-1 text-xs ${isActive ? 'text-blue-100' : 'text-slate-500'}`}>{module.summary}</p>
+                      <p className="font-['Nunito_Sans'] text-sm font-bold">{module.label}</p>
+                      <p className={`mt-1 font-['Nunito_Sans'] text-xs leading-normal ${isActive ? 'text-white/90' : 'text-[#6c757d]'}`}>{module.summary}</p>
                     </div>
                   </button>
                 );
@@ -117,64 +117,67 @@ export default function ModulesShowcase() {
             </div>
           </div>
 
-          <div className="editorial-panel overflow-hidden bg-slate-950 text-white xl:h-[620px]">
+          <div className="relative overflow-hidden rounded-[20px] border border-black/[0.06] bg-[#060606] text-white shadow-xl xl:h-[620px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeModule.key}
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -18 }}
-                className="grid h-full gap-6 bg-[linear-gradient(135deg,#16244f_10%,#2a56f6_100%)] p-6 lg:grid-cols-[minmax(0,1.05fr)_320px] sm:p-8"
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                className="grid h-full gap-6 bg-[radial-gradient(ellipse_at_top_right,rgba(234,124,0,0.18),transparent_70%)] p-6 lg:grid-cols-[minmax(0,1.05fr)_320px] sm:p-8"
               >
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-2xl bg-white/10 p-3 text-blue-100">
-                      <ActiveIcon size={20} />
+                <div className="flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-xl bg-[#ea7c00]/20 p-3 text-[#ea7c00]">
+                        <ActiveIcon size={22} />
+                      </div>
+                      <div>
+                        <span className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#ea7c00]">Module</span>
+                        <h3 className="mt-0.5 font-['Nunito_Sans'] text-2xl font-extrabold text-white sm:text-3xl">{activeModule.label}</h3>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.28em] text-blue-100">Module</p>
-                      <h3 className="mt-1 text-3xl font-bold">{activeModule.label}</h3>
-                    </div>
+
+                    <p className="mt-5 max-w-2xl font-['Nunito_Sans'] text-base leading-relaxed text-white/80">{activeModule.summary}</p>
+
+                    <ul className="mt-6 space-y-3 font-['Nunito_Sans'] text-sm text-white/90">
+                      {activeModule.bullets.map((bullet) => (
+                        <li key={bullet} className="flex items-start gap-3">
+                          <span className="mt-1.5 h-2 w-2 rounded-full bg-[#ea7c00]" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-
-                  <p className="mt-5 max-w-2xl text-base leading-7 text-slate-100">{activeModule.summary}</p>
-
-                  <ul className="mt-6 space-y-3 text-sm text-slate-100">
-                    {activeModule.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-start gap-3">
-                        <span className="mt-1 h-2 w-2 rounded-full bg-orange-300" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
 
                   <div className="mt-8 flex flex-wrap gap-2">
                     {activeModule.plans.map((plan) => (
-                      <span key={plan} className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+                      <span key={plan} className="rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-xs font-semibold text-white/90">
                         Available on: {plan}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex h-full flex-col rounded-[28px] border border-white/10 bg-white/10 p-5 backdrop-blur-sm">
-                  <p className="text-xs font-bold uppercase tracking-[0.28em] text-blue-100">Mockup Preview</p>
-                  <div className="mt-5 flex-1 rounded-[24px] bg-white p-4 text-slate-900 shadow-[0_30px_80px_-45px_rgba(15,23,42,0.55)]">
-                    <div className="flex items-center justify-between">
+                <div className="flex h-full flex-col rounded-[16px] border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#ea7c00]">Mockup Preview</p>
+                  <div className="mt-4 flex-1 rounded-[14px] bg-white p-4 text-[#282828] shadow-lg">
+                    <div className="flex items-center justify-between border-b border-black/[0.06] pb-3">
                       <div>
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400">{activeModule.label}</p>
-                        <p className="mt-1 text-lg font-bold">Operational Snapshot</p>
+                        <p className="text-[10px] uppercase tracking-[0.16em] text-[#6c757d]">{activeModule.label}</p>
+                        <p className="mt-0.5 font-['Nunito_Sans'] text-base font-bold text-[#282828]">Operational Snapshot</p>
                       </div>
-                      <div className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
+                      <div className="rounded-full bg-[#ea7c00]/15 px-3 py-1 text-[11px] font-bold text-[#ea7c00]">
                         Live
                       </div>
                     </div>
 
-                    <div className="mt-5 grid gap-3">
+                    <div className="mt-4 grid gap-2.5">
                       {activeModule.bullets.slice(0, 3).map((bullet, index) => (
-                        <div key={bullet} className="rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-3">
-                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Metric {index + 1}</p>
-                          <p className="mt-2 text-sm font-semibold text-slate-800">{bullet}</p>
+                        <div key={bullet} className="rounded-[10px] border border-black/[0.06] bg-[#f5f2ef]/50 px-3.5 py-2.5">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#6c757d]">Metric 0{index + 1}</p>
+                          <p className="mt-1 font-['Nunito_Sans'] text-xs font-semibold text-[#444444]">{bullet}</p>
                         </div>
                       ))}
                     </div>

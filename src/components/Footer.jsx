@@ -25,77 +25,83 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-slate-200 bg-[var(--dark)] text-white">
-      <div className="container-shell py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,0.7fr))]">
+    <footer className="border-t border-white/10 bg-[#060606] text-white">
+      <div className="container-shell py-16 lg:py-20">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,0.7fr))]">
           <div>
             <div className="py-1">
               <img src="/dark-logo-full.png" alt="talentCIO" className="h-16 w-auto max-w-[430px] object-contain" />
             </div>
-            <p className="mt-5 max-w-sm text-sm leading-7 text-slate-300">
+            <p className="mt-4 max-w-sm font-['Nunito_Sans'] text-sm leading-relaxed text-white/70">
               {BRAND_DESCRIPTION}
             </p>
             <div className="mt-6 flex items-center gap-3">
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/15 p-3 text-slate-200 transition hover:border-white hover:text-white">
+              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition duration-300 hover:border-[#ea7c00] hover:bg-[#ea7c00] hover:text-white">
                 <Linkedin size={16} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="rounded-full border border-white/15 p-3 text-slate-200 transition hover:border-white hover:text-white">
+              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition duration-300 hover:border-[#ea7c00] hover:bg-[#ea7c00] hover:text-white">
                 <Twitter size={16} />
               </a>
             </div>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Product</h3>
-            <div className="mt-5 space-y-3 text-sm text-slate-300">
+            <h3 className="font-['Nunito_Sans'] text-xs font-extrabold uppercase tracking-[0.22em] text-[#ea7c00]">Product</h3>
+            <div className="mt-4 space-y-2.5 font-['Nunito_Sans'] text-sm text-white/70">
               {productLinks.map((link) => (
-                <Link key={link.href} to={link.href} className="block transition hover:text-white">{link.label}</Link>
+                <Link key={link.href} to={link.href} className="block transition-colors duration-200 hover:text-[#ea7c00]">{link.label}</Link>
               ))}
             </div>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-400">Company</h3>
-            <div className="mt-5 space-y-3 text-sm text-slate-300">
+            <h3 className="font-['Nunito_Sans'] text-xs font-extrabold uppercase tracking-[0.22em] text-[#ea7c00]">Company</h3>
+            <div className="mt-4 space-y-2.5 font-['Nunito_Sans'] text-sm text-white/70">
               {companyLinks.map((link) => (
-                <Link key={link.href} to={link.href} className="block transition hover:text-white">{link.label}</Link>
+                <Link key={link.href} to={link.href} className="block transition-colors duration-200 hover:text-[#ea7c00]">{link.label}</Link>
               ))}
-              <Link to="/demo" className="block transition hover:text-white">Request Demo</Link>
+              <Link to="/demo" className="block transition-colors duration-200 hover:text-[#ea7c00]">Request Demo</Link>
             </div>
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-[0.32em] text-slate-400">Legal</h3>
-            <div className="mt-5 space-y-3 text-sm text-slate-300">
+            <h3 className="font-['Nunito_Sans'] text-xs font-extrabold uppercase tracking-[0.22em] text-[#ea7c00]">Legal</h3>
+            <div className="mt-4 space-y-2.5 font-['Nunito_Sans'] text-sm text-white/70">
               <Link
                 to="/cookies"
-                className="block font-medium transition hover:text-white"
+                className="block transition-colors duration-200 hover:text-[#ea7c00]"
               >
                 Cookies Policy
               </Link>
               <Link
                 to="/privacy"
-                className="block font-medium transition hover:text-white"
+                className="block transition-colors duration-200 hover:text-[#ea7c00]"
               >
                 Privacy Policy
               </Link>
               <Link
                 to="/terms"
-                className="block font-medium transition hover:text-white"
+                className="block transition-colors duration-200 hover:text-[#ea7c00]"
               >
                 Terms of Service
               </Link>
               <button
                 type="button"
                 onClick={openCookieSettings}
-                className="block font-medium text-left transition hover:text-white"
+                className="block text-left transition-colors duration-200 hover:text-[#ea7c00]"
               >
                 Cookie Settings
               </button>
             </div>
           </div>
         </div>
+
+        <div className="mt-14 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 font-['Nunito_Sans'] gap-4">
+          <p>&copy; {new Date().getFullYear()} talentCIO. All rights reserved.</p>
+          <p>Human Intelligence + Technology = Talent Intelligence</p>
+        </div>
       </div>
     </footer>
   );
 }
+

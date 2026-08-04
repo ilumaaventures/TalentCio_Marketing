@@ -45,6 +45,7 @@ export default function Navbar() {
   const navLinks = useMemo(
     () => {
       const priorityLabels = new Set([
+        'Home',
         'Solutions',
         'Platform',
         'TalentSphere',
@@ -71,7 +72,7 @@ export default function Navbar() {
   );
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -147,40 +148,39 @@ export default function Navbar() {
     <>
       <header className="fixed inset-x-0 top-0 z-50 px-3 py-3 sm:px-5">
         <div
-          className={`mx-auto w-full max-w-[86rem] rounded-full border px-4 transition-all duration-300 sm:px-5 lg:px-6 ${
+          className={`mx-auto w-full max-w-[1480px] rounded-full border px-4 transition-all duration-300 sm:px-6 lg:px-8 ${
             scrolled
-              ? 'border-slate-200 bg-white/92 shadow-[0_20px_55px_-30px_rgba(15,23,42,0.4)] backdrop-blur-xl'
-              : 'border-white/80 bg-white/78 shadow-[0_12px_35px_-30px_rgba(42,86,246,0.5)] backdrop-blur-md'
+              ? 'border-black/[0.08] bg-white/95 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl'
+              : 'border-slate-200/80 bg-white/88 shadow-[0_4px_20px_rgba(0,0,0,0.04)] backdrop-blur-md'
           }`}
         >
-          <div className="flex items-center justify-between px-2.5 py-2.5 sm:px-4">
+          <div className="flex items-center justify-between px-2 py-2.5 sm:px-3">
             <LogoMark />
 
-            <nav className="hidden items-center gap-3 xl:gap-4 lg:flex">
+            <nav className="hidden items-center gap-1.5 font-['Nunito_Sans'] xl:gap-2 lg:flex">
               {navLinks.map((link) => {
                 const active = isNavLinkActive(location.pathname, link.href);
 
                 return (
-                <Link
-                  key={link.label}
-                  to={link.href}
-                  aria-current={active ? 'page' : undefined}
-                  className={`whitespace-nowrap rounded-full border px-3 py-2 text-sm font-semibold transition ${
-                    active
-                      ? 'border-[var(--primary)] bg-[var(--primary)] text-white'
-                      : 'border-transparent text-slate-600 hover:border-blue-100 hover:text-[var(--primary)]'
-                  } ${link.label === 'Jobs' && jobCount > 0 ? 'relative pr-4' : ''
-                  }`}
-                >
-                  <span className="inline-flex items-center">
-                    {link.shortLabel || link.label}
-                    {link.label === 'Jobs' && jobCount > 0 && (
-                      <span className="absolute -right-1 -top-2 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full border border-white bg-[var(--accent)] px-1.5 text-[10px] font-bold leading-none text-white shadow-sm">
-                        {jobCountLabel}
-                      </span>
-                    )}
-                  </span>
-                </Link>
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`relative whitespace-nowrap rounded-full px-4 py-2 text-[14.5px] font-medium transition-all duration-200 ${
+                      active
+                        ? 'bg-[#ea7c00] font-semibold text-white shadow-sm'
+                        : 'text-[#5b5b5b] hover:bg-[#ea7c00]/10 hover:text-[#ea7c00]'
+                    } ${link.label === 'Jobs' && jobCount > 0 ? 'pr-4' : ''}`}
+                  >
+                    <span className="inline-flex items-center">
+                      {link.shortLabel || link.label}
+                      {link.label === 'Jobs' && jobCount > 0 && (
+                        <span className="absolute -right-1 -top-1.5 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full border border-white bg-[#ea7c00] px-1.5 text-[10px] font-bold leading-none text-white shadow-sm">
+                          {jobCountLabel}
+                        </span>
+                      )}
+                    </span>
+                  </Link>
                 );
               })}
             </nav>
@@ -190,21 +190,21 @@ export default function Navbar() {
                 <div className="group relative">
                   <button
                     type="button"
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-blue-200"
+                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#282828] transition hover:border-[#ea7c00] hover:text-[#ea7c00]"
                   >
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--primary)] text-xs font-bold text-white">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ea7c00] text-xs font-bold text-white">
                       {applicant?.firstName?.charAt(0)?.toUpperCase() || 'A'}
                     </span>
                     My Account
                     <ChevronDown size={13} />
                   </button>
 
-                  <div className="invisible absolute right-0 top-full z-50 mt-2 w-52 rounded-[24px] border border-slate-200 bg-white py-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
-                    <Link to="/my-applications" className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50">
+                  <div className="invisible absolute right-0 top-full z-50 mt-2 w-52 rounded-[16px] border border-black/[0.08] bg-white py-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:opacity-100">
+                    <Link to="/my-applications" className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#444444] transition hover:bg-[#f5f2ef] hover:text-[#ea7c00]">
                       <Briefcase size={14} />
                       My Applications
                     </Link>
-                    <Link to="/profile" className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50">
+                    <Link to="/profile" className="flex items-center gap-2 px-4 py-2.5 text-sm text-[#444444] transition hover:bg-[#f5f2ef] hover:text-[#ea7c00]">
                       <User size={14} />
                       My Profile
                     </Link>
@@ -224,11 +224,11 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => setAuthMenuOpen((current) => !current)}
-                    className="btn-secondary whitespace-nowrap"
+                    className="btn-secondary whitespace-nowrap px-5 py-2.5 text-xs tracking-wider"
                     aria-expanded={authMenuOpen}
                     aria-haspopup="menu"
                   >
-                    Login
+                    LOGIN
                     <ChevronDown size={14} className={`transition ${authMenuOpen ? 'rotate-180' : ''}`} />
                   </button>
 
@@ -238,11 +238,11 @@ export default function Navbar() {
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
-                        className="absolute right-0 top-full z-50 mt-2 w-56 rounded-[24px] border border-slate-200 bg-white p-2 shadow-[0_22px_54px_-28px_rgba(15,23,42,0.32)]"
+                        className="absolute right-0 top-full z-50 mt-2 w-56 rounded-[16px] border border-black/[0.08] bg-white p-2 shadow-xl"
                       >
                         <Link
                           to="/applicant/login"
-                          className="flex items-center gap-3 rounded-[18px] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[var(--primary)]"
+                          className="flex items-center gap-3 rounded-[12px] px-4 py-3 text-sm font-semibold text-[#444444] transition hover:bg-[#f5f2ef] hover:text-[#ea7c00]"
                           onClick={() => {
                             setAuthMenuOpen(false);
                             trackEvent('applicant_sign_in_click', { source: 'navbar_desktop_dropdown' });
@@ -253,7 +253,7 @@ export default function Navbar() {
                         </Link>
                         <Link
                           to="/company/login"
-                          className="flex items-center gap-3 rounded-[18px] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[var(--primary)]"
+                          className="flex items-center gap-3 rounded-[12px] px-4 py-3 text-sm font-semibold text-[#444444] transition hover:bg-[#f5f2ef] hover:text-[#ea7c00]"
                           onClick={() => setAuthMenuOpen(false)}
                         >
                           <Building2 size={15} />
@@ -266,17 +266,17 @@ export default function Navbar() {
               )}
               <Link
                 to="/demo"
-                className="btn-primary whitespace-nowrap"
+                className="btn-primary whitespace-nowrap px-6 py-2.5 text-xs font-bold tracking-wider"
                 onClick={() => trackEvent('demo_cta_click', { source: 'navbar_desktop' })}
               >
-                Request Demo
+                REQUEST DEMO
               </Link>
             </div>
 
             <button
               type="button"
               onClick={() => setMenuOpen((current) => !current)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-[#282828] lg:hidden"
               aria-label="Toggle menu"
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -291,30 +291,30 @@ export default function Navbar() {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
               >
-                <div className="space-y-3">
+                <div className="space-y-2 font-['Nunito_Sans']">
                   {navLinks.map((link) => {
                     const active = isNavLinkActive(location.pathname, link.href);
 
                     return (
-                    <Link
-                      key={link.label}
-                      to={link.href}
-                      aria-current={active ? 'page' : undefined}
-                      className={`flex items-center justify-between rounded-[22px] border px-4 py-3 text-sm font-semibold transition ${
-                        active
-                          ? 'border-[var(--primary)] bg-[var(--primary)] text-white'
-                          : 'border-slate-200 bg-white text-slate-700'
-                      }`}
-                    >
-                      <span>{link.shortLabel || link.label}</span>
-                      {link.label === 'Jobs' && jobCount > 0 ? (
-                        <span className="bg-[var(--surface)] px-2 py-1 text-xs font-bold text-[var(--primary)]">
-                          {jobCountLabel}
-                        </span>
-                      ) : (
-                        <Sparkles size={16} className={active ? 'text-white' : 'text-[var(--primary)]'} />
-                      )}
-                    </Link>
+                      <Link
+                        key={link.label}
+                        to={link.href}
+                        aria-current={active ? 'page' : undefined}
+                        className={`flex items-center justify-between rounded-full border px-4 py-2.5 text-sm font-semibold transition ${
+                          active
+                            ? 'border-[#ea7c00] bg-[#ea7c00] text-white'
+                            : 'border-slate-200 bg-white text-[#444444] hover:text-[#ea7c00]'
+                        }`}
+                      >
+                        <span>{link.shortLabel || link.label}</span>
+                        {link.label === 'Jobs' && jobCount > 0 ? (
+                          <span className="rounded-full bg-white px-2 py-0.5 text-xs font-bold text-[#ea7c00]">
+                            {jobCountLabel}
+                          </span>
+                        ) : (
+                          <Sparkles size={16} className={active ? 'text-white' : 'text-[#ea7c00]'} />
+                        )}
+                      </Link>
                     );
                   })}
                 </div>
@@ -351,12 +351,12 @@ export default function Navbar() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden rounded-[24px] border border-slate-200 bg-white p-2"
+                            className="overflow-hidden rounded-[16px] border border-slate-200 bg-white p-2"
                           >
                             <div className="grid gap-2">
                               <Link
                                 to="/applicant/login"
-                                className="flex items-center gap-3 rounded-[18px] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[var(--primary)]"
+                                className="flex items-center gap-3 rounded-[12px] px-4 py-3 text-sm font-semibold text-[#444444] transition hover:bg-[#f5f2ef] hover:text-[#ea7c00]"
                                 onClick={() => {
                                   setAuthMenuOpen(false);
                                   trackEvent('applicant_sign_in_click', { source: 'navbar_mobile_dropdown' });
@@ -367,10 +367,10 @@ export default function Navbar() {
                               </Link>
                               <Link
                                 to="/company/login"
-                                className="flex items-center gap-3 rounded-[18px] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[var(--primary)]"
+                                className="flex items-center gap-3 rounded-[12px] px-4 py-3 text-sm font-semibold text-[#444444] transition hover:bg-[#f5f2ef] hover:text-[#ea7c00]"
                                 onClick={() => setAuthMenuOpen(false)}
                               >
-                                <Building2 size={16} className="text-[var(--primary)]" />
+                                <Building2 size={16} className="text-[#ea7c00]" />
                                 Company Login
                               </Link>
                             </div>
@@ -395,3 +395,4 @@ export default function Navbar() {
     </>
   );
 }
+

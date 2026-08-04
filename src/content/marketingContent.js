@@ -243,19 +243,19 @@ export const MISSION = {
 
 export const HOW_IT_WORKS_STEPS = [
   {
-    // number: '01',
     title: 'Understand Your Workforce Need',
-    desc: 'We begin with a deep understanding of your talent challenges - whether hiring, workforce planning, platform adoption or community engagement.'
+    desc: 'We begin with a deep understanding of your talent challenges - whether hiring, workforce planning, platform adoption or community engagement.',
+    icon: 'Target'
   },
   {
-    // number: '02',
     title: 'Connect to the Right Vertical',
-    desc: 'We route your need to the most relevant part of the talentCIO ecosystem - Solutions, Platform, TalentSphere, or a combination of them.'
+    desc: 'We route your need to the most relevant part of the talentCIO ecosystem - Solutions, Platform, TalentSphere, or a combination of them.',
+    icon: 'Layers'
   },
   {
-    // number: '03',
     title: 'Deliver Through Intelligence',
-    desc: 'Human expertise and intelligent technology work together to deliver outcomes - from hires and workforce transformations to platform adoption and community growth.'
+    desc: 'Human expertise and intelligent technology work together to deliver outcomes - from hires and workforce transformations to platform adoption and community growth.',
+    icon: 'BrainCircuit'
   }
 ];
 
