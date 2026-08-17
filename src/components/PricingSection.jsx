@@ -108,10 +108,10 @@ export default function PricingSection() {
                 key={`${plan.name}-${selectedCycle}`}
                 initial={{ opacity: 0, y: 35, scale: plan.isPopular ? 0.94 : 0.96 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 16, delay: index * 0.12 }}
                 whileHover={{ y: plan.isPopular ? -10 : -7, scale: plan.isPopular ? 1.02 : 1.01 }}
-                className={`relative flex flex-col justify-between rounded-[20px] p-7 transition-all duration-300 ${
+                className={`relative flex flex-col justify-between rounded-[20px] p-7 transition-all duration-300 touch-pan-y ${
                   plan.isPopular
                     ? 'border-2 border-[#ea7c00] bg-[#060606] text-white shadow-[0_15px_35px_rgba(234,124,0,0.2)]'
                     : 'border border-black/[0.06] bg-white text-[#282828] shadow-[0_5px_15px_rgba(0,0,0,0.04)] hover:border-[#ea7c00]/30 hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)]'

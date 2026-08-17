@@ -46,10 +46,10 @@ export default function FeaturesSection() {
                 key={feature.id}
                 initial={{ opacity: 0, y: 28, scale: 0.96 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.45, delay: index * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
                 whileHover={{ y: -7, transition: { duration: 0.25 } }}
-                className="group rounded-[20px] border border-black/[0.06] bg-white p-7 shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-[#ea7c00]/40 hover:shadow-[0_15px_35px_rgba(234,124,0,0.12)]"
+                className="group rounded-[20px] border border-black/[0.06] bg-white p-7 shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 touch-pan-y hover:border-[#ea7c00]/40 hover:shadow-[0_15px_35px_rgba(234,124,0,0.12)]"
               >
                 <div className="flex items-start gap-4">
                   <motion.div

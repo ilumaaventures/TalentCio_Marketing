@@ -58,10 +58,10 @@ export default function FaqSection() {
                     key={item.question}
                     initial={{ opacity: 0, x: -18 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: false, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.35, delay: index * 0.05 }}
                     whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                    className="overflow-hidden rounded-[16px] border border-black/[0.06] bg-white transition-all duration-200 hover:border-[#ea7c00]/30"
+                    className="overflow-hidden rounded-[16px] border border-black/[0.06] bg-white transition-all duration-200 touch-pan-y hover:border-[#ea7c00]/30"
                   >
                     <button
                       type="button"

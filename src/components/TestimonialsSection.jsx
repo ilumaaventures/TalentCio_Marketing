@@ -29,10 +29,10 @@ export default function TestimonialsSection() {
               key={highlight.name}
               initial={{ opacity: 0, x: -35 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.25 }}
+              viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="overflow-hidden rounded-[20px] border border-black/[0.06] bg-white shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-[#ea7c00]/30 hover:shadow-[0_15px_35px_rgba(234,124,0,0.1)] lg:col-span-1"
+              className="overflow-hidden rounded-[20px] border border-black/[0.06] bg-white shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 touch-pan-y hover:border-[#ea7c00]/30 hover:shadow-[0_15px_35px_rgba(234,124,0,0.1)] lg:col-span-1"
             >
               <div className="grid h-full gap-0 sm:grid-cols-[240px_minmax(0,1fr)] lg:grid-cols-[300px_minmax(0,1fr)]">
                 <img
@@ -63,10 +63,10 @@ export default function TestimonialsSection() {
               key={signal.title}
               initial={{ opacity: 0, y: 30, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.25 }}
+              viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: 0.45, delay: (index + 1) * 0.1, ease: 'easeOut' }}
               whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="flex flex-col justify-between rounded-[20px] border border-black/[0.06] bg-white p-7 shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-[#ea7c00]/30 hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)]"
+              className="flex flex-col justify-between rounded-[20px] border border-black/[0.06] bg-white p-7 shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 touch-pan-y hover:border-[#ea7c00]/30 hover:shadow-[0_15px_30px_rgba(0,0,0,0.08)]"
             >
               <div>
                 <span className="inline-block rounded-full bg-[#ea7c00]/10 px-3 py-1 font-['Nunito_Sans'] text-[10px] font-bold uppercase tracking-[0.18em] text-[#ea7c00]">{signal.title}</span>
