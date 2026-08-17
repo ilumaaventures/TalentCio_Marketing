@@ -101,10 +101,10 @@ export default function Home() {
                     key={vertical.id}
                     initial={anim.initial}
                     whileInView={anim.animate}
-                    viewport={{ once: false, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
                     whileHover={{ y: -8, scale: 1.015 }}
-                    className="group flex flex-col items-center rounded-[20px] border border-black/[0.06] bg-white p-7 text-center shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-[#ea7c00]/40 hover:shadow-[0_15px_35px_rgba(234,124,0,0.12)] sm:p-8"
+                    className="group flex flex-col items-center rounded-[20px] border border-black/[0.06] bg-white p-7 text-center shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 touch-pan-y hover:border-[#ea7c00]/40 hover:shadow-[0_15px_35px_rgba(234,124,0,0.12)] sm:p-8"
                   >
                     <motion.div
                       whileHover={{ scale: 1.12, rotate: [0, -6, 6, 0] }}
@@ -138,9 +138,9 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 30, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5 }}
-              className="rounded-[20px] border border-black/[0.06] bg-white shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)]"
+              className="rounded-[20px] border border-black/[0.06] bg-white shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 touch-pan-y hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)]"
             >
               <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(260px,0.9fr)] lg:p-10">
                 <div>
@@ -163,10 +163,10 @@ export default function Home() {
                         rel="noreferrer"
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false }}
+                        viewport={{ once: true }}
                         transition={{ duration: 0.35, delay: index * 0.08 }}
                         whileHover={{ x: 4 }}
-                        className="block rounded-[14px] border border-black/[0.06] bg-[#f5f2ef]/40 px-4 py-3.5 transition-all duration-200 hover:border-[#ea7c00]/40 hover:bg-white hover:shadow-xs"
+                        className="block rounded-[14px] border border-black/[0.06] bg-[#f5f2ef]/40 px-4 py-3.5 transition-all duration-200 touch-pan-y hover:border-[#ea7c00]/40 hover:bg-white hover:shadow-xs"
                       >
                         <p className="font-['Nunito_Sans'] text-xs font-bold uppercase tracking-[0.16em] text-[#282828]">{source.label}</p>
                         <p className="mt-1 font-['Nunito_Sans'] text-xs text-[#6c757d]">{source.date}</p>

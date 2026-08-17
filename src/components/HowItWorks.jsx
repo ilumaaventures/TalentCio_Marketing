@@ -33,10 +33,10 @@ export default function HowItWorks() {
                 <motion.article
                   initial={{ opacity: 0, scale: 0.88, y: 25 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.3 }}
+                  viewport={{ once: true, amount: 0.3 }}
                   transition={{ type: 'spring', stiffness: 220, damping: 18, delay: index * 0.1 }}
                   whileHover={{ y: -8 }}
-                  className="group rounded-[20px] border border-black/[0.06] bg-white p-7 text-center shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-[#ea7c00]/40 hover:shadow-[0_15px_35px_rgba(234,124,0,0.12)]"
+                  className="group rounded-[20px] border border-black/[0.06] bg-white p-7 text-center shadow-[0_5px_15px_rgba(0,0,0,0.04)] transition-all duration-300 touch-pan-y hover:border-[#ea7c00]/40 hover:shadow-[0_15px_35px_rgba(234,124,0,0.12)]"
                 >
                   <motion.div
                     whileHover={{ scale: 1.15, rotate: [0, -8, 8, 0] }}
