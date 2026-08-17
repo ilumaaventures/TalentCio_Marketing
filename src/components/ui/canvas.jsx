@@ -117,28 +117,17 @@ function updatePointer(event) {
     pos.x = event.clientX;
     pos.y = event.clientY;
   }
-
-  if (typeof event.preventDefault === 'function') {
-    event.preventDefault();
-  }
 }
 
 function onInitialPointer(event) {
   document.removeEventListener('mousemove', onInitialPointer);
-  document.removeEventListener('touchstart', onInitialPointer);
+
+  if (typeof window !== 'undefined' && window.innerWidth < 768) {
+    return;
+  }
 
   pointerMoveHandler = (moveEvent) => updatePointer(moveEvent);
-  touchMoveHandler = (moveEvent) => updatePointer(moveEvent);
-  touchStartHandler = (touchEvent) => {
-    if (touchEvent.touches?.length === 1) {
-      pos.x = touchEvent.touches[0].pageX;
-      pos.y = touchEvent.touches[0].pageY;
-    }
-  };
-
   document.addEventListener('mousemove', pointerMoveHandler);
-  document.addEventListener('touchmove', touchMoveHandler, { passive: false });
-  document.addEventListener('touchstart', touchStartHandler);
 
   updatePointer(event);
   rebuildLines();
@@ -171,6 +160,11 @@ function resizeCanvas() {
     return;
   }
 
+  if (typeof window !== 'undefined' && window.innerWidth < 768) {
+    destroyCanvas();
+    return;
+  }
+
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = Math.max(window.innerHeight, 720);
 }
@@ -181,18 +175,9 @@ export function destroyCanvas() {
   }
 
   document.removeEventListener('mousemove', onInitialPointer);
-  document.removeEventListener('touchstart', onInitialPointer);
 
   if (pointerMoveHandler) {
     document.removeEventListener('mousemove', pointerMoveHandler);
-  }
-
-  if (touchMoveHandler) {
-    document.removeEventListener('touchmove', touchMoveHandler);
-  }
-
-  if (touchStartHandler) {
-    document.removeEventListener('touchstart', touchStartHandler);
   }
 
   if (orientationHandler) {
@@ -216,6 +201,10 @@ export function destroyCanvas() {
 
 export function renderCanvas(canvasId = 'canvas') {
   destroyCanvas();
+
+  if (typeof window !== 'undefined' && window.innerWidth < 768) {
+    return;
+  }
 
   const canvas = document.getElementById(canvasId);
 
@@ -255,7 +244,6 @@ export function renderCanvas(canvasId = 'canvas') {
   };
 
   document.addEventListener('mousemove', onInitialPointer);
-  document.addEventListener('touchstart', onInitialPointer, { passive: false });
   window.addEventListener('orientationchange', orientationHandler);
   window.addEventListener('resize', resizeHandler);
   window.addEventListener('focus', focusHandler);

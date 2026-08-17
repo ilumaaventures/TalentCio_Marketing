@@ -34,7 +34,7 @@ export function Hero() {
     >
       <canvas
         id="home-canvas"
-        className="pointer-events-none absolute inset-0 z-0 mx-auto opacity-80"
+        className="hidden md:block pointer-events-none absolute inset-0 z-0 mx-auto opacity-80"
       />
       <div className="absolute left-[4%] top-28 h-28 w-28 rounded-full bg-[var(--primary-light)] blur-2xl" />
       <div className="absolute right-[6%] top-24 h-40 w-40 rounded-full bg-[var(--accent-soft)] blur-3xl" />
