@@ -16,6 +16,7 @@ const initialForm = {
   candidateName: '',
   email: '',
   mobile: '',
+  totalExperienceYears: '',
   currentCTC: '',
   expectedCTC: '',
   noticePeriod: '',
@@ -27,7 +28,8 @@ const buildInitialForm = (applicant) => ({
   ...initialForm,
   candidateName: applicant ? `${applicant.firstName || ''} ${applicant.lastName || ''}`.trim() : '',
   email: applicant?.email || '',
-  mobile: applicant?.mobile || ''
+  mobile: applicant?.mobile || '',
+  totalExperienceYears: applicant?.totalExperienceYears !== undefined && applicant?.totalExperienceYears !== null ? String(applicant.totalExperienceYears) : ''
 });
 
 export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, companyName, alreadyApplied = false, onApplied }) {
@@ -110,6 +112,7 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
         candidateName: `${profileData.firstName || ''} ${profileData.lastName || ''}`.trim(),
         email: profileData.email || '',
         mobile: profileData.mobile || '',
+        totalExperienceYears: profileData.totalExperienceYears !== undefined && profileData.totalExperienceYears !== null ? String(profileData.totalExperienceYears) : '',
         currentCTC: profileData.currentCTC?.toString?.() || '',
         expectedCTC: profileData.expectedCTC?.toString?.() || '',
         noticePeriod: profileData.noticePeriod?.toString?.() || '',
@@ -124,7 +127,8 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
         ...current,
         candidateName: `${applicant.firstName || ''} ${applicant.lastName || ''}`.trim(),
         email: applicant.email || '',
-        mobile: applicant.mobile || ''
+        mobile: applicant.mobile || '',
+        totalExperienceYears: applicant.totalExperienceYears !== undefined && applicant.totalExperienceYears !== null ? String(applicant.totalExperienceYears) : current.totalExperienceYears
       }));
     }
   }, [isOpen, profileData, applicant]);
@@ -186,6 +190,9 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
       payload.append('candidateName', form.candidateName.trim());
       payload.append('email', normalizeEmail(form.email));
       payload.append('mobile', form.mobile.trim());
+      if (form.totalExperienceYears !== undefined && form.totalExperienceYears !== '') {
+        payload.append('totalExperienceYears', form.totalExperienceYears);
+      }
       if (form.currentCTC) payload.append('currentCTC', form.currentCTC);
       if (form.expectedCTC) payload.append('expectedCTC', form.expectedCTC);
       if (form.noticePeriod) payload.append('noticePeriod', form.noticePeriod);
@@ -250,7 +257,7 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
               </button>
             </div>
 
-            <div className="flex-1 min-h-0 overflow-y-auto">
+            <div className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300">
               {!isLoggedIn ? (
                 <div className="p-6">
                   <div className="rounded-[28px] border border-amber-100 bg-gradient-to-br from-amber-50/60 via-white to-slate-50 p-6">
@@ -379,7 +386,8 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
                       <label className="label-shell">Current CTC (LPA)</label>
                       <input
                         type="number"
-                        className="input-shell"
+                        onWheel={(e) => e.currentTarget.blur()}
+                        className="input-shell [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         value={form.currentCTC}
                         onChange={(event) => setForm((current) => ({ ...current, currentCTC: event.target.value }))}
                         placeholder="e.g. 8.5"
@@ -390,18 +398,35 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
                       <label className="label-shell">Expected CTC (LPA)</label>
                       <input
                         type="number"
-                        className="input-shell"
+                        onWheel={(e) => e.currentTarget.blur()}
+                        className="input-shell [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         value={form.expectedCTC}
                         onChange={(event) => setForm((current) => ({ ...current, expectedCTC: event.target.value }))}
                         placeholder="e.g. 11"
                       />
                     </div>
 
-                    <div className="sm:col-span-2">
+                    <div>
+                      <label className="label-shell">Total Experience (Years)</label>
+                      <input
+                        type="number"
+                        step="0.1"
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
+                        className="input-shell [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        value={form.totalExperienceYears}
+                        onChange={(event) => setForm((current) => ({ ...current, totalExperienceYears: event.target.value }))}
+                        placeholder="e.g. 3.5"
+                      />
+                    </div>
+
+                    <div>
                       <label className="label-shell">Notice Period (days)</label>
                       <input
                         type="number"
-                        className="input-shell"
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
+                        className="input-shell [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         value={form.noticePeriod}
                         onChange={(event) => setForm((current) => ({ ...current, noticePeriod: event.target.value }))}
                         placeholder="e.g. 30"
