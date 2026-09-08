@@ -88,7 +88,7 @@ export default function Footer() {
               <button
                 type="button"
                 onClick={openCookieSettings}
-                className="block text-left transition-colors duration-200 hover:text-[#ea7c00]"
+                className="block text-left bg-transparent p-0 text-white/70 transition-colors duration-200 hover:text-[#ea7c00] cursor-pointer"
               >
                 Cookie Settings
               </button>
