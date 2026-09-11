@@ -232,10 +232,17 @@ export default function JobDetail() {
                     </p>
                   </div>
                 </div>
-                <p className="mt-5 whitespace-pre-wrap text-base leading-7 text-slate-600">
-                  {jobDescription ||
-                    `Join ${companyLabel || 'our client'} as part of the ${job.roleDetails?.department} team and help build reliable, scalable people operations.`}
-                </p>
+                {/<\/?[a-z][\s\S]*>/i.test(jobDescription || '') ? (
+                  <div
+                    className="mt-5 prose prose-slate max-w-none text-base leading-7 text-slate-600 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:list-decimal [&>ol]:pl-5 [&>p]:mb-3 [&>h2]:text-lg [&>h2]:font-bold [&>h3]:text-base [&>h3]:font-bold"
+                    dangerouslySetInnerHTML={{ __html: jobDescription }}
+                  />
+                ) : (
+                  <p className="mt-5 whitespace-pre-wrap text-base leading-7 text-slate-600">
+                    {jobDescription ||
+                      `Join ${companyLabel || 'our client'} as part of the ${job.roleDetails?.department} team and help build reliable, scalable people operations.`}
+                  </p>
+                )}
               </section>
 
               <section className="rounded-[28px] border border-slate-200 bg-white p-6">
