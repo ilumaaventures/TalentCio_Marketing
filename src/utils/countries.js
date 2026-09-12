@@ -168,7 +168,6 @@ export const COUNTRIES = [
   { code: 'MP', name: 'Northern Mariana Islands', dialCode: '+1670', flag: '🇲🇵', minDigits: 7, maxDigits: 7, format: '234 1234' },
   { code: 'NO', name: 'Norway', dialCode: '+47', flag: '🇳🇴', minDigits: 8, maxDigits: 8, format: '412 34 567' },
   { code: 'OM', name: 'Oman', dialCode: '+968', flag: '🇴🇲', minDigits: 8, maxDigits: 8, format: '9123 4567' },
-  { code: 'PK', name: 'Pakistan', dialCode: '+92', flag: '🇵🇰', minDigits: 10, maxDigits: 10, format: '300 1234567' },
   { code: 'PW', name: 'Palau', dialCode: '+680', flag: '🇵🇼', minDigits: 7, maxDigits: 7, format: '775 1234' },
   { code: 'PS', name: 'Palestine', dialCode: '+970', flag: '🇵🇸', minDigits: 9, maxDigits: 9, format: '59 123 4567' },
   { code: 'PA', name: 'Panama', dialCode: '+507', flag: '🇵🇦', minDigits: 8, maxDigits: 8, format: '6123 4567' },
