@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import { submitGeneralApplication } from '../api/generalApplicationApi';
 import applicantApi from '../api/applicantApi';
+import { parsePhoneNumber, validatePhoneNumber } from '../utils/countries';
 
 const INITIAL_FORM = {
   desiredPosition: '',
@@ -88,8 +89,7 @@ export default function useGeneralApplication(defaultPosition = '') {
     }
 
     if (name === 'mobile') {
-      const sanitized = value.replace(/\D/g, '').slice(0, 10);
-      setFormData((prev) => ({ ...prev, mobile: sanitized }));
+      setFormData((prev) => ({ ...prev, mobile: value }));
       if (errors.mobile) {
         setErrors((prev) => ({ ...prev, mobile: null }));
       }
@@ -103,6 +103,13 @@ export default function useGeneralApplication(defaultPosition = '') {
 
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: null }));
+    }
+  };
+
+  const handleMobileChange = (formattedPhone, meta) => {
+    setFormData((prev) => ({ ...prev, mobile: formattedPhone }));
+    if (errors.mobile) {
+      setErrors((prev) => ({ ...prev, mobile: meta?.error || null }));
     }
   };
 
@@ -154,11 +161,10 @@ export default function useGeneralApplication(defaultPosition = '') {
       newErrors.email = 'Please enter a valid email address.';
     }
 
-    const mobileDigits = (formData.mobile || '').replace(/\D/g, '');
-    if (!mobileDigits) {
-      newErrors.mobile = 'Mobile phone number is required.';
-    } else if (mobileDigits.length !== 10) {
-      newErrors.mobile = 'Mobile phone number must be exactly 10 digits.';
+    const parsedPhone = parsePhoneNumber(formData.mobile);
+    const phoneError = validatePhoneNumber(parsedPhone.country, parsedPhone.nationalNumber, true);
+    if (phoneError) {
+      newErrors.mobile = phoneError;
     }
 
     if (!formData.useProfileResume && !resumeFile) {
@@ -248,6 +254,7 @@ export default function useGeneralApplication(defaultPosition = '') {
     isLoggedIn,
     alreadyAppliedWarning,
     handleChange,
+    handleMobileChange,
     handleFileChange,
     handleSubmit,
     resetForm,

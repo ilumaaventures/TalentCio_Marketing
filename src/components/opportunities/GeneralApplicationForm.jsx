@@ -20,6 +20,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import useGeneralApplication from '../../hooks/useGeneralApplication';
+import CountryPhoneInput from '../common/CountryPhoneInput';
 
 export default function GeneralApplicationForm({ 
   defaultPosition = '', 
@@ -40,6 +41,7 @@ export default function GeneralApplicationForm({
     isLoggedIn,
     alreadyAppliedWarning,
     handleChange,
+    handleMobileChange,
     handleFileChange,
     handleSubmit,
     resetForm,
@@ -276,28 +278,17 @@ export default function GeneralApplicationForm({
 
           {/* Phone / Mobile */}
           <div>
-            <label htmlFor="mobile" className="block text-xs font-semibold text-slate-700">
+            <label htmlFor="mobile" className="block text-xs font-semibold text-slate-700 mb-1.5">
               Phone / Mobile Number <span className="text-red-500">*</span>
             </label>
-            <div className="relative mt-1.5">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                <Phone size={15} />
-              </div>
-              <input
-                type="tel"
-                id="mobile"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                maxLength={10}
-                placeholder="10-digit mobile number"
-                className={`w-full rounded-xl border bg-white pl-10 pr-3 py-2.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 transition ${
-                  errors.mobile
-                    ? 'border-red-300 focus:border-red-500 focus:ring-red-200'
-                    : 'border-slate-200 focus:border-[#ea7c00] focus:ring-[#ea7c00]/20'
-                }`}
-              />
-            </div>
+            <CountryPhoneInput
+              id="mobile"
+              name="mobile"
+              value={formData.mobile}
+              error={errors.mobile}
+              required
+              onChange={handleMobileChange}
+            />
             {errors.mobile && (
               <p className="mt-1 text-xs font-medium text-red-600">{errors.mobile}</p>
             )}

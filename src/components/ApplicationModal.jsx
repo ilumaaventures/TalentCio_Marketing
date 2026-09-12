@@ -8,6 +8,8 @@ import api from '../api/axios';
 import applicantApi from '../api/applicantApi';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import { trackEvent } from '../lib/analytics';
+import CountryPhoneInput from './common/CountryPhoneInput';
+import { parsePhoneNumber, validatePhoneNumber } from '../utils/countries';
 
 const allowedExtensions = ['pdf', 'doc', 'docx'];
 const normalizeEmail = (value) => value.trim().toLowerCase();
@@ -148,8 +150,10 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
       nextErrors.email = 'Enter a valid email address.';
     }
 
-    if (!/^[6-9]\d{9}$/.test(form.mobile.trim())) {
-      nextErrors.mobile = 'Enter a valid 10-digit Indian mobile number.';
+    const parsedPhone = parsePhoneNumber(form.mobile);
+    const phoneError = validatePhoneNumber(parsedPhone.country, parsedPhone.nationalNumber, true);
+    if (phoneError) {
+      nextErrors.mobile = phoneError;
     }
 
     if (!usingProfileResume && !form.resume) {
@@ -372,12 +376,18 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
 
                     <div>
                       <label className="label-shell">Phone Number*</label>
-                      <input
-                        type="tel"
-                        className={`input-shell ${errors.mobile ? 'border-red-300 focus:border-red-400 focus:ring-red-100' : ''}`}
+                      <CountryPhoneInput
+                        id="application-phone"
+                        name="mobile"
                         value={form.mobile}
-                        onChange={(event) => setForm((current) => ({ ...current, mobile: event.target.value.replace(/\D/g, '').slice(0, 10) }))}
-                        placeholder="10-digit mobile number"
+                        error={errors.mobile}
+                        required
+                        onChange={(formattedPhone, meta) => {
+                          setForm((current) => ({ ...current, mobile: formattedPhone }));
+                          if (errors.mobile) {
+                            setErrors((current) => ({ ...current, mobile: meta.error || null }));
+                          }
+                        }}
                       />
                       {errors.mobile && <p className="mt-2 text-sm text-red-600">{errors.mobile}</p>}
                     </div>

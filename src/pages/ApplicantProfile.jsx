@@ -13,6 +13,8 @@ import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import ProfileCompletion from '../components/profile/ProfileCompletion';
 import ExperienceSection from '../components/profile/ExperienceSection';
 import EducationSection from '../components/profile/EducationSection';
+import CountryPhoneInput from '../components/common/CountryPhoneInput';
+import { parsePhoneNumber, validatePhoneNumber } from '../utils/countries';
 
 const POPULAR_SKILLS = ['React', 'Node.js', 'MongoDB', 'JavaScript', 'TypeScript', 'Recruitment', 'HR Operations', 'Project Management'];
 const COMMON_LANGUAGES = ['English', 'Hindi', 'Tamil', 'Telugu', 'Kannada', 'Bengali'];
@@ -190,6 +192,15 @@ export default function ApplicantProfile() {
   };
 
   const handleBasicSave = async () => {
+    if (basicForm.mobile && basicForm.mobile.trim()) {
+      const parsedPhone = parsePhoneNumber(basicForm.mobile);
+      const phoneError = validatePhoneNumber(parsedPhone.country, parsedPhone.nationalNumber, false);
+      if (phoneError) {
+        toast.error(phoneError);
+        return;
+      }
+    }
+
     try {
       const response = await applicantApi.put('/profile/basic', {
         firstName: basicForm.firstName,
@@ -416,7 +427,12 @@ export default function ApplicantProfile() {
                 </div>
                 <div>
                   <label className="label-shell">Mobile Number</label>
-                  <input className="input-shell" value={basicForm.mobile} onChange={(event) => setBasicForm((current) => ({ ...current, mobile: event.target.value.replace(/\D/g, '').slice(0, 10) }))} />
+                  <CountryPhoneInput
+                    id="profile-mobile"
+                    name="mobile"
+                    value={basicForm.mobile}
+                    onChange={(formattedPhone) => setBasicForm((current) => ({ ...current, mobile: formattedPhone }))}
+                  />
                 </div>
                 <div>
                   <label className="label-shell">Professional Headline</label>

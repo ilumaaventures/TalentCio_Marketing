@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import applicantApi from '../api/applicantApi';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import GoogleSignInButton from '../components/GoogleSignInButton';
+import CountryPhoneInput from '../components/common/CountryPhoneInput';
+import { parsePhoneNumber, validatePhoneNumber } from '../utils/countries';
 
 const normalizeEmail = (value) => value.trim().toLowerCase();
 
@@ -52,6 +54,15 @@ export default function ApplicantRegister() {
     if (form.password.length < 8) {
       toast.error('Password must be at least 8 characters.');
       return;
+    }
+
+    if (form.mobile && form.mobile.trim()) {
+      const parsedPhone = parsePhoneNumber(form.mobile);
+      const phoneError = validatePhoneNumber(parsedPhone.country, parsedPhone.nationalNumber, false);
+      if (phoneError) {
+        toast.error(phoneError);
+        return;
+      }
     }
 
     try {
@@ -170,12 +181,11 @@ export default function ApplicantRegister() {
 
                 <div>
                   <label className="label-shell">Mobile Number</label>
-                  <input
-                    type="tel"
-                    className="input-shell"
+                  <CountryPhoneInput
+                    id="register-mobile"
+                    name="mobile"
                     value={form.mobile}
-                    onChange={(event) => setForm((current) => ({ ...current, mobile: event.target.value.replace(/\D/g, '').slice(0, 10) }))}
-                    placeholder="10-digit mobile number"
+                    onChange={(formattedPhone) => setForm((current) => ({ ...current, mobile: formattedPhone }))}
                   />
                 </div>
 
