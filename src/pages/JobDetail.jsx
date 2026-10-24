@@ -380,6 +380,7 @@ export default function JobDetail() {
         jobId={job._id}
         jobTitle={job.roleDetails?.title}
         companyName={companyLabel}
+        mustHaveSkills={job?.requirements?.mustHaveSkills || job?.mustHaveSkills}
         alreadyApplied={alreadyApplied}
         onApplied={() => setAlreadyApplied(true)}
       />

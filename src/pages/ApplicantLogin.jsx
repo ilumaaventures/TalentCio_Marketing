@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CheckCircle2, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import applicantApi from '../api/applicantApi';
+import { syncUserToBkonnect } from '../api/bkonnectApi';
 import { useApplicantAuth } from '../context/ApplicantAuthContext';
 import GoogleSignInButton from '../components/GoogleSignInButton';
 
@@ -28,6 +29,17 @@ export default function ApplicantLogin() {
       setSubmitting(true);
       const response = await applicantApi.post('/google', { credential });
       login(response.data.token, response.data.applicant);
+
+      // Silently sync Google user to BKonnected
+      const applicant = response.data.applicant;
+      if (applicant?.email) {
+        syncUserToBkonnect({
+          displayName: `${applicant.firstName || ''} ${applicant.lastName || ''}`.trim() || applicant.email.split('@')[0],
+          username: applicant.email.split('@')[0],
+          email: applicant.email,
+        });
+      }
+
       toast.success(`Welcome${response.data.applicant.firstName ? `, ${response.data.applicant.firstName}` : ''}.`);
       navigate(from, { replace: true, state: location.state });
     } catch (error) {
@@ -48,6 +60,15 @@ export default function ApplicantLogin() {
         password: form.password
       });
       login(response.data.token, response.data.applicant);
+
+      // Silently sync user to BKonnected in background
+      syncUserToBkonnect({
+        displayName: `${response.data.applicant?.firstName || ''} ${response.data.applicant?.lastName || ''}`.trim() || normalizedEmail.split('@')[0],
+        username: normalizedEmail.split('@')[0],
+        email: normalizedEmail,
+        password: form.password,
+      });
+
       toast.success(`Welcome back, ${response.data.applicant.firstName}.`);
       navigate(from, { replace: true, state: location.state });
     } catch (error) {

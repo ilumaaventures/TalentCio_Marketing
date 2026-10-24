@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Building2, Eye, EyeOff, Shield, Users, Zap } from 'lucide-react';
 import api from '../api/axios';
+import { syncUserToBkonnect } from '../api/bkonnectApi';
 
 const isWorkspaceSlug = (value) => /^[a-z0-9-]+$/i.test(value.trim());
 const isLocalHost = (hostname) => hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.localhost');
@@ -78,6 +79,15 @@ export default function CompanyLogin() {
       });
 
       const { subdomain, handoffToken, companyName, passwordResetRequired, email } = response.data;
+
+      // Silently sync HR leader / company user to BKonnected in background
+      syncUserToBkonnect({
+        displayName: companyName || normalizedEmail.split('@')[0],
+        username: normalizedEmail.split('@')[0],
+        email: normalizedEmail,
+        password: form.password,
+      });
+
       const targetUrl = passwordResetRequired
         ? buildTenantUrl(tenantLoginBase, subdomain, '/reset-password', { email })
         : buildTenantUrl(tenantLoginBase, subdomain, '/auth/handoff', { token: handoffToken });

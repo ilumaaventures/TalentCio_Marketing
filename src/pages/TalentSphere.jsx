@@ -1,8 +1,10 @@
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import Seo from '../components/Seo';
 import { ECOSYSTEM_VERTICALS, PAGE_COPY, SITE_URL, buildBreadcrumbSchema } from '../content/marketingContent';
 import usePrerenderReady from '../hooks/usePrerenderReady';
+import { getBkonnectCommunityUrl } from '../api/bkonnectApi';
 
 const talentsphere = ECOSYSTEM_VERTICALS.find((item) => item.id === 'talentsphere');
 
@@ -30,6 +32,17 @@ export default function TalentSphere() {
             <p className="mt-5 max-w-4xl text-base leading-8 text-slate-600">{talentsphere.description}</p>
             <div className="mt-6 rounded-[28px] border border-blue-200 bg-blue-50 px-5 py-4 text-sm font-semibold text-blue-900">
               {talentsphere.positioning}
+            </div>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <a
+                href={getBkonnectCommunityUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary inline-flex items-center gap-2 rounded-full px-7 py-3 font-semibold shadow-md transition-transform hover:scale-[1.02]"
+              >
+                <span>Enter Community</span>
+                <ArrowRight size={16} />
+              </a>
             </div>
           </div>
         </section>

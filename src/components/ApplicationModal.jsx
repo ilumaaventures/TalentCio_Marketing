@@ -14,6 +14,32 @@ import { parsePhoneNumber, validatePhoneNumber } from '../utils/countries';
 const allowedExtensions = ['pdf', 'doc', 'docx'];
 const normalizeEmail = (value) => value.trim().toLowerCase();
 
+const extractMustHaveSkillList = (skills) => {
+  if (!skills) return [];
+
+  const raw = [];
+  if (Array.isArray(skills)) {
+    raw.push(...skills);
+  } else if (typeof skills === 'object') {
+    // Only show must have technical skills only
+    if (Array.isArray(skills.technical)) {
+      raw.push(...skills.technical);
+    }
+  }
+
+  const seen = new Set();
+  const list = [];
+  raw.forEach((item) => {
+    const name = String(typeof item === 'string' ? item : (item?.skill || item?.name || '')).trim();
+    if (name && !seen.has(name.toLowerCase())) {
+      seen.add(name.toLowerCase());
+      list.push(name);
+    }
+  });
+
+  return list;
+};
+
 const initialForm = {
   candidateName: '',
   email: '',
@@ -34,7 +60,7 @@ const buildInitialForm = (applicant) => ({
   totalExperienceYears: applicant?.totalExperienceYears !== undefined && applicant?.totalExperienceYears !== null ? String(applicant.totalExperienceYears) : ''
 });
 
-export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, companyName, alreadyApplied = false, onApplied }) {
+export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, companyName, mustHaveSkills, alreadyApplied = false, onApplied }) {
   const location = useLocation();
   const { applicant, token, isLoggedIn } = useApplicantAuth();
   const [form, setForm] = useState(() => buildInitialForm(applicant));
@@ -43,6 +69,18 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
   const [profileData, setProfileData] = useState(null);
   const [profileCompletion, setProfileCompletion] = useState(null);
   const [usingProfileResume, setUsingProfileResume] = useState(false);
+  const [skillExperiences, setSkillExperiences] = useState({});
+
+  const requiredSkillList = useMemo(() => extractMustHaveSkillList(mustHaveSkills), [mustHaveSkills]);
+  const hasMustHaveSkills = requiredSkillList.length > 0;
+
+  const handleSkillExpChange = (skill, value) => {
+    setSkillExperiences((prev) => ({
+      ...prev,
+      [skill]: value
+    }));
+  };
+
   const authRedirectState = {
     from: `${location.pathname}${location.search}${location.hash}`
   };
@@ -54,6 +92,7 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
       setProfileData(null);
       setProfileCompletion(null);
       setUsingProfileResume(false);
+      setSkillExperiences({});
       return;
     }
 
@@ -172,6 +211,16 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
       nextErrors.coverNote = 'Cover note cannot exceed 500 characters.';
     }
 
+    if (hasMustHaveSkills) {
+      for (const skillName of requiredSkillList) {
+        const exp = skillExperiences[skillName];
+        if (exp !== undefined && exp !== '' && (isNaN(Number(exp)) || Number(exp) < 0)) {
+          nextErrors.mustHaveSkills = 'Skill experience must be a non-negative number.';
+          break;
+        }
+      }
+    }
+
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -200,6 +249,15 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
       if (form.currentCTC) payload.append('currentCTC', form.currentCTC);
       if (form.expectedCTC) payload.append('expectedCTC', form.expectedCTC);
       if (form.noticePeriod) payload.append('noticePeriod', form.noticePeriod);
+      if (hasMustHaveSkills) {
+        const formattedSkills = requiredSkillList.map((skillName) => ({
+          skill: skillName,
+          experience: skillExperiences[skillName] !== undefined && skillExperiences[skillName] !== '' && !isNaN(Number(skillExperiences[skillName]))
+            ? Math.max(0, Number(skillExperiences[skillName]))
+            : 0
+        }));
+        payload.append('mustHaveSkills', JSON.stringify(formattedSkills));
+      }
       if (form.coverNote.trim()) payload.append('coverNote', form.coverNote.trim());
       if (usingProfileResume && profileData?.resumeUrl) {
         payload.append('useProfileResume', 'true');
@@ -442,6 +500,51 @@ export default function ApplicationModal({ isOpen, onClose, jobId, jobTitle, com
                         placeholder="e.g. 30"
                       />
                     </div>
+
+                    {hasMustHaveSkills && (
+                      <div className="sm:col-span-2 rounded-2xl border border-amber-200/90 bg-gradient-to-br from-[#fffaf4] via-white to-amber-50/30 p-4 sm:p-5 shadow-xs">
+                        <div className="border-b border-amber-100/80 pb-3 mb-4">
+                          <h4 className="text-sm font-bold text-slate-900">Relevant Experience</h4>
+                          <p className="text-xs text-slate-500">
+                            Enter your relevant experience (in years) for each required skill below.
+                          </p>
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          {requiredSkillList.map((skillName) => (
+                            <div
+                              key={skillName}
+                              className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-3.5 shadow-2xs transition hover:border-[#ea7c00]/40 hover:shadow-xs"
+                            >
+                              <div className="mb-2">
+                                <span className="text-xs font-bold text-slate-800 break-words">
+                                  {skillName}
+                                </span>
+                              </div>
+
+                              <div className="relative mt-auto">
+                                <input
+                                  type="number"
+                                  step="0.1"
+                                  min="0"
+                                  onWheel={(e) => e.currentTarget.blur()}
+                                  value={skillExperiences[skillName] ?? ''}
+                                  onChange={(e) => handleSkillExpChange(skillName, e.target.value)}
+                                  placeholder="e.g. 2.5"
+                                  className="input-shell text-xs py-2 px-3 pr-14 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                />
+                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-semibold text-slate-400 pointer-events-none">
+                                  Years
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        {errors.mustHaveSkills && (
+                          <p className="mt-2.5 text-xs font-medium text-red-600">{errors.mustHaveSkills}</p>
+                        )}
+                      </div>
+                    )}
 
                     <div className="sm:col-span-2">
                       <label className="label-shell">Cover Note</label>
