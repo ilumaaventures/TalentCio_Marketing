@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock3, Layers3, MapPin, Users2 } from 'lucide-react';
+import { Layers3, MapPin, Users2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const locationTone = {
@@ -12,35 +12,6 @@ const currencySymbols = {
   INR: 'Rs.',
   USD: '$',
   EUR: 'EUR'
-};
-
-const getInitials = (name = '') =>
-  name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join('') || 'TC';
-
-const getRelativeDate = (value) => {
-  const date = new Date(value);
-  const differenceInMs = Date.now() - date.getTime();
-  const days = Math.max(Math.floor(differenceInMs / (1000 * 60 * 60 * 24)), 0);
-
-  if (days === 0) {
-    return 'Today';
-  }
-
-  if (days === 1) {
-    return '1 day ago';
-  }
-
-  if (days < 30) {
-    return `${days} days ago`;
-  }
-
-  const months = Math.floor(days / 30);
-  return `${months} month${months > 1 ? 's' : ''} ago`;
 };
 
 const formatSalary = (budget = {}) => {
@@ -118,10 +89,6 @@ export default function JobCard({ job }) {
               <div className="flex items-center gap-2">
                 <Users2 size={16} className="text-blue-600" />
                 {job.hiringDetails?.openPositions || 1} positions open
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock3 size={16} className="text-blue-600" />
-                {getRelativeDate(job.createdAt)}
               </div>
             </div>
           </div>
