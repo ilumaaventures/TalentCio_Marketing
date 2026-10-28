@@ -166,6 +166,7 @@ export default function JobDetail() {
   const reportingManager = job.roleDetails?.reportingManager;
   const jobDescription = job.publicJobDescription || job.jobDescription;
   const applyButtonLabel = alreadyApplied ? 'View Application Status' : isLoggedIn ? 'Apply Now' : 'Quick Apply';
+  const openPositions = Number(job.hiringDetails?.openPositions) || 1;
   const authRedirectState = {
     from: `${location.pathname}${location.search}${location.hash}`
   };
@@ -361,7 +362,7 @@ export default function JobDetail() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Users2 size={16} className="text-blue-600" />
-                    {job.hiringDetails?.openPositions || 1} positions open
+                    {openPositions} {openPositions === 1 ? 'position' : 'positions'} open
                   </div>
                   <div className="flex items-center gap-3">
                     <CalendarRange size={16} className="text-blue-600" />
