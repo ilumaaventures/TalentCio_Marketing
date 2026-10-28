@@ -38,6 +38,8 @@ export default function JobCard({ job }) {
   const department = job.roleDetails?.department || 'General';
   const title = job.roleDetails?.title || 'Open Role';
 
+  const openPositions = Number(job.hiringDetails?.openPositions) || 1;
+
   const handleOpen = () => navigate(`/jobs/${job._id}`);
 
   return (
@@ -88,7 +90,7 @@ export default function JobCard({ job }) {
               </div>
               <div className="flex items-center gap-2">
                 <Users2 size={16} className="text-blue-600" />
-                {job.hiringDetails?.openPositions || 1} positions open
+                {openPositions} {openPositions === 1 ? 'position' : 'positions'} open
               </div>
             </div>
           </div>
